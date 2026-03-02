@@ -1,0 +1,13 @@
+/* css styles */
+
+/* 블록 수식*/
+.math.display {
+  font-size: 1.25em !important;
+  margin: 1em 0 !important;
+}
+
+/* 인라인 수식*/
+.math.inline {
+  font-size: 1.2em !important;
+}
+
