@@ -16,6 +16,5 @@ title-block-banner: false
 - 이메일: <guebin@jbnu.ac.kr>
 - 직접방문: 자연과학대학 본관 205호 
 - Zoom: *이메일로 미리 시간을 정할 것*
-- 카카오톡: <http://pf.kakao.com/_txeIFG/chat>
 
 **강의노트** 
