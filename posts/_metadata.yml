@@ -8,9 +8,6 @@ execute:
 # Enable banner style title blocks
 title-block-banner: false
 
-comments: 
-  utterances: 
-    repo: guebin/DL2026
 
 notebook-links: true
 cap-location: margin
