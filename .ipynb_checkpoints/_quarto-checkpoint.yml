@@ -1,0 +1,24 @@
+project:
+  type: website
+  output-dir: docs
+
+execute:
+  freeze: true
+  
+website:
+  title: "DL2026"
+  navbar:
+    right:
+      - icon: github    
+        href: https://github.com/guebin/DL2026
+      - icon: youtube
+        href: https://www.youtube.com/channel/UCQk9RyBNgXc7ORIsYlOfQrg/playlists?view=50&sort=dd&shelf_id=2
+format:
+  html:
+    theme: cosmo
+    number-sections: false
+    css: styles.css
+    toc: true
+    toc-location: right
+    highlight-style: github
+    toc-depth: 2
