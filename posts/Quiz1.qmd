@@ -5,6 +5,8 @@ date: "03/09/2026"
 draft: false
 ---
 
+{{<video https://youtu.be/ALsCabUx-yc>}}
+
 ## 1. 행과 열
 
 다음 행렬을 보고 몇개의 행과 몇개의 열이 있는지 작성하라.
