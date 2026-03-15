@@ -185,10 +185,10 @@ window.Quarto = {
   <li><a href="#벡터와-행렬" id="toc-벡터와-행렬" class="nav-link" data-scroll-target="#벡터와-행렬">4. 벡터와 행렬</a></li>
   <li><a href="#torch" id="toc-torch" class="nav-link" data-scroll-target="#torch">5. torch</a>
   <ul class="collapse">
-  <li><a href="#a.-1단계-list-vs-torch.tensor" id="toc-a.-1단계-list-vs-torch.tensor" class="nav-link" data-scroll-target="#a.-1단계-list-vs-torch.tensor">A. 1단계: <code>list</code> vs <code>torch.tensor</code></a></li>
-  <li><a href="#b.-2단계-인덱싱" id="toc-b.-2단계-인덱싱" class="nav-link" data-scroll-target="#b.-2단계-인덱싱">B. 2단계: 인덱싱</a></li>
-  <li><a href="#c.-3단계-2차원배열" id="toc-c.-3단계-2차원배열" class="nav-link" data-scroll-target="#c.-3단계-2차원배열">C. 3단계: 2차원배열</a></li>
-  <li><a href="#d.-4단계-torch를-이용한-행렬연산" id="toc-d.-4단계-torch를-이용한-행렬연산" class="nav-link" data-scroll-target="#d.-4단계-torch를-이용한-행렬연산">D. 4단계: <code>torch</code>를 이용한 행렬연산</a></li>
+  <li><a href="#a.-list-vs-torch.tensor" id="toc-a.-list-vs-torch.tensor" class="nav-link" data-scroll-target="#a.-list-vs-torch.tensor">A. <code>list</code> vs <code>torch.tensor</code></a></li>
+  <li><a href="#b.-인덱싱" id="toc-b.-인덱싱" class="nav-link" data-scroll-target="#b.-인덱싱">B. 인덱싱</a></li>
+  <li><a href="#c.-2차원배열" id="toc-c.-2차원배열" class="nav-link" data-scroll-target="#c.-2차원배열">C. 2차원배열</a></li>
+  <li><a href="#d.-torch를-이용한-행렬연산" id="toc-d.-torch를-이용한-행렬연산" class="nav-link" data-scroll-target="#d.-torch를-이용한-행렬연산">D. <code>torch</code>를 이용한 행렬연산</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -198,7 +198,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">01wk: <code>torch</code> (1)</h1>
+<h1 class="title"><strong>01wk: <code>torch</code> (1)</strong></h1>
 </div>
 
 
@@ -284,13 +284,13 @@ window.Quarto = {
 <div id="cell-16" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="a.-1단계-list-vs-torch.tensor" class="level2">
-<h2 class="anchored" data-anchor-id="a.-1단계-list-vs-torch.tensor">A. 1단계: <code>list</code> vs <code>torch.tensor</code></h2>
+<section id="a.-list-vs-torch.tensor" class="level2">
+<h2 class="anchored" data-anchor-id="a.-list-vs-torch.tensor">A. <code>list</code> vs <code>torch.tensor</code></h2>
 <p><code>-</code> 선언</p>
-<div id="cell-19" class="cell" data-outputid="d79534ab-64c1-4a3a-ff05-5b62e97f85ce" data-execution_count="5">
+<div id="cell-19" class="cell" data-outputid="d79534ab-64c1-4a3a-ff05-5b62e97f85ce" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>l <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="5">
+<div class="cell-output cell-output-display">
 <pre><code>[1, 2, 3]</code></pre>
 </div>
 </div>
@@ -368,8 +368,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="b.-2단계-인덱싱" class="level2">
-<h2 class="anchored" data-anchor-id="b.-2단계-인덱싱">B. 2단계: 인덱싱</h2>
+<section id="b.-인덱싱" class="level2">
+<h2 class="anchored" data-anchor-id="b.-인덱싱">B. 인덱싱</h2>
 <p><code>-</code> 선언</p>
 <div id="cell-36" class="cell" data-execution_count="46">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>l <span class="op">=</span> [<span class="dv">11</span>, <span class="dv">22</span>, <span class="dv">33</span>, <span class="dv">44</span>, <span class="dv">55</span>, <span class="dv">66</span>]</span>
@@ -466,8 +466,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="c.-3단계-2차원배열" class="level2">
-<h2 class="anchored" data-anchor-id="c.-3단계-2차원배열">C. 3단계: 2차원배열</h2>
+<section id="c.-2차원배열" class="level2">
+<h2 class="anchored" data-anchor-id="c.-2차원배열">C. 2차원배열</h2>
 <p><code>-</code> 중첩된 배열의 선언</p>
 <div id="cell-57" class="cell" data-execution_count="188">
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>l <span class="op">=</span> [[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>],[<span class="op">-</span><span class="dv">1</span>,<span class="op">-</span><span class="dv">2</span>,<span class="op">-</span><span class="dv">3</span>,<span class="op">-</span><span class="dv">4</span>],[<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>],[<span class="op">-</span><span class="dv">5</span>,<span class="op">-</span><span class="dv">6</span>,<span class="op">-</span><span class="dv">7</span>,<span class="op">-</span><span class="dv">8</span>]]</span>
@@ -611,8 +611,8 @@ window.Quarto = {
 <p>정리: 1차원 배열을 의미하는 리스트를 텐서화하면, 그 결과는 거의 벡터처럼 취급해도 무방하다. 그리고 2차원 배열을 의미하는 (중첩된)리스트를 텐서화하면, 그 결과는 거의 행렬처럼 취급해도 무방하다.</p>
 </blockquote>
 </section>
-<section id="d.-4단계-torch를-이용한-행렬연산" class="level2">
-<h2 class="anchored" data-anchor-id="d.-4단계-torch를-이용한-행렬연산">D. 4단계: <code>torch</code>를 이용한 행렬연산</h2>
+<section id="d.-torch를-이용한-행렬연산" class="level2">
+<h2 class="anchored" data-anchor-id="d.-torch를-이용한-행렬연산">D. <code>torch</code>를 이용한 행렬연산</h2>
 <p><code>-</code> <code>torch</code>를 이용한 행렬곱</p>
 <div id="cell-84" class="cell" data-outputid="f2cf58b0-e21a-4dd4-af89-67b8655dde83" data-execution_count="193">
 <div class="sourceCode cell-code" id="cb94"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.tensor([[<span class="dv">1</span>,<span class="dv">2</span>],[<span class="dv">3</span>,<span class="dv">4</span>]])</span>
