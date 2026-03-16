@@ -1,0 +1,28 @@
+---
+title: "Quiz-3 (2026.03.16) // 범위: ~01wk"
+author: "최규빈"
+date: "03/16/2026"
+draft: false
+---
+
+## 1. 연립1차방정식과 torch를 이용한 풀이
+
+`(1)` 다음 연립방정식을 `torch`를 이용하여 풀어라.
+
+$$
+\begin{cases}
+x+y+z=6 \\
+2x-y+3z=11 \\
+3x+2y-z=7
+\end{cases}
+$$
+
+`(2)` 다음 연립방정식을 `torch`를 이용하여 풀어라.
+
+$$
+\begin{cases}
+2x+y-z=1 \\
+-x+3y+2z=12 \\
+3x-y+z=0
+\end{cases}
+$$
