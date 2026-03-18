@@ -2,7 +2,9 @@ project:
   type: website
   output-dir: docs
   render:
-    - "!secret/**"
+    - "index.qmd"
+    - "about.qmd"
+    - "posts/**"
 
 execute:
   freeze: true

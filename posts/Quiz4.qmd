@@ -5,6 +5,8 @@ date: "03/18/2026 11:00"
 draft: false
 ---
 
+{{video https://youtu.be/wQV_EaH-Qlw>}}
+
 ## 1. 차원과 shape
 
 다음 물음에 답하시오. 각 문항의 정답은 하나이다.
@@ -367,9 +369,9 @@ y = torch.randn(10) * 2 + 1
 ::: {.callout-note collapse="true"}
 ## 정답 보기
 
-①, ②, ③, ④
+①, ②, ③ 
 
-네 표현은 서로 같은 내용을 다르게 쓴 것이다. `torch.randn(10)`은 `N(0,1)` 잡음이고, 2를 곱한 뒤 1을 더했으므로 $y_i \overset{i.i.d.}{\sim} N(1,4)$ 이다.
+①, ②, ③ 세 표현은 서로 같은 내용을 다르게 쓴 것이다. `torch.randn(10)`은 `N(0,1)` 잡음이고, 2를 곱한 뒤 1을 더했으므로 $y_i \overset{i.i.d.}{\sim} N(1,4)$ 이다.
 :::
 
 `(4)` 
