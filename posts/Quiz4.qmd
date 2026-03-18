@@ -2,7 +2,7 @@
 title: "Quiz-4 (2026.03.18) // 범위: ~02wk"
 author: "최규빈"
 date: "03/18/2026 11:00"
-draft: true
+draft: false
 ---
 
 ## 1. 차원과 shape
@@ -21,6 +21,14 @@ a[[0],:]
 ③ `torch.Size([4, 1])` <br>
 ④ `torch.Size([])`
 
+::: {.callout-note collapse="true"}
+## 정답 보기
+
+②
+
+`a[[0],:]`는 첫 번째 행을 2차원 행렬 형태로 유지해서 가져오므로 shape는 `[1,4]`이다.
+:::
+
 `(2)` 아래 코드의 결과 텐서 shape로 올바른 것은?
 
 ```python
@@ -32,6 +40,14 @@ a[0,:]
 ② `torch.Size([1, 4])` <br>
 ③ `torch.Size([4, 1])` <br>
 ④ `torch.Size([])`
+
+::: {.callout-note collapse="true"}
+## 정답 보기
+
+①
+
+`a[0,:]`는 첫 번째 행을 1차원 벡터로 가져오므로 shape는 `[4]`이다.
+:::
 
 ## 2. reshape와 전치
 
@@ -47,6 +63,12 @@ a.reshape(3,2)
 ③ `torch.Size([3, 2])` <br>
 ④ `torch.Size([1, 6])`
 
+::: {.callout-note collapse="true"}
+## 정답 보기
+
+③
+:::
+
 `(2)` 아래와 같이 정의된 텐서 `a`를 전치한 결과를 만드는 코드로 올바른 것을 모두 고르시오. 
 
 ```python
@@ -58,12 +80,26 @@ a = torch.tensor([[1,2,3],[2,3,4]])
 ③ `torch.einsum('ij -> ji', a)` <br>
 ④ `a.permute(1,0)`
 
+::: {.callout-note collapse="true"}
+## 정답 보기
+
+②, ③, ④
+
+`reshape`는 원소의 나열 순서를 유지한 채 모양만 바꾸고, 전치는 행과 열의 축을 바꾸는 연산이다.
+:::
+
 `(3)` 아래 중 `a = torch.tensor([[1,2,3],[4,5,6]])`를 shape `[6,1]`로 바꾸는 코드를 모두 고르시오. 
 
 ① `a.reshape(6,1)` <br>
 ② `a.reshape(6,-1)` <br>
 ③ `a.reshape(-1,1)` <br>
 ④ `a.reshape(6).reshape(-1)`
+
+::: {.callout-note collapse="true"}
+## 정답 보기
+
+①, ②, ③
+:::
 
 ## 3. `@`의 유연성
 
@@ -80,6 +116,14 @@ b @ a
 ③ `[2]` <br>
 ④ 에러 발생
 
+::: {.callout-note collapse="true"}
+## 정답 보기
+
+③
+
+강의노트 설명처럼 `b`를 일시적으로 `1x2`로 해석해 곱한 뒤 다시 1차원 벡터로 돌려놓은 결과처럼 이해할 수 있다.
+:::
+
 `(2)` 아래 코드의 결과 shape는?
 
 ```python
@@ -92,6 +136,14 @@ a @ b
 ② `[2]` <br>
 ③ `[1,2]` <br>
 ④ 에러 발생
+
+::: {.callout-note collapse="true"}
+## 정답 보기
+
+②
+
+이번에는 `b`를 `2x1`처럼 해석한 뒤 곱하고, 다시 1차원 벡터로 돌려놓은 결과처럼 이해할 수 있다.
+:::
 
 `(3)` 아래 코드의 결과 shape는?
 
@@ -106,6 +158,14 @@ a @ b
 ③ `[]` <br>
 ④ 에러 발생
 
+::: {.callout-note collapse="true"}
+## 정답 보기
+
+③
+
+1차원 벡터끼리의 `@`는 내적을 계산하며, 결과 shape는 `[]`이다.
+:::
+
 `(4)` 아래 코드의 결과 shape는?
 
 ```python
@@ -118,6 +178,14 @@ a @ b
 ② `[]` <br>
 ③ `[1]` <br>
 ④ 에러 발생
+
+::: {.callout-note collapse="true"}
+## 정답 보기
+
+①
+
+`[1,3] @ [3,1]`이므로 내적을 행렬곱 형태로 계산한 `[1,1]` 결과가 나온다.
+:::
 
 `(5)` 아래 코드의 결과 shape는?
 
@@ -132,6 +200,14 @@ a @ b
 ③ `[3,3]` <br>
 ④ 에러 발생
 
+::: {.callout-note collapse="true"}
+## 정답 보기
+
+③
+
+`[3,1] @ [1,3]`이므로 바깥곱 형태의 `[3,3]` 결과가 나온다.
+:::
+
 `(6)` 아래 코드의 실행 결과로 올바른 것은?
 
 ```python
@@ -144,6 +220,14 @@ a @ b
 ② 결과 shape는 `[3,3]`이다. <br>
 ③ 결과는 `tensor(32)`이다. <br>
 ④ 에러 발생
+
+::: {.callout-note collapse="true"}
+## 정답 보기
+
+④
+
+`[1,3] @ [1,3]`은 앞 행렬의 열 개수와 뒤 행렬의 행 개수가 다르므로 곱할 수 없다.
+:::
 
 `(7)` 아래 코드의 결과 shape는?
 
@@ -158,6 +242,12 @@ a @ b
 ③ `[1,2]` <br>
 ④ 에러 발생
 
+::: {.callout-note collapse="true"}
+## 정답 보기
+
+①
+:::
+
 `(8)` 아래 코드의 결과 shape는?
 
 ```python
@@ -170,6 +260,14 @@ b @ a
 ② `[2,2]` <br>
 ③ `[1,2]` <br>
 ④ 에러 발생
+
+::: {.callout-note collapse="true"}
+## 정답 보기
+
+①
+
+1차원 벡터와 2차원 행렬의 곱이므로 결과는 다시 1차원 벡터가 된다.
+:::
 
 `(9)` 아래 코드의 결과 shape는?
 
@@ -184,6 +282,14 @@ a @ b
 ③ `[2,1]` <br>
 ④ 에러 발생
 
+::: {.callout-note collapse="true"}
+## 정답 보기
+
+②
+
+2차원 행렬과 1차원 벡터의 곱이므로 결과는 1차원 벡터가 된다.
+:::
+
 `(10)` 아래 코드의 결과 shape는?
 
 ```python
@@ -196,6 +302,14 @@ a @ b
 ② `[3]` <br>
 ③ `[1]` <br>
 ④ 에러 발생
+
+::: {.callout-note collapse="true"}
+## 정답 보기
+
+③
+
+`a`는 `[1,3]`이고 `b`는 길이 3인 1차원 벡터이다. 이 경우 `b`를 `[3,1]`처럼 해석하여 곱할 수 있으므로 결과 shape는 `[1]`이다.
+:::
 
 ## 4. 다양한 텐서 생성
 
@@ -212,6 +326,14 @@ y = 2 + torch.randn(10)
 ③ $y_i \overset{i.i.d.}{\sim} N(0,1)$ <br>
 ④ $y_i = 2\epsilon_i,\ \epsilon_i \overset{i.i.d.}{\sim} N(0,1)$
 
+::: {.callout-note collapse="true"}
+## 정답 보기
+
+①, ②
+
+두 표현은 서로 같은 내용을 다르게 쓴 것이다. `torch.randn(10)`은 `N(0,1)` 잡음이고, 2를 더하면 분포는 `N(2,1)`이 된다.
+:::
+
 `(2)` 
 
 ```python
@@ -222,6 +344,14 @@ y = torch.randn(10) * 2
 ② $y_i = 2\epsilon_i,\ \epsilon_i \overset{i.i.d.}{\sim} N(0,1)$ <br>
 ③ $y_i \overset{i.i.d.}{\sim} N(2,1)$ <br>
 ④ $y_i = 2 + \epsilon_i,\ \epsilon_i \overset{i.i.d.}{\sim} N(0,1)$
+
+::: {.callout-note collapse="true"}
+## 정답 보기
+
+①, ②
+
+표준정규에 2를 곱하면 표준편차가 2가 되므로 `N(0,4)`와 같은 뜻이다.
+:::
 
 `(3)` 
 
@@ -234,6 +364,14 @@ y = torch.randn(10) * 2 + 1
 ③ $y_i = 1 + \epsilon_i,\ \epsilon_i \overset{i.i.d.}{\sim} N(0,2^2)$ <br>
 ④ $y_i = 2\epsilon_i,\ \epsilon_i \overset{i.i.d.}{\sim} N(1,1)$
 
+::: {.callout-note collapse="true"}
+## 정답 보기
+
+①, ②, ③, ④
+
+네 표현은 서로 같은 내용을 다르게 쓴 것이다. `torch.randn(10)`은 `N(0,1)` 잡음이고, 2를 곱한 뒤 1을 더했으므로 $y_i \overset{i.i.d.}{\sim} N(1,4)$ 이다.
+:::
+
 `(4)` 
 
 ```python
@@ -244,6 +382,14 @@ y = torch.bernoulli(p)
 ① $y_i \overset{i.i.d.}{\sim} \text{Bernoulli}(0.5)$ <br>
 ② $y_i \overset{i.i.d.}{\sim} \text{Bernoulli}(1)$ <br>
 ③ $y_i \overset{i.i.d.}{\sim} \text{Bernoulli}(0.1)$
+
+::: {.callout-note collapse="true"}
+## 정답 보기
+
+①
+
+성공확률이 모두 0.5이므로 각 관측값은 $\text{Bernoulli}(0.5)$에서 생성된다.
+:::
 
 `(5)` 
 
@@ -256,6 +402,14 @@ y = torch.bernoulli(p)
 ② $y_i \sim \text{Bernoulli}(p_i),\ p_i=\begin{cases}0.1,& i=1,\dots,5 \\ 0.9,& i=6,\dots,10\end{cases}$ <br>
 ③ $y_i \overset{i.i.d.}{\sim} \text{Bernoulli}(0.1)$
 
+::: {.callout-note collapse="true"}
+## 정답 보기
+
+②
+
+앞의 5개와 뒤의 5개의 성공확률이 다르므로 $\overset{i.i.d.}{\sim}$로 쓸 수 없다.
+:::
+
 `(6)` 
 
 ```python
@@ -267,6 +421,15 @@ y = torch.bernoulli(p)
 ① ${\bf x}=[-0.9,-0.7,\dots,0.9],\ p_i=\frac{1}{1+\exp(-2x_i+5)},\ y_i \sim \text{Bernoulli}(p_i)$ <br>
 ② ${\bf x}=[-0.9,-0.7,\dots,0.9],\ p_i=\frac{1}{1+\exp(2x_i+5)},\ y_i \sim \text{Bernoulli}(p_i)$ <br>
 ③ ${\bf x}=[-0.9,-0.7,\dots,0.9],\ p_i=\frac{1}{1+\exp(-x_i)},\ y_i \sim \text{Bernoulli}(p_i)$
+
+::: {.callout-note collapse="true"}
+## 정답 보기
+
+①
+
+코드에서 정의한 확률은 $p_i=\frac{1}{1+\exp(-2x_i+5)}$ 이다. 따라서 이에 대응하는 베르누이 표현은 ①이다.
+:::
+
 
 ## 5. axis, concat, stack
 
@@ -283,6 +446,14 @@ torch.concat([a,b], axis=1)
 ③ `(2,3,8)` <br>
 ④ `(2,3,4,2)`
 
+::: {.callout-note collapse="true"}
+## 정답 보기
+
+②
+
+`axis=1`로 concat하면 두 번째 축의 길이가 더해진다.
+:::
+
 `(2)` 아래 코드의 결과 shape는?
 
 ```python
@@ -296,6 +467,14 @@ torch.stack([a,b], axis=1)
 ③ `(3,2)` <br>
 ④ `(1,3,2)`
 
+::: {.callout-note collapse="true"}
+## 정답 보기
+
+③
+
+`stack`은 새로운 축을 추가하면서 결합한다. `axis=1`이므로 가운데 위치에 새 축이 생긴다.
+:::
+
 `(3)` 아래 코드의 결과로 올바른 것은?
 
 ```python
@@ -308,6 +487,14 @@ a.sum(axis=0)
 ③ `tensor(18)` <br>
 ④ `tensor([[4, 6, 8]])`
 
+::: {.callout-note collapse="true"}
+## 정답 보기
+
+①
+
+`axis=0`은 첫 번째 축을 제거하므로 열별 합이 계산된다.
+:::
+
 `(4)` 아래 코드의 결과로 올바른 것은?
 
 ```python
@@ -319,3 +506,11 @@ a.sum(axis=(0,1))
 ② `tensor([1, 5, 9, 13, 17])` <br>
 ③ `tensor([0, 2, 4, 6, 8])` <br>
 ④ `tensor(45)`
+
+::: {.callout-note collapse="true"}
+## 정답 보기
+
+④
+
+`axis=(0,1)`은 첫 번째 축과 두 번째 축을 모두 제거하므로 모든 원소의 합을 계산한다. 따라서 결과는 `tensor(45)`이다.
+:::
