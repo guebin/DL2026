@@ -1,0 +1,321 @@
+---
+title: "Quiz-4 (2026.03.18) // 범위: ~02wk"
+author: "최규빈"
+date: "03/18/2026 11:00"
+draft: false
+---
+
+## 1. 차원과 shape
+
+다음 물음에 답하시오. 각 문항의 정답은 하나이다.
+
+`(1)` 아래 코드의 결과 텐서 shape로 올바른 것은?
+
+```python
+a = torch.tensor([[1,2,3,4],[2,2,0,1],[0,1,-1,0],[3,1,-1,3]])
+a[[0],:]
+```
+
+① `torch.Size([4])` <br>
+② `torch.Size([1, 4])` <br>
+③ `torch.Size([4, 1])` <br>
+④ `torch.Size([])`
+
+`(2)` 아래 코드의 결과 텐서 shape로 올바른 것은?
+
+```python
+a = torch.tensor([[1,2,3,4],[2,2,0,1],[0,1,-1,0],[3,1,-1,3]])
+a[0,:]
+```
+
+① `torch.Size([4])` <br>
+② `torch.Size([1, 4])` <br>
+③ `torch.Size([4, 1])` <br>
+④ `torch.Size([])`
+
+## 2. reshape와 전치
+
+`(1)` 아래 코드를 실행했을 때 결과 shape는?
+
+```python
+a = torch.tensor([1,2,3,4,5,6])
+a.reshape(3,2)
+```
+
+① `torch.Size([6])` <br>
+② `torch.Size([2, 3])` <br>
+③ `torch.Size([3, 2])` <br>
+④ `torch.Size([1, 6])`
+
+`(2)` 아래와 같이 정의된 텐서 `a`를 전치한 결과를 만드는 코드로 올바른 것을 모두 고르시오. 
+
+```python
+a = torch.tensor([[1,2,3],[2,3,4]])
+```
+
+① `a.reshape(3,2)` <br>
+② `a.T` <br>
+③ `torch.einsum('ij -> ji', a)` <br>
+④ `a.permute(1,0)`
+
+`(3)` 아래 중 `a = torch.tensor([[1,2,3],[4,5,6]])`를 shape `[6,1]`로 바꾸는 코드를 모두 고르시오. 
+
+① `a.reshape(6,1)` <br>
+② `a.reshape(6,-1)` <br>
+③ `a.reshape(-1,1)` <br>
+④ `a.reshape(6).reshape(-1)`
+
+## 3. `@`의 유연성
+
+`(1)` 아래 코드의 결과 shape는?
+
+```python
+a = torch.tensor([1,2,3,4]).reshape(2,2)
+b = torch.tensor([10,20])
+b @ a
+```
+
+① `[2,2]` <br>
+② `[1,2]` <br>
+③ `[2]` <br>
+④ 에러 발생
+
+`(2)` 아래 코드의 결과 shape는?
+
+```python
+a = torch.tensor([1,2,3,4]).reshape(2,2)
+b = torch.tensor([10,20])
+a @ b
+```
+
+① `[2,2]` <br>
+② `[2]` <br>
+③ `[1,2]` <br>
+④ 에러 발생
+
+`(3)` 아래 코드의 결과 shape는?
+
+```python
+a = torch.tensor([1,2,3])
+b = torch.tensor([4,5,6])
+a @ b
+```
+
+① `[1,1]` <br>
+② `[3]` <br>
+③ `[]` <br>
+④ 에러 발생
+
+`(4)` 아래 코드의 결과 shape는?
+
+```python
+a = torch.tensor([1,2,3]).reshape(1,3)
+b = torch.tensor([4,5,6]).reshape(3,1)
+a @ b
+```
+
+① `[1,1]` <br>
+② `[]` <br>
+③ `[1]` <br>
+④ 에러 발생
+
+`(5)` 아래 코드의 결과 shape는?
+
+```python
+a = torch.tensor([1,2,3]).reshape(3,1)
+b = torch.tensor([4,5,6]).reshape(1,3)
+a @ b
+```
+
+① `[1,1]` <br>
+② `[3]` <br>
+③ `[3,3]` <br>
+④ 에러 발생
+
+`(6)` 아래 코드의 실행 결과로 올바른 것은?
+
+```python
+a = torch.tensor([1,2,3]).reshape(1,3)
+b = torch.tensor([4,5,6]).reshape(1,3)
+a @ b
+```
+
+① 결과 shape는 `[1,1]`이다. <br>
+② 결과 shape는 `[3,3]`이다. <br>
+③ 결과는 `tensor(32)`이다. <br>
+④ 에러 발생
+
+`(7)` 아래 코드의 결과 shape는?
+
+```python
+a = torch.tensor([[1,2],[3,4]])
+b = torch.tensor([[10,20],[30,40]])
+a @ b
+```
+
+① `[2,2]` <br>
+② `[2]` <br>
+③ `[1,2]` <br>
+④ 에러 발생
+
+`(8)` 아래 코드의 결과 shape는?
+
+```python
+a = torch.tensor([[1,2],[3,4]])
+b = torch.tensor([10,20])
+b @ a
+```
+
+① `[2]` <br>
+② `[2,2]` <br>
+③ `[1,2]` <br>
+④ 에러 발생
+
+`(9)` 아래 코드의 결과 shape는?
+
+```python
+a = torch.tensor([[1,2],[3,4]])
+b = torch.tensor([10,20])
+a @ b
+```
+
+① `[2,2]` <br>
+② `[2]` <br>
+③ `[2,1]` <br>
+④ 에러 발생
+
+`(10)` 아래 코드의 결과 shape는?
+
+```python
+a = torch.tensor([1,2,3]).reshape(1,3)
+b = torch.tensor([4,5,6])
+a @ b
+```
+
+① `[3,1]` <br>
+② `[3]` <br>
+③ `[1]` <br>
+④ 에러 발생
+
+## 4. 다양한 텐서 생성
+
+다음 코드에 대응하는 수식 표현을 모두 고르시오. (단, $i=1,2,\dots,10$)
+
+`(1)` 
+
+```python
+y = 2 + torch.randn(10)
+```
+
+① $y_i \overset{i.i.d.}{\sim} N(2,1)$ <br>
+② $y_i = 2 + \epsilon_i,\ \epsilon_i \overset{i.i.d.}{\sim} N(0,1)$ <br>
+③ $y_i \overset{i.i.d.}{\sim} N(0,1)$ <br>
+④ $y_i = 2\epsilon_i,\ \epsilon_i \overset{i.i.d.}{\sim} N(0,1)$
+
+`(2)` 
+
+```python
+y = torch.randn(10) * 2
+```
+
+① $y_i \overset{i.i.d.}{\sim} N(0,2^2)$ <br>
+② $y_i = 2\epsilon_i,\ \epsilon_i \overset{i.i.d.}{\sim} N(0,1)$ <br>
+③ $y_i \overset{i.i.d.}{\sim} N(2,1)$ <br>
+④ $y_i = 2 + \epsilon_i,\ \epsilon_i \overset{i.i.d.}{\sim} N(0,1)$
+
+`(3)` 
+
+```python
+y = torch.randn(10) * 2 + 1
+```
+
+① $y_i \overset{i.i.d.}{\sim} N(1,2^2)$ <br>
+② $y_i = 1 + 2\epsilon_i,\ \epsilon_i \overset{i.i.d.}{\sim} N(0,1)$ <br>
+③ $y_i = 1 + \epsilon_i,\ \epsilon_i \overset{i.i.d.}{\sim} N(0,2^2)$ <br>
+④ $y_i = 2\epsilon_i,\ \epsilon_i \overset{i.i.d.}{\sim} N(1,1)$
+
+`(4)` 
+
+```python
+p = torch.zeros(10) + 0.5
+y = torch.bernoulli(p)
+```
+
+① $y_i \overset{i.i.d.}{\sim} \text{Bernoulli}(0.5)$ <br>
+② $y_i \overset{i.i.d.}{\sim} \text{Bernoulli}(1)$ <br>
+③ $y_i \overset{i.i.d.}{\sim} \text{Bernoulli}(0.1)$
+
+`(5)` 
+
+```python
+p = torch.tensor([0.1] * 5 + [0.9] * 5)
+y = torch.bernoulli(p)
+```
+
+① $y_i \overset{i.i.d.}{\sim} \text{Bernoulli}(0.5)$ <br>
+② $y_i \sim \text{Bernoulli}(p_i),\ p_i=\begin{cases}0.1,& i=1,\dots,5 \\ 0.9,& i=6,\dots,10\end{cases}$ <br>
+③ $y_i \overset{i.i.d.}{\sim} \text{Bernoulli}(0.1)$
+
+`(6)` 
+
+```python
+x = torch.linspace(-0.9, 0.9, 10)
+p = 1 / (1 + torch.exp(-2*x + 5))
+y = torch.bernoulli(p)
+```
+
+① ${\bf x}=[-0.9,-0.7,\dots,0.9],\ p_i=\frac{1}{1+\exp(-2x_i+5)},\ y_i \sim \text{Bernoulli}(p_i)$ <br>
+② ${\bf x}=[-0.9,-0.7,\dots,0.9],\ p_i=\frac{1}{1+\exp(2x_i+5)},\ y_i \sim \text{Bernoulli}(p_i)$ <br>
+③ ${\bf x}=[-0.9,-0.7,\dots,0.9],\ p_i=\frac{1}{1+\exp(-x_i)},\ y_i \sim \text{Bernoulli}(p_i)$
+
+## 5. axis, concat, stack
+
+`(1)` 아래 코드의 결과 shape는?
+
+```python
+a = torch.arange(24).reshape(2,3,4)
+b = -a
+torch.concat([a,b], axis=1)
+```
+
+① `(4,3,4)` <br>
+② `(2,6,4)` <br>
+③ `(2,3,8)` <br>
+④ `(2,3,4,2)`
+
+`(2)` 아래 코드의 결과 shape는?
+
+```python
+a = torch.tensor([1,2,3])
+b = torch.tensor([4,5,6])
+torch.stack([a,b], axis=1)
+```
+
+① `(6,)` <br>
+② `(2,3)` <br>
+③ `(3,2)` <br>
+④ `(1,3,2)`
+
+`(3)` 아래 코드의 결과로 올바른 것은?
+
+```python
+a = torch.tensor([[1,2,3],[3,4,5]])
+a.sum(axis=0)
+```
+
+① `tensor([4, 6, 8])` <br>
+② `tensor([6, 12])` <br>
+③ `tensor(18)` <br>
+④ `tensor([[4, 6, 8]])`
+
+`(4)` 아래 코드의 결과로 올바른 것은?
+
+```python
+a = torch.tensor([[0,1],[2,3],[4,5],[6,7],[8,9]])
+a.sum(axis=(0,1))
+```
+
+① `tensor([10, 35])` <br>
+② `tensor([1, 5, 9, 13, 17])` <br>
+③ `tensor([0, 2, 4, 6, 8])` <br>
+④ `tensor(45)`
