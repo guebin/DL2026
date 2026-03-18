@@ -240,7 +240,7 @@ window.Quarto = {
 </section>
 <section id="imports" class="level1">
 <h1>2. Imports</h1>
-<div id="8f4b2697" class="cell" data-execution_count="3">
+<div id="8f4b2697" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -249,11 +249,11 @@ window.Quarto = {
 <section id="a.-기본플랏" class="level2">
 <h2 class="anchored" data-anchor-id="a.-기본플랏">A. 기본플랏</h2>
 <p><code>-</code> 예시1</p>
-<div id="cd19574d" class="cell" data-execution_count="5">
+<div id="cd19574d" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>y<span class="op">=</span>[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">3</span>] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="39d2858f" class="cell" data-execution_count="6">
+<div id="39d2858f" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -267,7 +267,7 @@ window.Quarto = {
 <section id="모양변경" class="level2">
 <h2 class="anchored" data-anchor-id="모양변경">모양변경</h2>
 <p><code>-</code> 예시1</p>
-<div id="6b444262" class="cell" data-execution_count="7">
+<div id="6b444262" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'--'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -278,7 +278,7 @@ window.Quarto = {
 </div>
 </div>
 <p><code>-</code> 예시2</p>
-<div id="bc8cae4e" class="cell" data-execution_count="8">
+<div id="bc8cae4e" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">':'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -289,7 +289,7 @@ window.Quarto = {
 </div>
 </div>
 <p><code>-</code> 예시3</p>
-<div id="6cb026bb" class="cell" data-execution_count="9">
+<div id="6cb026bb" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'-.'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -303,7 +303,7 @@ window.Quarto = {
 <section id="b.-색상변경" class="level2">
 <h2 class="anchored" data-anchor-id="b.-색상변경">B. 색상변경</h2>
 <p><code>-</code> 예시1</p>
-<div id="fad45f1a" class="cell" data-execution_count="10">
+<div id="fad45f1a" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'r'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -314,7 +314,7 @@ window.Quarto = {
 </div>
 </div>
 <p><code>-</code> 예시2</p>
-<div id="c2bfbe4a" class="cell" data-execution_count="11">
+<div id="c2bfbe4a" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'k'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -328,7 +328,7 @@ window.Quarto = {
 <section id="c.-모양-색상변경" class="level2">
 <h2 class="anchored" data-anchor-id="c.-모양-색상변경">C. 모양 + 색상변경</h2>
 <p><code>-</code> 예시1</p>
-<div id="e5076ddb" class="cell" data-execution_count="12">
+<div id="e5076ddb" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'--r'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -339,7 +339,7 @@ window.Quarto = {
 </div>
 </div>
 <p><code>-</code> 예시2: 순서변경 가능</p>
-<div id="6227edfb" class="cell" data-execution_count="13">
+<div id="6227edfb" class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'r--'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -432,7 +432,7 @@ window.Quarto = {
 </tbody>
 </table>
 <p><code>-</code> 예시1</p>
-<div id="eaf47a12" class="cell" data-execution_count="14">
+<div id="eaf47a12" class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'--m'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -443,7 +443,7 @@ window.Quarto = {
 </div>
 </div>
 <p><code>-</code> 예시2</p>
-<div id="6faaef6a" class="cell" data-execution_count="15">
+<div id="6faaef6a" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'-.c'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -454,7 +454,7 @@ window.Quarto = {
 </div>
 </div>
 <p><code>-</code> 예시3: line style + color 조합으로 사용하든 color + line style 조합으로 사용하든 상관없음</p>
-<div id="10f1e60d" class="cell" data-execution_count="16">
+<div id="10f1e60d" class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'-.c'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -464,7 +464,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="5495f605" class="cell" data-execution_count="17">
+<div id="5495f605" class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'c-.'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -475,7 +475,7 @@ window.Quarto = {
 </div>
 </div>
 <p><code>-</code> 예시4: line style을 중복으로 사용하거나 color를 중복으로 쓸 수 는 없다.</p>
-<div id="5f727fda" class="cell" data-execution_count="18">
+<div id="5f727fda" class="cell" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'--:'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>ValueError: '--:' is not a valid format string (two linestyle symbols)</code></pre>
@@ -496,58 +496,46 @@ window.Quarto = {
 </div>
 <p><code>-</code> 예시5: 색이 사실 8개만 있는건 아니다.</p>
 <p>ref: <a href="https://matplotlib.org/2.0.2/examples/color/named_colors.html" class="uri">https://matplotlib.org/2.0.2/examples/color/named_colors.html</a></p>
-<div id="ba9db533" class="cell">
+<div id="ba9db533" class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'--'</span>,color<span class="op">=</span><span class="st">'lime'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>[&lt;matplotlib.lines.Line2D at 0x7f3b2511edd0&gt;]</code></pre>
-</div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="A3_files/figure-html/cell-18-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="A3_files/figure-html/cell-18-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p><code>-</code> 예시6: 색을 바꾸려면 Hex코드를 밖아 넣는 방법이 젤 깔끔함</p>
 <p>ref: <a href="https://htmlcolorcodes.com/" class="uri">https://htmlcolorcodes.com/</a></p>
-<div id="43627e8d" class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,color<span class="op">=</span><span class="st">'#277E41'</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>[&lt;matplotlib.lines.Line2D at 0x7f3b2502dd90&gt;]</code></pre>
-</div>
+<div id="43627e8d" class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,color<span class="op">=</span><span class="st">'#277E41'</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="A3_files/figure-html/cell-19-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="A3_files/figure-html/cell-19-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p><code>-</code> 예시7: 당연히 라인스타일도 4개만 있진 않겠지</p>
 <p>ref: <a href="https://matplotlib.org/stable/gallery/lines_bars_and_markers/linestyles.html" class="uri">https://matplotlib.org/stable/gallery/lines_bars_and_markers/linestyles.html</a></p>
-<div id="4d77d189" class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,linestyle<span class="op">=</span><span class="st">'dashed'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>[&lt;matplotlib.lines.Line2D at 0x7f3b2707bd10&gt;]</code></pre>
-</div>
+<div id="4d77d189" class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,linestyle<span class="op">=</span><span class="st">'dashed'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="A3_files/figure-html/cell-20-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="A3_files/figure-html/cell-20-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="ff8e9105" class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,linestyle<span class="op">=</span>(<span class="dv">0</span>, (<span class="dv">20</span>, <span class="dv">5</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>[&lt;matplotlib.lines.Line2D at 0x7f3b240cd110&gt;]</code></pre>
-</div>
+<div id="ff8e9105" class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,linestyle<span class="op">=</span>(<span class="dv">0</span>, (<span class="dv">20</span>, <span class="dv">5</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="A3_files/figure-html/cell-21-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="A3_files/figure-html/cell-21-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -670,15 +658,12 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<div id="897c3a7f" class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'o'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>[&lt;matplotlib.lines.Line2D at 0x7f3b23934110&gt;]</code></pre>
-</div>
+<div id="897c3a7f" class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'o'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="A3_files/figure-html/cell-22-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="A3_files/figure-html/cell-22-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -687,29 +672,23 @@ window.Quarto = {
 <section id="b.-기본플랏" class="level2">
 <h2 class="anchored" data-anchor-id="b.-기본플랏">B. 기본플랏</h2>
 <p><code>-</code> 예시1</p>
-<div id="5dc9a48f" class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'.'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>[&lt;matplotlib.lines.Line2D at 0x7f3b237eaa10&gt;]</code></pre>
-</div>
+<div id="5dc9a48f" class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'.'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="A3_files/figure-html/cell-23-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="A3_files/figure-html/cell-23-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p><code>-</code> 예시2</p>
-<div id="1150d1aa" class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'x'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>[&lt;matplotlib.lines.Line2D at 0x7f3b235f4290&gt;]</code></pre>
-</div>
+<div id="1150d1aa" class="cell" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'x'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="A3_files/figure-html/cell-24-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="A3_files/figure-html/cell-24-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -718,43 +697,34 @@ window.Quarto = {
 <section id="c.-색깔변경" class="level2">
 <h2 class="anchored" data-anchor-id="c.-색깔변경">C. 색깔변경</h2>
 <p><code>-</code> 예시1</p>
-<div id="e9bc001d" class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'or'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>[&lt;matplotlib.lines.Line2D at 0x7f3b2365c2d0&gt;]</code></pre>
-</div>
+<div id="e9bc001d" class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'or'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="A3_files/figure-html/cell-25-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="A3_files/figure-html/cell-25-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p><code>-</code> 예시2</p>
-<div id="aa4cd896" class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'db'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>[&lt;matplotlib.lines.Line2D at 0x7f3b234bcb90&gt;]</code></pre>
-</div>
+<div id="aa4cd896" class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'db'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="A3_files/figure-html/cell-26-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="A3_files/figure-html/cell-26-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p><code>-</code> 예시3</p>
-<div id="a1ab2fa0" class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'bx'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>[&lt;matplotlib.lines.Line2D at 0x7f3b233e4b10&gt;]</code></pre>
-</div>
+<div id="a1ab2fa0" class="cell" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'bx'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="A3_files/figure-html/cell-27-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="A3_files/figure-html/cell-27-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -763,43 +733,34 @@ window.Quarto = {
 <section id="d.-dot-connected-plot" class="level2">
 <h2 class="anchored" data-anchor-id="d.-dot-connected-plot">D. dot-connected plot</h2>
 <p><code>-</code> 예시1: 마커와 라인스타일을 동시에 사용하면 dot-connected plot이 된다.</p>
-<div id="2e1faa87" class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'o-'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>[&lt;matplotlib.lines.Line2D at 0x7f3b232f3590&gt;]</code></pre>
-</div>
+<div id="2e1faa87" class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'o-'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="A3_files/figure-html/cell-28-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="A3_files/figure-html/cell-28-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p><code>-</code> 예시2: 당연히 색도 적용가능함</p>
-<div id="310cae8f" class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'o--r'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>[&lt;matplotlib.lines.Line2D at 0x7f3b23200550&gt;]</code></pre>
-</div>
+<div id="310cae8f" class="cell" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'o--r'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="A3_files/figure-html/cell-29-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="A3_files/figure-html/cell-29-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p><code>-</code> 예시3: 서로 순서를 바꿔도 상관없다.</p>
-<div id="5e7488cd" class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'ro--'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>[&lt;matplotlib.lines.Line2D at 0x7f3b23109590&gt;]</code></pre>
-</div>
+<div id="5e7488cd" class="cell" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'ro--'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="A3_files/figure-html/cell-30-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="A3_files/figure-html/cell-30-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
