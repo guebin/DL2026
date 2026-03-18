@@ -102,35 +102,35 @@
     "href": "posts/A3.html#a.-기본플랏",
     "title": "A3: matploblib 기본",
     "section": "A. 기본플랏",
-    "text": "A. 기본플랏\n- 예시1\n\nx=[1,2,3,4]\ny=[1,2,4,3] \n\n\nplt.plot(x,y)\n\n[&lt;matplotlib.lines.Line2D at 0x7f3b261797d0&gt;]"
+    "text": "A. 기본플랏\n- 예시1\n\nx=[1,2,3,4]\ny=[1,2,4,3] \n\n\nplt.plot(x,y)"
   },
   {
     "objectID": "posts/A3.html#모양변경",
     "href": "posts/A3.html#모양변경",
     "title": "A3: matploblib 기본",
     "section": "모양변경",
-    "text": "모양변경\n- 예시1\n\nplt.plot(x,y,'--')\n\n[&lt;matplotlib.lines.Line2D at 0x7f3b260867d0&gt;]\n\n\n\n\n\n\n\n\n\n- 예시2\n\nplt.plot(x,y,':')\n\n[&lt;matplotlib.lines.Line2D at 0x7f3b25f950d0&gt;]\n\n\n\n\n\n\n\n\n\n- 예시3\n\nplt.plot(x,y,'-.')\n\n[&lt;matplotlib.lines.Line2D at 0x7f3b25f15810&gt;]"
+    "text": "모양변경\n- 예시1\n\nplt.plot(x,y,'--')\n\n\n\n\n\n\n\n\n- 예시2\n\nplt.plot(x,y,':')\n\n\n\n\n\n\n\n\n- 예시3\n\nplt.plot(x,y,'-.')"
   },
   {
     "objectID": "posts/A3.html#b.-색상변경",
     "href": "posts/A3.html#b.-색상변경",
     "title": "A3: matploblib 기본",
     "section": "B. 색상변경",
-    "text": "B. 색상변경\n- 예시1\n\nplt.plot(x,y,'r')\n\n[&lt;matplotlib.lines.Line2D at 0x7f3b25e1e9d0&gt;]\n\n\n\n\n\n\n\n\n\n- 예시2\n\nplt.plot(x,y,'k')\n\n[&lt;matplotlib.lines.Line2D at 0x7f3b25dad290&gt;]"
+    "text": "B. 색상변경\n- 예시1\n\nplt.plot(x,y,'r')\n\n\n\n\n\n\n\n\n- 예시2\n\nplt.plot(x,y,'k')"
   },
   {
     "objectID": "posts/A3.html#c.-모양-색상변경",
     "href": "posts/A3.html#c.-모양-색상변경",
     "title": "A3: matploblib 기본",
     "section": "C. 모양 + 색상변경",
-    "text": "C. 모양 + 색상변경\n- 예시1\n\nplt.plot(x,y,'--r')\n\n[&lt;matplotlib.lines.Line2D at 0x7f3b25b2ab10&gt;]\n\n\n\n\n\n\n\n\n\n- 예시2: 순서변경 가능\n\nplt.plot(x,y,'r--')\n\n[&lt;matplotlib.lines.Line2D at 0x7f3b25942d10&gt;]"
+    "text": "C. 모양 + 색상변경\n- 예시1\n\nplt.plot(x,y,'--r')\n\n\n\n\n\n\n\n\n- 예시2: 순서변경 가능\n\nplt.plot(x,y,'r--')"
   },
   {
     "objectID": "posts/A3.html#d.-원리",
     "href": "posts/A3.html#d.-원리",
     "title": "A3: matploblib 기본",
     "section": "D. 원리?",
-    "text": "D. 원리?\n- r--등의 옵션은 Markers + Line Styles + Colors 의 조합으로 표현가능\nref: https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html\n\n--r: 점선(dashed)스타일 + 빨간색\nr--: 빨간색 + 점선(dashed)스타일\n:k: 점선(dotted)스타일 + 검은색\nk:: 검은색 + 점선(dotted)스타일\n\n- 우선 Marker를 무시하면 Line Styles + Color로 표현가능한 조합은 \\(4\\times 8=32\\) 개\n(Line Styles) 모두 4개\n\n\n\ncharacter\ndescription\n\n\n\n\n‘-’\nsolid line style\n\n\n‘–’\ndashed line style\n\n\n‘-.’\ndash-dot line style\n\n\n‘:’\ndotted line style\n\n\n\n(Color) 모두 8개\n\n\n\ncharacter\ncolor\n\n\n\n\n‘b’\nblue\n\n\n‘g’\ngreen\n\n\n‘r’\nred\n\n\n‘c’\ncyan\n\n\n‘m’\nmagenta\n\n\n‘y’\nyellow\n\n\n‘k’\nblack\n\n\n‘w’\nwhite\n\n\n\n- 예시1\n\nplt.plot(x,y,'--m')\n\n[&lt;matplotlib.lines.Line2D at 0x7f3b25840e90&gt;]\n\n\n\n\n\n\n\n\n\n- 예시2\n\nplt.plot(x,y,'-.c')\n\n[&lt;matplotlib.lines.Line2D at 0x7f3b257c99d0&gt;]\n\n\n\n\n\n\n\n\n\n- 예시3: line style + color 조합으로 사용하든 color + line style 조합으로 사용하든 상관없음\n\nplt.plot(x,y,'-.c')\n\n[&lt;matplotlib.lines.Line2D at 0x7f3b256ea050&gt;]\n\n\n\n\n\n\n\n\n\n\nplt.plot(x,y,'c-.')\n\n[&lt;matplotlib.lines.Line2D at 0x7f3b256679d0&gt;]\n\n\n\n\n\n\n\n\n\n- 예시4: line style을 중복으로 사용하거나 color를 중복으로 쓸 수 는 없다.\n\nplt.plot(x,y,'--:')\n\nValueError: Illegal format string \"--:\"; two linestyle symbols\n\n\n\n\n\n\n\n\n\n\nplt.plot(x,y,'rb')\n\nValueError: Illegal format string \"rb\"; two color symbols\n\n\n\n\n\n\n\n\n\n- 예시5: 색이 사실 8개만 있는건 아니다.\nref: https://matplotlib.org/2.0.2/examples/color/named_colors.html\n\nplt.plot(x,y,'--',color='lime')\n\n[&lt;matplotlib.lines.Line2D at 0x7f3b2511edd0&gt;]\n\n\n\n\n\n\n\n\n\n- 예시6: 색을 바꾸려면 Hex코드를 밖아 넣는 방법이 젤 깔끔함\nref: https://htmlcolorcodes.com/\n\nplt.plot(x,y,color='#277E41') \n\n[&lt;matplotlib.lines.Line2D at 0x7f3b2502dd90&gt;]\n\n\n\n\n\n\n\n\n\n- 예시7: 당연히 라인스타일도 4개만 있진 않겠지\nref: https://matplotlib.org/stable/gallery/lines_bars_and_markers/linestyles.html\n\nplt.plot(x,y,linestyle='dashed')\n\n[&lt;matplotlib.lines.Line2D at 0x7f3b2707bd10&gt;]\n\n\n\n\n\n\n\n\n\n\nplt.plot(x,y,linestyle=(0, (20, 5)))\n\n[&lt;matplotlib.lines.Line2D at 0x7f3b240cd110&gt;]"
+    "text": "D. 원리?\n- r--등의 옵션은 Markers + Line Styles + Colors 의 조합으로 표현가능\nref: https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html\n\n--r: 점선(dashed)스타일 + 빨간색\nr--: 빨간색 + 점선(dashed)스타일\n:k: 점선(dotted)스타일 + 검은색\nk:: 검은색 + 점선(dotted)스타일\n\n- 우선 Marker를 무시하면 Line Styles + Color로 표현가능한 조합은 \\(4\\times 8=32\\) 개\n(Line Styles) 모두 4개\n\n\n\ncharacter\ndescription\n\n\n\n\n‘-’\nsolid line style\n\n\n‘–’\ndashed line style\n\n\n‘-.’\ndash-dot line style\n\n\n‘:’\ndotted line style\n\n\n\n(Color) 모두 8개\n\n\n\ncharacter\ncolor\n\n\n\n\n‘b’\nblue\n\n\n‘g’\ngreen\n\n\n‘r’\nred\n\n\n‘c’\ncyan\n\n\n‘m’\nmagenta\n\n\n‘y’\nyellow\n\n\n‘k’\nblack\n\n\n‘w’\nwhite\n\n\n\n- 예시1\n\nplt.plot(x,y,'--m')\n\n\n\n\n\n\n\n\n- 예시2\n\nplt.plot(x,y,'-.c')\n\n\n\n\n\n\n\n\n- 예시3: line style + color 조합으로 사용하든 color + line style 조합으로 사용하든 상관없음\n\nplt.plot(x,y,'-.c')\n\n\n\n\n\n\n\n\n\nplt.plot(x,y,'c-.')\n\n\n\n\n\n\n\n\n- 예시4: line style을 중복으로 사용하거나 color를 중복으로 쓸 수 는 없다.\n\nplt.plot(x,y,'--:')\n\nValueError: '--:' is not a valid format string (two linestyle symbols)\n\n\n\nplt.plot(x,y,'rb')\n\nValueError: Illegal format string \"rb\"; two color symbols\n\n\n\n\n\n\n\n\n\n- 예시5: 색이 사실 8개만 있는건 아니다.\nref: https://matplotlib.org/2.0.2/examples/color/named_colors.html\n\nplt.plot(x,y,'--',color='lime')\n\n[&lt;matplotlib.lines.Line2D at 0x7f3b2511edd0&gt;]\n\n\n\n\n\n\n\n\n\n- 예시6: 색을 바꾸려면 Hex코드를 밖아 넣는 방법이 젤 깔끔함\nref: https://htmlcolorcodes.com/\n\nplt.plot(x,y,color='#277E41') \n\n[&lt;matplotlib.lines.Line2D at 0x7f3b2502dd90&gt;]\n\n\n\n\n\n\n\n\n\n- 예시7: 당연히 라인스타일도 4개만 있진 않겠지\nref: https://matplotlib.org/stable/gallery/lines_bars_and_markers/linestyles.html\n\nplt.plot(x,y,linestyle='dashed')\n\n[&lt;matplotlib.lines.Line2D at 0x7f3b2707bd10&gt;]\n\n\n\n\n\n\n\n\n\n\nplt.plot(x,y,linestyle=(0, (20, 5)))\n\n[&lt;matplotlib.lines.Line2D at 0x7f3b240cd110&gt;]"
   },
   {
     "objectID": "posts/A3.html#a.-원리",
