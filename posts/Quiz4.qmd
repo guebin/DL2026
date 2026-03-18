@@ -5,7 +5,7 @@ date: "03/18/2026 11:00"
 draft: false
 ---
 
-{{video https://youtu.be/wQV_EaH-Qlw>}}
+{{<video https://youtu.be/wQV_EaH-Qlw>}}
 
 ## 1. 차원과 shape
 
