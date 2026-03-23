@@ -1,9 +1,10 @@
 ---
 title: "Quiz-5 (2026.03.23) // 범위: ~02wk"
 author: "최규빈"
-date: "03/23/2026"
+date: "03/23/2026 11:00"
 draft: false
 ---
+
 
 ## 1. concat을 이용한 행렬 조립
 
@@ -28,6 +29,21 @@ D = torch.tensor([[9]])             # shape: (1, 1)
  [7, 8, 9]]
 ```
 
+
+::: {.callout-note collapse="true"}
+## 정답 보기
+
+```python
+# 위쪽 두 행: A와 B를 가로로 결합
+top = torch.concat([A, B], axis=1)  # shape: (2, 3)
+
+# 아래쪽 한 행: C와 D를 가로로 결합
+bottom = torch.concat([C, D], axis=1)  # shape: (1, 3)
+
+# 세로로 결합
+result = torch.concat([top, bottom], axis=0)  # shape: (3, 3)
+```
+
 `(2)` 이 4개의 텐서를 사용하여 아래와 같은 (3, 3) 행렬을 만드는 코드를 작성하시오. 
 
 ```
@@ -36,3 +52,30 @@ D = torch.tensor([[9]])             # shape: (1, 1)
  [5, 6, 9]]
 ```
 
+
+
+
+`(2)` 이 4개의 텐서를 사용하여 아래와 같은 (3, 3) 행렬을 만드는 코드를 작성하시오. 
+
+```
+[[1, 2, 7],
+ [3, 4, 8],
+ [5, 6, 9]]
+```
+
+
+::: {.callout-note collapse="true"}
+## 정답 보기
+
+```python
+# 위쪽 두 행: A와 C.T를 가로로 결합
+top = torch.concat([A, C.T], axis=1)  # shape: (2, 3)
+
+# 아래쪽 한 행: B.T와 D를 가로로 결합
+bottom = torch.concat([B.T, D], axis=1)  # shape: (1, 3)
+
+# 세로로 결합
+result = torch.concat([top, bottom], axis=0)  # shape: (3, 3)
+```
+
+:::
