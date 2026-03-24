@@ -232,20 +232,21 @@ window.Quarto = {
 </header>
 
 
+<p><a href="https://colab.research.google.com/github/guebin/DL2026/blob/master/posts/03wk.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" style="text-align: left"></a></p>
 <section id="강의영상" class="level1">
 <h1>1. 강의영상</h1>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/playlist?list=PLQqh36zP38-xB7p8AzMKUrEfxL0Vte-pY&amp;si=BwVUNxT8IIPrjIcA" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 </section>
 <section id="imports" class="level1">
 <h1>2. Imports</h1>
-<div id="cell-4" class="cell" data-execution_count="1">
+<div id="cell-5" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.animation</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> IPython</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.graph_objects <span class="im">as</span> go</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-5" class="cell" data-execution_count="2">
+<div id="cell-6" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'figure.figsize'</span>] <span class="op">=</span> (<span class="fl">4.5</span>,<span class="fl">3.0</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'animation.html'</span>] <span class="op">=</span> <span class="st">'jshtml'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -271,44 +272,44 @@ window.Quarto = {
 <li>1에서 선택한 <span class="math inline">\(x_{sol}\)</span>에 대해서 좌우로 조금씩 움직여보고 <span class="math inline">\(f(x)\)</span>를 더 작게 만드는 값으로 update한다.</li>
 <li>2에서 업데이트된 <span class="math inline">\(x_{sol}'\)</span>을 다시 1의 <span class="math inline">\(x_{sol}\)</span>이라 해석하고 1-2를 반복한다.</li>
 </ol>
-<div id="cell-18" class="cell" data-execution_count="3">
+<div id="cell-19" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (<span class="dv">1</span><span class="op">/</span><span class="dv">4</span>)<span class="op">*</span>(x<span class="op">-</span><span class="dv">2</span>)<span class="op">**</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-19" class="cell" data-outputid="ea54de82-128c-46db-a9d6-69a6ebb54145" data-execution_count="4">
+<div id="cell-20" class="cell" data-outputid="ea54de82-128c-46db-a9d6-69a6ebb54145" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x_sol <span class="op">=</span> <span class="fl">2.24</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>x_sol</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>2.24</code></pre>
 </div>
 </div>
-<div id="cell-20" class="cell" data-outputid="418715b5-ca2e-4d0f-d5fd-fa72fe3780a4" data-execution_count="5">
+<div id="cell-21" class="cell" data-outputid="418715b5-ca2e-4d0f-d5fd-fa72fe3780a4" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>f(x_sol), f(x_sol<span class="op">+</span><span class="fl">0.1</span>), f(x_sol<span class="op">-</span><span class="fl">0.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>(0.014400000000000026, 0.02890000000000005, 0.0049000000000000085)</code></pre>
 </div>
 </div>
-<div id="cell-21" class="cell" data-outputid="b7cc0f3c-6211-43cd-fcc4-bc286cfe956a" data-execution_count="6">
+<div id="cell-22" class="cell" data-outputid="b7cc0f3c-6211-43cd-fcc4-bc286cfe956a" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>x_sol <span class="op">=</span> x_sol <span class="op">-</span> <span class="fl">0.1</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>x_sol</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>2.14</code></pre>
 </div>
 </div>
-<div id="cell-22" class="cell" data-outputid="5238a463-67bb-4379-a4f0-2eb1b39a0a1f" data-execution_count="7">
+<div id="cell-23" class="cell" data-outputid="5238a463-67bb-4379-a4f0-2eb1b39a0a1f" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>f(x_sol), f(x_sol<span class="op">+</span><span class="fl">0.1</span>), f(x_sol<span class="op">-</span><span class="fl">0.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>(0.0049000000000000085, 0.014400000000000026, 0.0004000000000000007)</code></pre>
 </div>
 </div>
-<div id="cell-23" class="cell" data-outputid="fb86cec4-13ee-4472-f8bb-179c96b6f59c" data-execution_count="8">
+<div id="cell-24" class="cell" data-outputid="fb86cec4-13ee-4472-f8bb-179c96b6f59c" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>x_sol <span class="op">=</span> x_sol <span class="op">-</span> <span class="fl">0.1</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>x_sol</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>2.04</code></pre>
 </div>
 </div>
-<div id="cell-24" class="cell" data-outputid="dee5647a-6334-4373-d6c4-2b1271196349" data-execution_count="9">
+<div id="cell-25" class="cell" data-outputid="dee5647a-6334-4373-d6c4-2b1271196349" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>f(x_sol), f(x_sol<span class="op">+</span><span class="fl">0.1</span>), f(x_sol<span class="op">-</span><span class="fl">0.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>(0.0004000000000000007, 0.0049000000000000085, 0.0009000000000000016)</code></pre>
@@ -331,14 +332,14 @@ window.Quarto = {
 <li>그 점에서 접선의기울기를 구한다. (= 그 점에서 미분계수를 구한다) 기울기의 부호를 살펴보고 부호와 반대 방향으로 움직이다. 이때 기울기의 절대값 크기와 비례하여 보폭(=움직이는 정도)을 조절한다. 조절값은 <span class="math inline">\(\alpha\)</span>임. 따라서 업데이트하는 수식은 아래와 같다. <span class="math display">\[x_{sol} \leftarrow x_{sol} - \alpha \times f'(x_{sol})\]</span></li>
 <li>반복한다.</li>
 </ol>
-<div id="cell-31" class="cell" data-outputid="6f35cf16-f660-4f2d-da01-7d7c599224f1" data-execution_count="10">
+<div id="cell-32" class="cell" data-outputid="6f35cf16-f660-4f2d-da01-7d7c599224f1" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>x_sol <span class="op">=</span> <span class="fl">2.23</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>x_sol</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>2.23</code></pre>
 </div>
 </div>
-<div id="cell-32" class="cell" data-outputid="33bb5687-a5b7-4cb8-e248-bb3a3c402163" data-execution_count="11">
+<div id="cell-33" class="cell" data-outputid="33bb5687-a5b7-4cb8-e248-bb3a3c402163" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">1.00</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>slope <span class="op">=</span> (<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)<span class="op">*</span>(x_sol<span class="op">-</span><span class="dv">2</span>)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>x_sol <span class="op">=</span> x_sol <span class="op">-</span> alpha<span class="op">*</span>slope</span>
@@ -348,7 +349,7 @@ window.Quarto = {
 </div>
 </div>
 <p><code>-</code> 시각화</p>
-<div id="cell-34" class="cell" data-outputid="43264b4d-74ec-44cb-dc2b-73965bbaa1c0" data-execution_count="12">
+<div id="cell-35" class="cell" data-outputid="43264b4d-74ec-44cb-dc2b-73965bbaa1c0" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.linspace(<span class="fl">1.7</span>,<span class="fl">2.3</span>,<span class="dv">100</span>)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x,f(x))</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">#초기설정값</span></span>
@@ -376,7 +377,7 @@ window.Quarto = {
 </div>
 </div>
 <p><code>-</code> 반복연산</p>
-<div id="cell-36" class="cell" data-outputid="59540e2d-431c-4fcd-cea5-3e090703353e" data-execution_count="13">
+<div id="cell-37" class="cell" data-outputid="59540e2d-431c-4fcd-cea5-3e090703353e" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">1.00</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>x_sol <span class="op">=</span> <span class="fl">2.23</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> dummy <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">30</span>):</span>
@@ -388,7 +389,7 @@ window.Quarto = {
 </div>
 </div>
 <p><code>-</code> 애니메이션</p>
-<div id="cell-38" class="cell">
+<div id="cell-39" class="cell">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_ani(alpha<span class="op">=</span><span class="fl">0.1</span>, initial_value<span class="op">=</span><span class="fl">2.23</span>, n_iterations<span class="op">=</span><span class="dv">5</span>):</span>
@@ -512,7 +513,7 @@ window.Quarto = {
 <span id="cb23-119"><a href="#cb23-119" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ani</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-39" class="cell" data-outputid="ac335f61-a236-4d2c-e34d-5c9ac96ebea2" data-execution_count="15">
+<div id="cell-40" class="cell" data-outputid="ac335f61-a236-4d2c-e34d-5c9ac96ebea2" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>make_ani(alpha<span class="op">=</span><span class="fl">4.1</span>,initial_value<span class="op">=</span><span class="fl">2.23</span>) <span class="co"># alpha는 학습률 혹은 stepize 이라고 부름.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 
@@ -3522,11 +3523,11 @@ Uen5dFUVdGoAAAAASUVORK5CYII=\
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>x_sol</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><code>-</code> <code>slope</code> 를 근사시키는 방식</p>
 <p><span class="math display">\[f'(x_{sol}) \approx \frac{f(x_{sol}+h)-f(x_{sol})}{h}\]</span></p>
-<div id="cell-45" class="cell" data-execution_count="16">
+<div id="cell-46" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (<span class="dv">1</span><span class="op">/</span><span class="dv">4</span>)<span class="op">*</span>(x<span class="op">-</span><span class="dv">2</span>)<span class="op">**</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-46" class="cell" data-outputid="105bc797-7597-475d-874e-e1887e0aa0d8" data-execution_count="17">
+<div id="cell-47" class="cell" data-outputid="105bc797-7597-475d-874e-e1887e0aa0d8" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">1.00</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>x_sol <span class="op">=</span> <span class="fl">2.8</span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> dummy <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">30</span>):</span>
@@ -3548,7 +3549,7 @@ Uen5dFUVdGoAAAAASUVORK5CYII=\
 <p><span class="math inline">\(f(x,y)\)</span>는 아래로 볼록한 모양이라고 가정한다.</p>
 </blockquote>
 <p><code>-</code> 그래프를 확인해보자.</p>
-<div id="cell-53" class="cell">
+<div id="cell-54" class="cell">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_surface_3d(f, z_min<span class="op">=-</span><span class="dv">500</span>, z_max<span class="op">=</span><span class="dv">500</span>, x_range<span class="op">=</span><span class="va">None</span>, y_range<span class="op">=</span><span class="va">None</span>, n_points<span class="op">=</span><span class="dv">800</span>):</span>
@@ -3695,11 +3696,11 @@ Uen5dFUVdGoAAAAASUVORK5CYII=\
 <span id="cb29-142"><a href="#cb29-142" aria-hidden="true" tabindex="-1"></a>    fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-54" class="cell" data-execution_count="19">
+<div id="cell-55" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x,y):</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (x<span class="op">-</span><span class="dv">2</span>)<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> (y<span class="op">-</span><span class="dv">3</span>)<span class="op">**</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-55" class="cell" data-execution_count="20">
+<div id="cell-56" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#plot_surface_3d(f)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>-</code> 차원이 높아져서 당환스럽지만, 아래의 방식으로 알고리즘을 설계하면 최소값을 잘 찾을 것 같다.</p>
@@ -3798,16 +3799,16 @@ Uen5dFUVdGoAAAAASUVORK5CYII=\
 </ol>
 <p><code>#</code></p>
 <p><code>-</code> 풀어보자.</p>
-<div id="cell-67" class="cell" data-execution_count="21">
+<div id="cell-68" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x,y):</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (x<span class="op">-</span><span class="dv">2</span>)<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> (y<span class="op">-</span><span class="dv">3</span>)<span class="op">**</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-68" class="cell" data-execution_count="22">
+<div id="cell-69" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>x_sol <span class="op">=</span> <span class="dv">5</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>y_sol <span class="op">=</span> <span class="dv">5</span></span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-69" class="cell" data-outputid="4e856228-3f74-47fc-c90b-48a158114357" data-execution_count="23">
+<div id="cell-70" class="cell" data-outputid="4e856228-3f74-47fc-c90b-48a158114357" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> dummy <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    x_grad <span class="op">=</span> (f(x_sol<span class="op">+</span><span class="fl">0.01</span>, y_sol) <span class="op">-</span> f(x_sol,y_sol))<span class="op">/</span><span class="fl">0.01</span></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    y_grad <span class="op">=</span> (f(x_sol, y_sol<span class="op">+</span><span class="fl">0.01</span>) <span class="op">-</span> f(x_sol,y_sol))<span class="op">/</span><span class="fl">0.01</span></span>
@@ -3854,7 +3855,7 @@ Uen5dFUVdGoAAAAASUVORK5CYII=\
 <p>“온도가 높아질수록 (=날씨가 더울수록) 아이스아메리카노 판매량이 증가”</p>
 </blockquote>
 <p>한다는 사실을 알게되었다.</p>
-<div id="cell-76" class="cell" data-execution_count="24">
+<div id="cell-77" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> [<span class="op">-</span><span class="fl">2.4821</span>, <span class="op">-</span><span class="fl">2.3621</span>, <span class="op">-</span><span class="fl">1.9973</span>, <span class="op">-</span><span class="fl">1.6239</span>, <span class="op">-</span><span class="fl">1.4792</span>, <span class="op">-</span><span class="fl">1.4635</span>, <span class="op">-</span><span class="fl">1.4509</span>, <span class="op">-</span><span class="fl">1.4435</span>,</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>        <span class="op">-</span><span class="fl">1.3722</span>, <span class="op">-</span><span class="fl">1.3079</span>, <span class="op">-</span><span class="fl">1.1904</span>, <span class="op">-</span><span class="fl">1.1092</span>, <span class="op">-</span><span class="fl">1.1054</span>, <span class="op">-</span><span class="fl">1.0875</span>, <span class="op">-</span><span class="fl">0.9469</span>, <span class="op">-</span><span class="fl">0.9319</span>,</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>        <span class="op">-</span><span class="fl">0.8643</span>, <span class="op">-</span><span class="fl">0.7858</span>, <span class="op">-</span><span class="fl">0.7549</span>, <span class="op">-</span><span class="fl">0.7421</span>, <span class="op">-</span><span class="fl">0.6948</span>, <span class="op">-</span><span class="fl">0.6103</span>, <span class="op">-</span><span class="fl">0.5830</span>, <span class="op">-</span><span class="fl">0.5621</span>,</span>
@@ -3869,7 +3870,7 @@ Uen5dFUVdGoAAAAASUVORK5CYII=\
 <span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>         <span class="fl">1.3494</span>,  <span class="fl">1.4279</span>,  <span class="fl">1.4994</span>,  <span class="fl">1.5031</span>,  <span class="fl">1.5437</span>,  <span class="fl">1.6789</span>,  <span class="fl">2.0832</span>,  <span class="fl">2.2444</span>,</span>
 <span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>         <span class="fl">2.3935</span>,  <span class="fl">2.6056</span>,  <span class="fl">2.6057</span>,  <span class="fl">2.6632</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-77" class="cell" data-execution_count="25">
+<div id="cell-78" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>sales<span class="op">=</span> [<span class="op">-</span><span class="fl">8.5420</span>, <span class="op">-</span><span class="fl">6.5767</span>, <span class="op">-</span><span class="fl">5.9496</span>, <span class="op">-</span><span class="fl">4.4794</span>, <span class="op">-</span><span class="fl">4.2516</span>, <span class="op">-</span><span class="fl">3.1326</span>, <span class="op">-</span><span class="fl">4.0239</span>, <span class="op">-</span><span class="fl">4.1862</span>,</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>        <span class="op">-</span><span class="fl">3.3403</span>, <span class="op">-</span><span class="fl">2.2027</span>, <span class="op">-</span><span class="fl">2.0262</span>, <span class="op">-</span><span class="fl">2.5619</span>, <span class="op">-</span><span class="fl">1.3353</span>, <span class="op">-</span><span class="fl">2.0466</span>, <span class="op">-</span><span class="fl">0.4664</span>, <span class="op">-</span><span class="fl">1.3513</span>,</span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>        <span class="op">-</span><span class="fl">1.6472</span>, <span class="op">-</span><span class="fl">0.1089</span>, <span class="op">-</span><span class="fl">0.3071</span>, <span class="op">-</span><span class="fl">0.6299</span>, <span class="op">-</span><span class="fl">0.0438</span>,  <span class="fl">0.4163</span>,  <span class="fl">0.4166</span>, <span class="op">-</span><span class="fl">0.0943</span>,</span>
@@ -3884,7 +3885,7 @@ Uen5dFUVdGoAAAAASUVORK5CYII=\
 <span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>         <span class="fl">7.2544</span>,  <span class="fl">7.1967</span>,  <span class="fl">9.5006</span>,  <span class="fl">9.0339</span>,  <span class="fl">7.4887</span>,  <span class="fl">9.0759</span>, <span class="fl">11.0946</span>, <span class="fl">10.3260</span>,</span>
 <span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>        <span class="fl">12.2665</span>, <span class="fl">13.0983</span>, <span class="fl">12.5468</span>, <span class="fl">13.8340</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-78" class="cell" data-outputid="734847bd-37ca-4dc4-8b62-71cb80cfe940" data-execution_count="26">
+<div id="cell-79" class="cell" data-outputid="734847bd-37ca-4dc4-8b62-71cb80cfe940" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>plt.plot(temp,sales,<span class="st">'o'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -3900,14 +3901,14 @@ Uen5dFUVdGoAAAAASUVORK5CYII=\
 <h2 class="anchored" data-anchor-id="b.-a의-자료를-만든-방법-박혜원씨는-이걸-모름">B. A의 자료를 만든 방법 (박혜원씨는 이걸 모름)</h2>
 <p><code>-</code> 아래의 모형에서 <span class="math inline">\(y_i = \text{sales}_i\)</span>, <span class="math inline">\(x_i = \text{temp}_i\)</span> 라고 생각하고 만들었음.</p>
 <p><span class="math display">\[y_i = 2.5 + 4 x_i + \epsilon_i, i=1,2,\dots,n\]</span></p>
-<div id="cell-82" class="cell" data-execution_count="27">
+<div id="cell-83" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">43052</span>)</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.randn(<span class="dv">100</span>).sort()[<span class="dv">0</span>]</span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>eps <span class="op">=</span> torch.randn(<span class="dv">100</span>)<span class="op">*</span><span class="fl">0.5</span></span>
 <span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">4</span><span class="op">*</span>x <span class="op">+</span> <span class="fl">2.5</span> <span class="op">+</span> eps</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>-</code> 시각화</p>
-<div id="cell-84" class="cell" data-outputid="ca3fc628-4638-4a80-d837-00c2396c2a5c" data-execution_count="28">
+<div id="cell-85" class="cell" data-outputid="ca3fc628-4638-4a80-d837-00c2396c2a5c" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'o'</span>)</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.plot(x,4*x + 2.5,'--')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -3926,7 +3927,7 @@ Uen5dFUVdGoAAAAASUVORK5CYII=\
 <section id="c.-다시-박혜원씨의-세상으로" class="level2">
 <h2 class="anchored" data-anchor-id="c.-다시-박혜원씨의-세상으로">C. 다시 박혜원씨의 세상으로</h2>
 <p><code>-</code> 데이터를 다시 관찰하자.</p>
-<div id="cell-88" class="cell" data-outputid="b206dd62-f62b-4c60-e140-6596a309f47d" data-execution_count="29">
+<div id="cell-89" class="cell" data-outputid="b206dd62-f62b-4c60-e140-6596a309f47d" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>plt.plot(temp,sales,<span class="st">'o'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -3949,7 +3950,7 @@ Uen5dFUVdGoAAAAASUVORK5CYII=\
 </ul>
 <p><code>-</code> 본질을 꿰뚫어 봄 = <span class="math inline">\((x_i, y_i)\)</span>를 “적당히 잘 관통하는 하나의 추세선”을 그리는 것 = 최~~~~대한 <span class="math inline">\(y_i \approx \beta_0 + \beta_1 x_i\)</span> 를 만족하도록 <span class="math inline">\(\beta_0,\beta_1\)</span>을 잘 선택하는 것.</p>
 <p><code># 박혜원씨의 시도1</code> – 혹시.. <span class="math inline">\([\beta_0, \beta_1] = [-5, 10]\)</span> 아니야??</p>
-<div id="cell-93" class="cell" data-outputid="974579c5-a628-400f-ef8a-7ef2d7df36db" data-execution_count="30">
+<div id="cell-94" class="cell" data-outputid="974579c5-a628-400f-ef8a-7ef2d7df36db" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'o'</span>)</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x,<span class="op">-</span><span class="dv">5</span><span class="op">+</span><span class="dv">10</span><span class="op">*</span>x, <span class="st">'--'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -3966,7 +3967,7 @@ Uen5dFUVdGoAAAAASUVORK5CYII=\
 </ul>
 <p><code>#</code></p>
 <p><code># 박혜원씨의 시도2</code> – 혹시.. <span class="math inline">\([\beta_0, \beta_1] = [2.5, 3.5]\)</span> 아니야??</p>
-<div id="cell-97" class="cell" data-outputid="222b0f6d-1b23-4fe1-c251-338c3ac30f9f" data-execution_count="31">
+<div id="cell-98" class="cell" data-outputid="222b0f6d-1b23-4fe1-c251-338c3ac30f9f" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'o'</span>)</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x,<span class="fl">2.5</span><span class="op">+</span><span class="fl">3.5</span><span class="op">*</span>x, <span class="st">'--'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -3983,7 +3984,7 @@ Uen5dFUVdGoAAAAASUVORK5CYII=\
 </ul>
 <p><code>#</code></p>
 <p><code># 박혜원씨의 시도3</code> – 혹시.. <span class="math inline">\([\beta_0, \beta_1] = [2.3, 3.5]\)</span> 아니야??</p>
-<div id="cell-101" class="cell" data-outputid="d7fc3de5-febd-4c4d-ffe4-25daccb558be" data-execution_count="32">
+<div id="cell-102" class="cell" data-outputid="d7fc3de5-febd-4c4d-ffe4-25daccb558be" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'o'</span>)</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x,<span class="fl">2.3</span><span class="op">+</span><span class="fl">3.5</span><span class="op">*</span>x, <span class="st">'--'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -4012,7 +4013,7 @@ Uen5dFUVdGoAAAAASUVORK5CYII=\
 <li>loss는 주황색이 대체로 파란색과 비슷해질수록 그 값이 작음.</li>
 </ul>
 <p><code>-</code> loss를 써먹어보자.</p>
-<div id="cell-109" class="cell" data-outputid="da847be3-b352-4690-8985-3705a92a1d36" data-execution_count="33">
+<div id="cell-110" class="cell" data-outputid="da847be3-b352-4690-8985-3705a92a1d36" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 시도2</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>b0 <span class="op">=</span> <span class="fl">2.5</span></span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>b1 <span class="op">=</span> <span class="fl">3.5</span></span>
@@ -4022,7 +4023,7 @@ Uen5dFUVdGoAAAAASUVORK5CYII=\
 <pre><code>tensor(55.0740)</code></pre>
 </div>
 </div>
-<div id="cell-110" class="cell" data-outputid="06a50932-5e39-4ae5-9c0d-6e5a110960da" data-execution_count="34">
+<div id="cell-111" class="cell" data-outputid="06a50932-5e39-4ae5-9c0d-6e5a110960da" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 시도3</span></span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>b0 <span class="op">=</span> <span class="fl">2.3</span></span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>b1 <span class="op">=</span> <span class="fl">3.5</span></span>
@@ -4046,25 +4047,25 @@ Uen5dFUVdGoAAAAASUVORK5CYII=\
 <p>그런데 결국 loss는 <span class="math inline">\(\beta_0,\beta_1\)</span>의 값을 입력으로 주면 출력으로 하나의 값을 주는 함수라고 볼 수 있음.</p>
 </blockquote>
 <p><code>-</code> 결국 정리하면 <span class="math inline">\(f(x,y)\)</span>를 최소로 만드는 <span class="math inline">\(x,y\)</span>를 찾는 최적화문제와 동일하게 된다. (그런데 우리는 이런걸 잘해요)</p>
-<div id="cell-115" class="cell" data-execution_count="35">
+<div id="cell-116" class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> l(b0,b1):</span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> torch.<span class="bu">sum</span>((y<span class="op">-</span>(b0 <span class="op">+</span> b1<span class="op">*</span>x))<span class="op">**</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-116" class="cell" data-execution_count="36">
+<div id="cell-117" class="cell" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot_surface_3d(l) # -- 그림을 그려보니까 "아래로 볼록하네?"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-117" class="cell" data-execution_count="37">
+<div id="cell-118" class="cell" data-execution_count="37">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>b0 <span class="op">=</span> <span class="op">-</span><span class="dv">5</span></span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>b1 <span class="op">=</span> <span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-118" class="cell" data-execution_count="38">
+<div id="cell-119" class="cell" data-execution_count="38">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.001</span></span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>b0_grad <span class="op">=</span> (l(b0<span class="op">+</span><span class="fl">0.001</span>,b1) <span class="op">-</span> l(b0,b1))<span class="op">/</span><span class="fl">0.001</span></span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>b1_grad <span class="op">=</span> (l(b0,b1<span class="op">+</span><span class="fl">0.001</span>) <span class="op">-</span> l(b0,b1))<span class="op">/</span><span class="fl">0.001</span></span>
 <span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>b0 <span class="op">=</span> b0 <span class="op">-</span> alpha <span class="op">*</span> b0_grad</span>
 <span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>b1 <span class="op">=</span> b1 <span class="op">-</span> alpha <span class="op">*</span> b1_grad</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-119" class="cell" data-outputid="61322730-71dc-4cb9-81a1-fb2f12c31460" data-execution_count="39">
+<div id="cell-120" class="cell" data-outputid="61322730-71dc-4cb9-81a1-fb2f12c31460" data-execution_count="39">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'o'</span>)</span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x,b0<span class="op">+</span>b1<span class="op">*</span>x,<span class="st">'--'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -4076,7 +4077,7 @@ Uen5dFUVdGoAAAAASUVORK5CYII=\
 </div>
 </div>
 <p><code>-</code> 수렴과정확인</p>
-<div id="cell-121" class="cell">
+<div id="cell-122" class="cell">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'figure.figsize'</span>] <span class="op">=</span> (<span class="fl">7.5</span>,<span class="fl">2.5</span>)</span>
@@ -4146,7 +4147,7 @@ Uen5dFUVdGoAAAAASUVORK5CYII=\
 <span id="cb55-65"><a href="#cb55-65" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ani</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-122" class="cell" data-outputid="40e3b2c5-198a-4d96-dafe-2a7fe042c7e0" data-execution_count="41">
+<div id="cell-123" class="cell" data-outputid="40e3b2c5-198a-4d96-dafe-2a7fe042c7e0" data-execution_count="41">
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>make_ani2(<span class="fl">0.003</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 
