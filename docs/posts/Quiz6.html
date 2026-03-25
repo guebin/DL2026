@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.527">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="최규빈">
+<meta name="dcterms.date" content="2026-03-25">
+
+<title>DL2026 - Quiz-6 (2026.03.25) // 범위: ~03wk</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">DL2026</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/guebin/DL2026"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.youtube.com/channel/UCQk9RyBNgXc7ORIsYlOfQrg/playlists?view=50&amp;sort=dd&amp;shelf_id=2"> <i class="bi bi-youtube" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#경사하강법" id="toc-경사하강법" class="nav-link active" data-scroll-target="#경사하강법">1. 경사하강법</a></li>
+  <li><a href="#회귀분석" id="toc-회귀분석" class="nav-link" data-scroll-target="#회귀분석">2. 회귀분석</a></li>
+  <li><a href="#경사하강법-회귀분석-이해도-점검-이지선다" id="toc-경사하강법-회귀분석-이해도-점검-이지선다" class="nav-link" data-scroll-target="#경사하강법-회귀분석-이해도-점검-이지선다">3. 경사하강법 &amp; 회귀분석 이해도 점검 (이지선다)</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Quiz-6 (2026.03.25) // 범위: ~03wk</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>최규빈 </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 25, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><a href="https://colab.research.google.com/github/guebin/DL2026/blob/master/posts/Quiz6.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" style="text-align: left"></a></p>
+<div id="875df891-862e-47b7-9946-9eba517b4d99" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="경사하강법" class="level1">
+<h1>1. 경사하강법</h1>
+<p>아래의 함수를 고려하자.</p>
+<p><span class="math display">\[f(x)=x^2+ \frac{x^2}{x^2+1}\]</span></p>
+<p>이 함수를 최소화하는 값 <span class="math inline">\(x_{sol}\)</span>을 구하고자 한다.</p>
+<p>함수의 개형을 그려보고 경사하강법을 진행할 수 있는지 판단하라. 경사하강법을 진행할 수 있다면 <code>x_sol=0.5</code> 에서 경사하강법을 2회 진행하고 아래의 표를 완성하라. (이때 <span class="math inline">\(\alpha=0.1\)</span> 로 설정하고 <span class="math inline">\(f'(x_{sol})\)</span>은 적당한 정확도로 근사계산 할 것)</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">횟수</th>
+<th style="text-align: center;"><span class="math inline">\(x_{sol}\)</span> (update 전)</th>
+<th style="text-align: center;"><span class="math inline">\(f'(x_{sol})\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(x_{sol}\)</span> (update 후)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.5</td>
+<td style="text-align: center;">??</td>
+<td style="text-align: center;">??</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">??</td>
+<td style="text-align: center;">??</td>
+<td style="text-align: center;">??</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="blockquote">
+<p>답안제출양식: 그래프개형 그린 뒤 경사하강법 사용가능여부를 판단하고 경사하강법이 가능하다면 위의 표를 채워서 제출 // 코드는 제시할 필요 없음</p>
+</blockquote>
+</section>
+<section id="회귀분석" class="level1">
+<h1>2. 회귀분석</h1>
+<p>아래의 자료를 관측하였다고 하자.</p>
+<div id="0da10400-58dc-4089-96a2-796b7b06f5d1" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.tensor([</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span><span class="fl">1.1585</span>, <span class="op">-</span><span class="fl">1.0528</span>, <span class="op">-</span><span class="fl">0.8023</span>, <span class="op">-</span><span class="fl">0.7788</span>, <span class="op">-</span><span class="fl">0.7018</span>, <span class="op">-</span><span class="fl">0.6923</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span><span class="fl">0.6371</span>, <span class="op">-</span><span class="fl">0.6173</span>, <span class="op">-</span><span class="fl">0.4399</span>, <span class="op">-</span><span class="fl">0.4356</span>, <span class="op">-</span><span class="fl">0.4143</span>, <span class="op">-</span><span class="fl">0.3761</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span><span class="fl">0.3639</span>, <span class="op">-</span><span class="fl">0.3006</span>, <span class="op">-</span><span class="fl">0.2797</span>, <span class="op">-</span><span class="fl">0.2123</span>, <span class="op">-</span><span class="fl">0.1962</span>, <span class="op">-</span><span class="fl">0.1117</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span><span class="fl">0.1084</span>, <span class="op">-</span><span class="fl">0.0215</span>,  <span class="fl">0.1594</span>,  <span class="fl">0.1654</span>,  <span class="fl">0.3392</span>,  <span class="fl">0.4504</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>     <span class="fl">0.4978</span>,  <span class="fl">0.7436</span>,  <span class="fl">0.8244</span>,  <span class="fl">0.8587</span>,  <span class="fl">0.9635</span>,  <span class="fl">1.0614</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="fc750950-7c6a-43a3-835c-f44f1451cc7a" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> torch.tensor([</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span><span class="fl">6.5200</span>, <span class="op">-</span><span class="fl">5.8359</span>, <span class="op">-</span><span class="fl">5.3639</span>, <span class="op">-</span><span class="fl">5.1654</span>, <span class="op">-</span><span class="fl">4.5664</span>, <span class="op">-</span><span class="fl">4.3141</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span><span class="fl">4.6552</span>, <span class="op">-</span><span class="fl">3.7561</span>, <span class="op">-</span><span class="fl">4.5129</span>, <span class="op">-</span><span class="fl">4.4500</span>, <span class="op">-</span><span class="fl">4.4445</span>, <span class="op">-</span><span class="fl">3.6102</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span><span class="fl">3.6236</span>, <span class="op">-</span><span class="fl">3.0639</span>, <span class="op">-</span><span class="fl">3.2406</span>, <span class="op">-</span><span class="fl">3.7088</span>, <span class="op">-</span><span class="fl">2.9196</span>, <span class="op">-</span><span class="fl">1.9855</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span><span class="fl">2.8198</span>, <span class="op">-</span><span class="fl">2.7340</span>, <span class="op">-</span><span class="fl">2.6920</span>, <span class="op">-</span><span class="fl">2.2963</span>, <span class="op">-</span><span class="fl">1.7646</span>, <span class="op">-</span><span class="fl">0.6208</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span><span class="fl">1.7411</span>,  <span class="fl">0.4475</span>,  <span class="fl">0.3451</span>, <span class="op">-</span><span class="fl">0.1648</span>, <span class="op">-</span><span class="fl">0.1344</span>,  <span class="fl">0.9861</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>강의노트에서 나온 방법을 활용하여 <span class="math inline">\((x_i,y_i)\)</span>를 적당히 잘 관통하는 추세선을 찾아라.</p>
+<blockquote class="blockquote">
+<p>답안제출양식: <span class="math inline">\(y_i = ?? + ?? x_i\)</span> 에서 ?? 자리만 채워서 제출. // 그래프개형, 경사하강법 사용가능여부 판단 여부 작성하여 제출할 필요없음. 코드작성하여 제출할 필요 없음.</p>
+</blockquote>
+</section>
+<section id="경사하강법-회귀분석-이해도-점검-이지선다" class="level1">
+<h1>3. 경사하강법 &amp; 회귀분석 이해도 점검 (이지선다)</h1>
+<blockquote class="blockquote">
+<p>답안제출양식: 답만써서 내면 됩니다.</p>
+</blockquote>
+<p><strong>[문제 1]</strong> 1차원 경사하강법의 업데이트 수식 <span class="math inline">\(x_{sol} \leftarrow x_{sol} - \alpha \times f'(x_{sol})\)</span>에서 <span class="math inline">\(f'(x_{sol})\)</span>의 부호가 양수일 때, <span class="math inline">\(x_{sol}\)</span>은 어느 방향으로 이동하는가?</p>
+<p>① 오른쪽(증가 방향)</p>
+<p>② 왼쪽(감소 방향)</p>
+<p><strong>[문제 2]</strong> 경사하강법에서 점이 최솟값에 가까워질수록 기울기의 절대값은?</p>
+<p>① 커진다</p>
+<p>② 작아진다</p>
+<p><strong>[문제 3]</strong> 학습률 <span class="math inline">\(\alpha\)</span>의 값에 따른 현상으로 올바르지 않은 것은?</p>
+<p>① alpha가 작을수록 천천히 최소값으로 수렴한다</p>
+<p>② alpha가 커지면 항상 발산한다</p>
+<p><strong>[문제 4]</strong> <span class="math inline">\(f(x) = \frac{1}{4}(x-2)^2\)</span>의 최솟값을 찾기 위해 <span class="math inline">\(x_{sol} = 2.24\)</span>에서 시작했을 때, <span class="math inline">\(f(x_{sol}), f(x_{sol}+0.1), f(x_{sol}-0.1)\)</span>을 비교하였다. 다음 업데이트에서 <span class="math inline">\(x_{sol} - 0.1\)</span> (왼쪽으로 이동)해야 하는 이유는?</p>
+<p>① 최솟값이 2이기 때문에</p>
+<p>② 세 값 중 <span class="math inline">\(f(x_{sol}-0.1)\)</span>이 가장 작기 때문에</p>
+<p><strong>[문제 5]</strong> 아래의 코드에 대한 비판으로 <code>slope = (1/2)*(x_sol-2)</code>를 직접 치는 것이 불가능할 수도 있다고 언급하였다. 그 이유는?</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">1.00</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>x_sol <span class="op">=</span> <span class="fl">2.23</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> dummy <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">30</span>):</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    slope <span class="op">=</span> (<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)<span class="op">*</span>(x_sol<span class="op">-</span><span class="dv">2</span>) <span class="co"># f'(x) = 1/2*(x-2)</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    x_sol <span class="op">=</span> x_sol <span class="op">-</span> alpha<span class="op">*</span>slope</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>① <span class="math inline">\(f'(x)\)</span>의 공식을 모를 수도 있기 때문</p>
+<p>② 컴퓨터가 분수 계산을 못하기 때문</p>
+<p><strong>[문제 6]</strong> 미분 공식을 모를 때 미분계수 <span class="math inline">\(f'(x_{sol})\)</span>을 근사하는 방법은?</p>
+<p>① <span class="math inline">\(\frac{f(x_{sol}+h)-f(x_{sol})}{h}\)</span>를 이용</p>
+<p>② <span class="math inline">\(f(x_{sol}+h) - f(x_{sol})\)</span>를 이용</p>
+<p><strong>[문제 7]</strong> 2차원 경사하강법에서 그래디언트 <span class="math inline">\(\nabla f(x_{sol}, y_{sol})\)</span>는 무엇을 의미하는가?</p>
+<p>① <span class="math inline">\(\lim_{h\to 0}\frac{f(x_{sol}+h, y_{sol})-f(x_{sol}, y_{sol})}{h}\)</span>를 첫 번째 원소로, <span class="math inline">\(\lim_{h\to 0}\frac{f(x_{sol}, y_{sol}+h)-f(x_{sol}, y_{sol})}{h}\)</span>를 두 번째 원소로 하는 벡터</p>
+<p>② 함수 <span class="math inline">\(f\)</span>가 최댓값을 갖는 점의 좌표를 나타내는 벡터</p>
+<p><strong>[문제 8]</strong> 아래의 알고리즘에 대한 설명으로 올바른 것은?</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> dummy <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    x_grad <span class="op">=</span> (f(x_sol<span class="op">+</span><span class="fl">0.01</span>, y_sol) <span class="op">-</span> f(x_sol,y_sol))<span class="op">/</span><span class="fl">0.01</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    x_sol <span class="op">=</span> x_sol <span class="op">-</span> alpha <span class="op">*</span> x_grad</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    y_grad <span class="op">=</span> (f(x_sol, y_sol<span class="op">+</span><span class="fl">0.01</span>) <span class="op">-</span> f(x_sol,y_sol))<span class="op">/</span><span class="fl">0.01</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    y_sol <span class="op">=</span> y_sol <span class="op">-</span> alpha <span class="op">*</span> y_grad</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>① <span class="math inline">\(x\)</span>와 <span class="math inline">\(y\)</span>를 동시에 업데이트하므로 경사하강법이다</p>
+<p>② <span class="math inline">\(x\)</span>를 먼저 업데이트한 후 변경된 <span class="math inline">\(x\)</span> 값을 이용하여 <span class="math inline">\(y\)</span>를 업데이트하므로 경사하강법이 아니다</p>
+<p><strong>[문제 9]</strong> 강의노트에서 2차원 최적화를 위한 두 알고리즘을 비교했다. 알고리즘1은 <span class="math inline">\((x_{sol}, y_{sol})\)</span> 주변 9개 점을 모두 조사하고, 알고리즘2는 <span class="math inline">\(x\)</span>와 <span class="math inline">\(y\)</span> 축 방향으로만 조사한다. 알고리즘2가 더 실용적인 이유는?</p>
+<p>① 알고리즘2가 정확도가 더 높기 때문</p>
+<p>② 알고리즘1은 차원이 높아질수록 조사해야 할 점의 개수가 기하급수적으로 증가하기 때문</p>
+<p><strong>[문제 10]</strong> 강의노트 <code># 3. 경사하강법 &gt; ## B. 2차원 &gt; 고차원일 경우?</code>에 제시된 아래 표를 참고하라.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">차원 <span class="math inline">\(d\)</span></th>
+<th style="text-align: center;">알고리즘1</th>
+<th style="text-align: center;">알고리즘2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">27</td>
+<td style="text-align: center;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">…</td>
+<td style="text-align: center;">…</td>
+<td style="text-align: center;">…</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">59049</td>
+<td style="text-align: center;">21</td>
+</tr>
+</tbody>
+</table>
+<p>차원 <span class="math inline">\(d=5\)</span>일 때, 알고리즘1과 알고리즘2의 계산량은?</p>
+<p>① 알고리즘1: 11개, 알고리즘2: 243개</p>
+<p>② 알고리즘1: 243개, 알고리즘2: 11개</p>
+<p><strong>[문제 16]</strong> 회귀분석에서 손실함수(loss function)로 사용되는 SSE의 수식은?</p>
+<p>① <span class="math inline">\(\sum_{i=1}^{n}|y_i - (\beta_0 + \beta_1 x_i)|\)</span></p>
+<p>② <span class="math inline">\(\sum_{i=1}^{n}(y_i - (\beta_0 + \beta_1 x_i))^2\)</span></p>
+<p><strong>[문제 12]</strong> 아이스아메리카노 예제에서 박혜원씨가 생각하는 “본질을 꿰뚫어 본다”는 것의 의미는?</p>
+<p>① 모든 관측치를 정확히 통과하는 곡선을 찾는다</p>
+<p>② <span class="math inline">\((x_i, y_i)\)</span>를 적당히 잘 관통하는 추세선을 찾는다</p>
+<p><strong>[문제 17]</strong> 회귀분석에서 loss가 작다는 것은 무엇을 의미하는가?</p>
+<p>① 대체로 <span class="math inline">\(y_i \approx \beta_0 + \beta_1 x_i\)</span>가 성립한다</p>
+<p>② 대체로 <span class="math inline">\(y_i\)</span>와 <span class="math inline">\(\beta_0 + \beta_1 x_i\)</span>의 차이가 크다</p>
+<p><strong>[문제 18]</strong> 회귀분석의 목표는 무엇인가?</p>
+<p>① 손실함수를 최대화하는 <span class="math inline">\(\beta_0, \beta_1\)</span>을 찾는다</p>
+<p>② 손실함수를 최소화하는 <span class="math inline">\(\beta_0, \beta_1\)</span>을 찾는다</p>
+<p><strong>[문제 11]</strong> 강의노트에서 박혜원씨가 “이 세상이 시뮬레이션 아니야?”라고 의심한 이유는?</p>
+<p>① 관측한 데이터가 <span class="math inline">\(\text{sales}_i = \beta_0 + \beta_1 \text{temp}_{i} + \epsilon_i\)</span> 모형에서 나온 것 같다는 느낌 때문</p>
+<p>② 모든 점이 정확히 직선 위에 있기 때문</p>
+<p><strong>[문제 15]</strong> 강의노트에서 박혜원씨는 시도2 <span class="math inline">\([\beta_0, \beta_1] = [2.5, 3.5]\)</span>와 시도3 <span class="math inline">\([\beta_0, \beta_1] = [2.3, 3.5]\)</span> 중 어느 것이 더 좋은지 판단하기 어려웠다. 이를 해결하기 위해 도입한 것은?</p>
+<p>① 더 많은 데이터를 수집한다</p>
+<p>② loss의 개념을 도입하여 “적당함”을 수식화한다</p>
+<p><strong>[문제 14]</strong> 강의노트에서 박혜원씨가 “본질을 꿰뚫어 본다”는 것은 수식으로 어떻게 표현되는가?</p>
+<p>① 최대한 <span class="math inline">\(y_i = \beta_0 + \beta_1 x_i\)</span>를 만족하도록 <span class="math inline">\(\beta_0, \beta_1\)</span>을 선택하는 것</p>
+<p>② 최대한 <span class="math inline">\(y_i \approx \beta_0 + \beta_1 x_i\)</span>를 만족하도록 <span class="math inline">\(\beta_0, \beta_1\)</span>을 선택하는 것</p>
+<p><strong>[문제 13]</strong> 박혜원씨가 생각하기에, 관측한 데이터에서 점들이 정확한 직선으로 보이지 않는 이유는?</p>
+<p>① 측정 도구가 잘못되었기 때문</p>
+<p>② 각 관측치에 장난질(<span class="math inline">\(\epsilon_i\)</span>)이 섞여서 본질을 흐리고 있기 때문</p>
+<p><strong>[문제 19]</strong> 회귀분석에서 손실함수 <span class="math inline">\(loss = \sum_{i=1}^{n}(y_i - (\beta_0 + \beta_1 x_i))^2\)</span>는 <span class="math inline">\(\beta_0, \beta_1\)</span>의 함수로 볼 수 있다. 이것이 의미하는 것은?</p>
+<p>① <span class="math inline">\(\beta_0, \beta_1\)</span> 값을 입력으로 주면 하나의 loss 값이 출력된다</p>
+<p>② <span class="math inline">\(x_i, y_i\)</span> 값을 입력으로 주면 하나의 loss 값이 출력된다</p>
+<p><strong>[문제 20]</strong> 회귀분석에서 최적의 <span class="math inline">\(\beta_0, \beta_1\)</span>을 찾는 문제를 경사하강법으로 풀 수 있는 이유는?</p>
+<p>① 회귀분석 문제를 아래로 볼록한 손실함수 <span class="math inline">\(l(\beta_0, \beta_1)\)</span>을 최소화하는 최적화 문제로 바꿀 수 있기 때문</p>
+<p>② 회귀분석은 항상 <span class="math inline">\(\beta_0 = 0, \beta_1 = 1\)</span>이 답이기 때문</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
