@@ -220,7 +220,7 @@ window.Quarto = {
 
 
 <p><a href="https://colab.research.google.com/github/guebin/DL2026/blob/master/posts/Quiz6.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" style="text-align: left"></a></p>
-<div id="875df891-862e-47b7-9946-9eba517b4d99" class="cell" data-execution_count="1">
+<div id="875df891-862e-47b7-9946-9eba517b4d99" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-03-25T03:34:13.171244Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-25T03:34:13.170747Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-25T03:34:14.622075Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-25T03:34:14.621034Z&quot;}" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -257,32 +257,123 @@ window.Quarto = {
 <blockquote class="blockquote">
 <p>답안제출양식: 그래프개형 그린 뒤 경사하강법 사용가능여부를 판단하고 경사하강법이 가능하다면 위의 표를 채워서 제출 // 코드는 제시할 필요 없음</p>
 </blockquote>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+정답 보기
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="03f0eca5" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-03-25T03:34:14.625617Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-25T03:34:14.625371Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-25T03:34:14.645862Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-25T03:34:14.645015Z&quot;}" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> x<span class="op">**</span><span class="dv">2</span><span class="op">/</span>(x<span class="op">**</span><span class="dv">2</span><span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.linspace(<span class="op">-</span><span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">1000</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.plot(x,f(x)) # -- 경사하강법적용가능</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="b6ea000e" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-03-25T03:34:14.649022Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-25T03:34:14.648766Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-25T03:34:14.653199Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-25T03:34:14.651706Z&quot;}" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x_sol <span class="op">=</span> <span class="fl">0.5</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.1</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="c2e573a6" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-03-25T03:34:14.656360Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-25T03:34:14.655890Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-25T03:34:14.663228Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-25T03:34:14.661867Z&quot;}" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_sol) <span class="co"># 업데이트전</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>slope <span class="op">=</span> (f(x_sol<span class="op">+</span><span class="fl">0.0001</span>)<span class="op">-</span>f(x_sol))<span class="op">/</span><span class="fl">0.0001</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(slope) <span class="co"># 기울기 </span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>x_sol <span class="op">=</span> x_sol <span class="op">-</span> alpha <span class="op">*</span> slope </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_sol) <span class="co"># 업데이트후 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.5
+1.640112793856452
+0.3359887206143548</code></pre>
+</div>
+</div>
+<div id="c0d784d9" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-03-25T03:34:14.666474Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-25T03:34:14.666187Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-25T03:34:14.672674Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-25T03:34:14.671090Z&quot;}" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_sol) <span class="co"># 업데이트전</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>slope <span class="op">=</span> (f(x_sol<span class="op">+</span><span class="fl">0.0001</span>)<span class="op">-</span>f(x_sol))<span class="op">/</span><span class="fl">0.0001</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(slope) <span class="co"># 기울기 </span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>x_sol <span class="op">=</span> x_sol <span class="op">-</span> alpha <span class="op">*</span> slope </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_sol) <span class="co"># 업데이트후</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.3359887206143548
+1.214690004170682
+0.2145197201972866</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="회귀분석" class="level1">
 <h1>2. 회귀분석</h1>
 <p>아래의 자료를 관측하였다고 하자.</p>
-<div id="0da10400-58dc-4089-96a2-796b7b06f5d1" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.tensor([</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span><span class="fl">1.1585</span>, <span class="op">-</span><span class="fl">1.0528</span>, <span class="op">-</span><span class="fl">0.8023</span>, <span class="op">-</span><span class="fl">0.7788</span>, <span class="op">-</span><span class="fl">0.7018</span>, <span class="op">-</span><span class="fl">0.6923</span>,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span><span class="fl">0.6371</span>, <span class="op">-</span><span class="fl">0.6173</span>, <span class="op">-</span><span class="fl">0.4399</span>, <span class="op">-</span><span class="fl">0.4356</span>, <span class="op">-</span><span class="fl">0.4143</span>, <span class="op">-</span><span class="fl">0.3761</span>,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span><span class="fl">0.3639</span>, <span class="op">-</span><span class="fl">0.3006</span>, <span class="op">-</span><span class="fl">0.2797</span>, <span class="op">-</span><span class="fl">0.2123</span>, <span class="op">-</span><span class="fl">0.1962</span>, <span class="op">-</span><span class="fl">0.1117</span>,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span><span class="fl">0.1084</span>, <span class="op">-</span><span class="fl">0.0215</span>,  <span class="fl">0.1594</span>,  <span class="fl">0.1654</span>,  <span class="fl">0.3392</span>,  <span class="fl">0.4504</span>,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>     <span class="fl">0.4978</span>,  <span class="fl">0.7436</span>,  <span class="fl">0.8244</span>,  <span class="fl">0.8587</span>,  <span class="fl">0.9635</span>,  <span class="fl">1.0614</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="0da10400-58dc-4089-96a2-796b7b06f5d1" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-03-25T03:34:14.676833Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-25T03:34:14.676414Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-25T03:34:14.684046Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-25T03:34:14.682309Z&quot;}" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.tensor([</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span><span class="fl">1.1585</span>, <span class="op">-</span><span class="fl">1.0528</span>, <span class="op">-</span><span class="fl">0.8023</span>, <span class="op">-</span><span class="fl">0.7788</span>, <span class="op">-</span><span class="fl">0.7018</span>, <span class="op">-</span><span class="fl">0.6923</span>,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span><span class="fl">0.6371</span>, <span class="op">-</span><span class="fl">0.6173</span>, <span class="op">-</span><span class="fl">0.4399</span>, <span class="op">-</span><span class="fl">0.4356</span>, <span class="op">-</span><span class="fl">0.4143</span>, <span class="op">-</span><span class="fl">0.3761</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span><span class="fl">0.3639</span>, <span class="op">-</span><span class="fl">0.3006</span>, <span class="op">-</span><span class="fl">0.2797</span>, <span class="op">-</span><span class="fl">0.2123</span>, <span class="op">-</span><span class="fl">0.1962</span>, <span class="op">-</span><span class="fl">0.1117</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span><span class="fl">0.1084</span>, <span class="op">-</span><span class="fl">0.0215</span>,  <span class="fl">0.1594</span>,  <span class="fl">0.1654</span>,  <span class="fl">0.3392</span>,  <span class="fl">0.4504</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>     <span class="fl">0.4978</span>,  <span class="fl">0.7436</span>,  <span class="fl">0.8244</span>,  <span class="fl">0.8587</span>,  <span class="fl">0.9635</span>,  <span class="fl">1.0614</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="fc750950-7c6a-43a3-835c-f44f1451cc7a" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> torch.tensor([</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span><span class="fl">6.5200</span>, <span class="op">-</span><span class="fl">5.8359</span>, <span class="op">-</span><span class="fl">5.3639</span>, <span class="op">-</span><span class="fl">5.1654</span>, <span class="op">-</span><span class="fl">4.5664</span>, <span class="op">-</span><span class="fl">4.3141</span>,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span><span class="fl">4.6552</span>, <span class="op">-</span><span class="fl">3.7561</span>, <span class="op">-</span><span class="fl">4.5129</span>, <span class="op">-</span><span class="fl">4.4500</span>, <span class="op">-</span><span class="fl">4.4445</span>, <span class="op">-</span><span class="fl">3.6102</span>,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span><span class="fl">3.6236</span>, <span class="op">-</span><span class="fl">3.0639</span>, <span class="op">-</span><span class="fl">3.2406</span>, <span class="op">-</span><span class="fl">3.7088</span>, <span class="op">-</span><span class="fl">2.9196</span>, <span class="op">-</span><span class="fl">1.9855</span>,</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span><span class="fl">2.8198</span>, <span class="op">-</span><span class="fl">2.7340</span>, <span class="op">-</span><span class="fl">2.6920</span>, <span class="op">-</span><span class="fl">2.2963</span>, <span class="op">-</span><span class="fl">1.7646</span>, <span class="op">-</span><span class="fl">0.6208</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span><span class="fl">1.7411</span>,  <span class="fl">0.4475</span>,  <span class="fl">0.3451</span>, <span class="op">-</span><span class="fl">0.1648</span>, <span class="op">-</span><span class="fl">0.1344</span>,  <span class="fl">0.9861</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fc750950-7c6a-43a3-835c-f44f1451cc7a" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-03-25T03:34:14.688108Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-25T03:34:14.687419Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-25T03:34:14.695143Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-25T03:34:14.693638Z&quot;}" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> torch.tensor([</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span><span class="fl">6.5200</span>, <span class="op">-</span><span class="fl">5.8359</span>, <span class="op">-</span><span class="fl">5.3639</span>, <span class="op">-</span><span class="fl">5.1654</span>, <span class="op">-</span><span class="fl">4.5664</span>, <span class="op">-</span><span class="fl">4.3141</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span><span class="fl">4.6552</span>, <span class="op">-</span><span class="fl">3.7561</span>, <span class="op">-</span><span class="fl">4.5129</span>, <span class="op">-</span><span class="fl">4.4500</span>, <span class="op">-</span><span class="fl">4.4445</span>, <span class="op">-</span><span class="fl">3.6102</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span><span class="fl">3.6236</span>, <span class="op">-</span><span class="fl">3.0639</span>, <span class="op">-</span><span class="fl">3.2406</span>, <span class="op">-</span><span class="fl">3.7088</span>, <span class="op">-</span><span class="fl">2.9196</span>, <span class="op">-</span><span class="fl">1.9855</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span><span class="fl">2.8198</span>, <span class="op">-</span><span class="fl">2.7340</span>, <span class="op">-</span><span class="fl">2.6920</span>, <span class="op">-</span><span class="fl">2.2963</span>, <span class="op">-</span><span class="fl">1.7646</span>, <span class="op">-</span><span class="fl">0.6208</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span><span class="fl">1.7411</span>,  <span class="fl">0.4475</span>,  <span class="fl">0.3451</span>, <span class="op">-</span><span class="fl">0.1648</span>, <span class="op">-</span><span class="fl">0.1344</span>,  <span class="fl">0.9861</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>강의노트에서 나온 방법을 활용하여 <span class="math inline">\((x_i,y_i)\)</span>를 적당히 잘 관통하는 추세선을 찾아라.</p>
 <blockquote class="blockquote">
 <p>답안제출양식: <span class="math inline">\(y_i = ?? + ?? x_i\)</span> 에서 ?? 자리만 채워서 제출. // 그래프개형, 경사하강법 사용가능여부 판단 여부 작성하여 제출할 필요없음. 코드작성하여 제출할 필요 없음.</p>
 </blockquote>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+정답 보기
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="bfaaa1e2" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-03-25T03:34:14.699632Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-25T03:34:14.699166Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-25T03:34:14.850715Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-25T03:34:14.849593Z&quot;}" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>b0<span class="op">=</span><span class="dv">0</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>b1<span class="op">=</span><span class="dv">0</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>alpha<span class="op">=</span> <span class="fl">0.001</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> l(b0,b1):</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> torch.<span class="bu">sum</span>((y<span class="op">-</span>(b0<span class="op">+</span>b1<span class="op">*</span>x))<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> dummy <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1000</span>):</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    b0_grad <span class="op">=</span> (l(b0<span class="op">+</span><span class="fl">0.0001</span>,b1) <span class="op">-</span> l(b0,b1))<span class="op">/</span><span class="fl">0.0001</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    b1_grad <span class="op">=</span> (l(b0,b1<span class="op">+</span><span class="fl">0.0001</span>) <span class="op">-</span> l(b0,b1))<span class="op">/</span><span class="fl">0.0001</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    b0 <span class="op">=</span> b0 <span class="op">-</span> alpha <span class="op">*</span> b0_grad</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    b1 <span class="op">=</span> b1 <span class="op">-</span> alpha <span class="op">*</span> b1_grad</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(b0,b1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tensor(-2.5841) tensor(3.1360)</code></pre>
+</div>
+</div>
+<div id="ed4029b8" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2026-03-25T03:34:14.853981Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-25T03:34:14.853278Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-25T03:34:14.984228Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-25T03:34:14.983182Z&quot;}" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'o'</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x,<span class="op">-</span><span class="fl">2.5841</span> <span class="op">+</span> <span class="fl">3.1360</span><span class="op">*</span>x,<span class="st">'--'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Quiz6_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="경사하강법-회귀분석-이해도-점검-이지선다" class="level1">
 <h1>3. 경사하강법 &amp; 회귀분석 이해도 점검 (이지선다)</h1>
@@ -302,11 +393,11 @@ window.Quarto = {
 <p>① 최솟값이 2이기 때문에</p>
 <p>② 세 값 중 <span class="math inline">\(f(x_{sol}-0.1)\)</span>이 가장 작기 때문에</p>
 <p><strong>[문제 5]</strong> 아래의 코드에 대한 비판으로 <code>slope = (1/2)*(x_sol-2)</code>를 직접 치는 것이 불가능할 수도 있다고 언급하였다. 그 이유는?</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">1.00</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>x_sol <span class="op">=</span> <span class="fl">2.23</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> dummy <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">30</span>):</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    slope <span class="op">=</span> (<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)<span class="op">*</span>(x_sol<span class="op">-</span><span class="dv">2</span>) <span class="co"># f'(x) = 1/2*(x-2)</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    x_sol <span class="op">=</span> x_sol <span class="op">-</span> alpha<span class="op">*</span>slope</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">1.00</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>x_sol <span class="op">=</span> <span class="fl">2.23</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> dummy <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">30</span>):</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    slope <span class="op">=</span> (<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)<span class="op">*</span>(x_sol<span class="op">-</span><span class="dv">2</span>) <span class="co"># f'(x) = 1/2*(x-2)</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    x_sol <span class="op">=</span> x_sol <span class="op">-</span> alpha<span class="op">*</span>slope</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>① <span class="math inline">\(f'(x)\)</span>의 공식을 모를 수도 있기 때문</p>
 <p>② 컴퓨터가 분수 계산을 못하기 때문</p>
 <p><strong>[문제 6]</strong> 미분 공식을 모를 때 미분계수 <span class="math inline">\(f'(x_{sol})\)</span>을 근사하는 방법은?</p>
@@ -316,11 +407,11 @@ window.Quarto = {
 <p>① <span class="math inline">\(\lim_{h\to 0}\frac{f(x_{sol}+h, y_{sol})-f(x_{sol}, y_{sol})}{h}\)</span>를 첫 번째 원소로, <span class="math inline">\(\lim_{h\to 0}\frac{f(x_{sol}, y_{sol}+h)-f(x_{sol}, y_{sol})}{h}\)</span>를 두 번째 원소로 하는 벡터</p>
 <p>② 함수 <span class="math inline">\(f\)</span>가 최댓값을 갖는 점의 좌표를 나타내는 벡터</p>
 <p><strong>[문제 8]</strong> 아래의 알고리즘에 대한 설명으로 올바른 것은?</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> dummy <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    x_grad <span class="op">=</span> (f(x_sol<span class="op">+</span><span class="fl">0.01</span>, y_sol) <span class="op">-</span> f(x_sol,y_sol))<span class="op">/</span><span class="fl">0.01</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    x_sol <span class="op">=</span> x_sol <span class="op">-</span> alpha <span class="op">*</span> x_grad</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    y_grad <span class="op">=</span> (f(x_sol, y_sol<span class="op">+</span><span class="fl">0.01</span>) <span class="op">-</span> f(x_sol,y_sol))<span class="op">/</span><span class="fl">0.01</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    y_sol <span class="op">=</span> y_sol <span class="op">-</span> alpha <span class="op">*</span> y_grad</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> dummy <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    x_grad <span class="op">=</span> (f(x_sol<span class="op">+</span><span class="fl">0.01</span>, y_sol) <span class="op">-</span> f(x_sol,y_sol))<span class="op">/</span><span class="fl">0.01</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    x_sol <span class="op">=</span> x_sol <span class="op">-</span> alpha <span class="op">*</span> x_grad</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    y_grad <span class="op">=</span> (f(x_sol, y_sol<span class="op">+</span><span class="fl">0.01</span>) <span class="op">-</span> f(x_sol,y_sol))<span class="op">/</span><span class="fl">0.01</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    y_sol <span class="op">=</span> y_sol <span class="op">-</span> alpha <span class="op">*</span> y_grad</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>① <span class="math inline">\(x\)</span>와 <span class="math inline">\(y\)</span>를 동시에 업데이트하므로 경사하강법이다</p>
 <p>② <span class="math inline">\(x\)</span>를 먼저 업데이트한 후 변경된 <span class="math inline">\(x\)</span> 값을 이용하여 <span class="math inline">\(y\)</span>를 업데이트하므로 경사하강법이 아니다</p>
 <p><strong>[문제 9]</strong> 강의노트에서 2차원 최적화를 위한 두 알고리즘을 비교했다. 알고리즘1은 <span class="math inline">\((x_{sol}, y_{sol})\)</span> 주변 9개 점을 모두 조사하고, 알고리즘2는 <span class="math inline">\(x\)</span>와 <span class="math inline">\(y\)</span> 축 방향으로만 조사한다. 알고리즘2가 더 실용적인 이유는?</p>
