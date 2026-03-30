@@ -1,2 +1,4 @@
 /.quarto/
 /secret/
+
+**/*.quarto_ipynb

@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/Quiz7.html",
       "/posts/Quiz6.html",
       "/posts/03wk.html",
       "/posts/Quiz5.html",
@@ -11,8 +12,9 @@
       "/posts/Quiz2.html",
       "/posts/01wk.html",
       "/posts/Quiz1.html",
-      "/posts/A3.html",
       "/posts/A2.html",
+      "/posts/A3.html",
+      "/posts/02wk-2.html",
       "/posts/01wk-2.html",
       "/posts/A1.html"
     ]

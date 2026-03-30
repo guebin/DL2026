@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="최규빈">
-<meta name="dcterms.date" content="2026-03-16">
+<meta name="dcterms.date" content="2026-03-30">
 
-<title>Quiz-3 (2026.03.16) // 범위: ~01wk – DL2026</title>
+<title>Quiz-7 (2026.03.30) // 범위: ~03wk – DL2026</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,41 +21,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -182,7 +147,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#연립1차방정식과-torch를-이용한-풀이" id="toc-연립1차방정식과-torch를-이용한-풀이" class="nav-link active" data-scroll-target="#연립1차방정식과-torch를-이용한-풀이">1. 연립1차방정식과 torch를 이용한 풀이</a></li>
+  <li><a href="#알고리즘" id="toc-알고리즘" class="nav-link active" data-scroll-target="#알고리즘">1. 알고리즘</a></li>
   </ul>
 </nav>
     </div>
@@ -191,7 +156,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Quiz-3 (2026.03.16) // 범위: ~01wk</h1>
+<h1 class="title">Quiz-7 (2026.03.30) // 범위: ~03wk</h1>
 </div>
 
 
@@ -208,7 +173,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 16, 2026</p>
+      <p class="date">March 30, 2026</p>
     </div>
   </div>
   
@@ -220,100 +185,51 @@ window.Quarto = {
 </header>
 
 
-<section id="연립1차방정식과-torch를-이용한-풀이" class="level2">
-<h2 class="anchored" data-anchor-id="연립1차방정식과-torch를-이용한-풀이">1. 연립1차방정식과 torch를 이용한 풀이</h2>
-<p><code>(1)</code> 다음 연립방정식을 <code>torch</code>를 이용하여 풀어라.</p>
-<p><span class="math display">\[
-\begin{cases}
-x+y+z=6 \\
-2x-y+3z=11 \\
-3x+2y-z=7
-\end{cases}
-\]</span></p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<section id="알고리즘" class="level2">
+<h2 class="anchored" data-anchor-id="알고리즘">1. 알고리즘</h2>
+<p>강의노트에 소개된 아래의 두 알고리즘을 비교하자.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>정답 보기
+Important
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>행렬을 이용하여 위의 식을 표현하면 아래와 같다.</p>
-<p><span class="math display">\[
-\begin{bmatrix}
-1 &amp; 1 &amp; 1 \\
-2 &amp; -1 &amp; 3 \\
-3 &amp; 2 &amp; -1
-\end{bmatrix}
-\begin{bmatrix}
-x \\ y \\ z
-\end{bmatrix}
-=
-\begin{bmatrix}
-6 \\ 11 \\ 7
-\end{bmatrix}
-\]</span></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.tensor([[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>],[<span class="dv">2</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">3</span>],[<span class="dv">3</span>,<span class="dv">2</span>,<span class="op">-</span><span class="dv">1</span>]]).<span class="bu">float</span>()</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> torch.tensor([[<span class="dv">6</span>],[<span class="dv">11</span>],[<span class="dv">7</span>]]).<span class="bu">float</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>torch.linalg.inv(a) <span class="op">@</span> b</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>tensor([[<span class="fl">2.3846</span>],</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>        [<span class="fl">1.1538</span>],</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        [<span class="fl">2.4615</span>]])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>-</code> 차원이 높아져서 당환스럽지만, 아래의 방식으로 알고리즘을 설계하면 최소값을 잘 찾을 것 같다.</p>
+<ol type="1">
+<li>아무값이나 <span class="math inline">\(x_{sol},y_{sol}\)</span>이라 주장한다.</li>
+<li>1에서 선택한 <span class="math inline">\((x_{sol},y_{sol})\)</span>근처의 값을 조사한다. 즉 아래의 값들을 조사한다.그리고 가장 <span class="math inline">\(f(x,y)\)</span>를 작게만드는 값으로 update를 함.
+<ul>
+<li><span class="math inline">\((x_{sol},y_{sol}-0.1)\)</span></li>
+<li><span class="math inline">\((x_{sol}-0.1,y_{sol}-0.1)\)</span></li>
+<li><span class="math inline">\((x_{sol}+0.1,y_{sol}-0.1)\)</span></li>
+<li><span class="math inline">\((x_{sol},y_{sol})\)</span></li>
+<li><span class="math inline">\((x_{sol}-0.1,y_{sol})\)</span></li>
+<li><span class="math inline">\((x_{sol}+0.1,y_{sol})\)</span></li>
+<li><span class="math inline">\((x_{sol},y_{sol}+0.1)\)</span></li>
+<li><span class="math inline">\((x_{sol}-0.1,y_{sol}+0.1)\)</span></li>
+<li><span class="math inline">\((x_{sol}+0.1,y_{sol}+0.1)\)</span></li>
+</ul></li>
+<li>2에서 업데이트된 <span class="math inline">\((x_{sol}',y_{sol}')\)</span>을 다시 1의 <span class="math inline">\((x_{sol},y_{sol})\)</span>로 해석하고 1-2를 반복한다.</li>
+</ol>
+<p><code>-</code> 위의 방식과 다르지만 아래의 방식도 가능할 것 같다.</p>
+<ol type="1">
+<li>아무값이나 <span class="math inline">\(x_{sol},y_{sol}\)</span>이라 주장한다.</li>
+<li>1에서 선택한 <span class="math inline">\((x_{sol},y_{sol})\)</span>에 대하여 다음을 수행한다.
+<ul>
+<li><span class="math inline">\(f(x_{sol}-0.1, y_{sol}), f(x_{sol},y_{sol}), f(x_{sol}+0.1,y_{sol})\)</span>를 비교하여 <span class="math inline">\(x\)</span>의 이동방향을 결정한다.</li>
+<li><span class="math inline">\(f(x_{sol}, y_{sol}-0.1), f(x_{sol},y_{sol}), f(x_{sol},y_{sol}+0.1)\)</span>를 비교하여 <span class="math inline">\(y\)</span>의 이동방향을 결정한다.</li>
+<li>결정된 방향으로 동시에 이동하여 <span class="math inline">\(x_{sol},y_{sol}\)</span>을 update한다.</li>
+</ul></li>
+<li>2에서 업데이트된 <span class="math inline">\((x_{sol}',y_{sol}')\)</span>을 다시 1의 <span class="math inline">\((x_{sol},y_{sol})\)</span>로 해석하고 1-2를 반복한다.</li>
+</ol>
 </div>
 </div>
-</div>
-<p><code>(2)</code> 다음 연립방정식을 <code>torch</code>를 이용하여 풀어라.</p>
-<p><span class="math display">\[
-\begin{cases}
-2x+y-z=1 \\
--x+3y+2z=12 \\
-3x-y+z=0
-\end{cases}
-\]</span></p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>정답 보기
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>행렬을 이용하여 위의 식을 표현하면 아래와 같다.</p>
-<p><span class="math display">\[
-\begin{bmatrix}
-2 &amp; 1 &amp; -1 \\
--1 &amp; 3 &amp; 2 \\
-3 &amp; -1 &amp; 1
-\end{bmatrix}
-\begin{bmatrix}
-x \\ y \\ z
-\end{bmatrix}
-=
-\begin{bmatrix}
-1 \\ 12 \\ 0
-\end{bmatrix}
-\]</span></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> torch.tensor([[<span class="dv">2</span>,<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>],[<span class="op">-</span><span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>],[<span class="dv">3</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>]]).<span class="bu">float</span>()</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> torch.tensor([[<span class="dv">1</span>],[<span class="dv">12</span>],[<span class="dv">0</span>]]).<span class="bu">float</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>torch.linalg.inv(a) <span class="op">@</span> b</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>tensor([[<span class="fl">0.2000</span>],</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>        [<span class="fl">2.6800</span>],</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        [<span class="fl">2.0800</span>]])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</div>
+<p><code>(1)</code> 두 알고리즘이 다른 결과를 주는 경우를 찾아라.</p>
+<p><code>(2)</code> <span class="math inline">\(f(x,y)\)</span>가 아래로 볼록한 모양이면 (즉 <span class="math inline">\(f(x,y)\)</span>가 convex function 이면) 두 알고리즘은 항상 같은 결과를 주는가? 같은결과를 준다고 생가하면 이유를 쓰고, 다른 결과를 준다고 생각하면 그 예를 구체적으로 잡아라 (즉 <span class="math inline">\(f(x,y)\)</span>의 수식자체를 구체적으로 잡을 것)</p>
 
 
 </section>
