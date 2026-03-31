@@ -182,18 +182,39 @@
     "text": "강의노트에 소개된 아래의 두 알고리즘을 비교하자.\n\n\n\n\n\n\nImportant\n\n\n\n- 차원이 높아져서 당환스럽지만, 아래의 방식으로 알고리즘을 설계하면 최소값을 잘 찾을 것 같다.\n\n아무값이나 \\(x_{sol},y_{sol}\\)이라 주장한다.\n1에서 선택한 \\((x_{sol},y_{sol})\\)근처의 값을 조사한다. 즉 아래의 값들을 조사한다.그리고 가장 \\(f(x,y)\\)를 작게만드는 값으로 update를 함.\n\n\\((x_{sol},y_{sol}-0.1)\\)\n\\((x_{sol}-0.1,y_{sol}-0.1)\\)\n\\((x_{sol}+0.1,y_{sol}-0.1)\\)\n\\((x_{sol},y_{sol})\\)\n\\((x_{sol}-0.1,y_{sol})\\)\n\\((x_{sol}+0.1,y_{sol})\\)\n\\((x_{sol},y_{sol}+0.1)\\)\n\\((x_{sol}-0.1,y_{sol}+0.1)\\)\n\\((x_{sol}+0.1,y_{sol}+0.1)\\)\n\n2에서 업데이트된 \\((x_{sol}',y_{sol}')\\)을 다시 1의 \\((x_{sol},y_{sol})\\)로 해석하고 1-2를 반복한다.\n\n- 위의 방식과 다르지만 아래의 방식도 가능할 것 같다.\n\n아무값이나 \\(x_{sol},y_{sol}\\)이라 주장한다.\n1에서 선택한 \\((x_{sol},y_{sol})\\)에 대하여 다음을 수행한다.\n\n\\(f(x_{sol}-0.1, y_{sol}), f(x_{sol},y_{sol}), f(x_{sol}+0.1,y_{sol})\\)를 비교하여 \\(x\\)의 이동방향을 결정한다.\n\\(f(x_{sol}, y_{sol}-0.1), f(x_{sol},y_{sol}), f(x_{sol},y_{sol}+0.1)\\)를 비교하여 \\(y\\)의 이동방향을 결정한다.\n결정된 방향으로 동시에 이동하여 \\(x_{sol},y_{sol}\\)을 update한다.\n\n2에서 업데이트된 \\((x_{sol}',y_{sol}')\\)을 다시 1의 \\((x_{sol},y_{sol})\\)로 해석하고 1-2를 반복한다.\n\n\n\n(1) 두 알고리즘이 다른 결과를 주는 경우를 찾아라.\n(2) \\(f(x,y)\\)가 아래로 볼록한 모양이면 (즉 \\(f(x,y)\\)가 convex function 이면) 두 알고리즘은 항상 같은 결과를 주는가? 같은결과를 준다고 생가하면 이유를 쓰고, 다른 결과를 준다고 생각하면 그 예를 구체적으로 잡아라 (즉 \\(f(x,y)\\)의 수식자체를 구체적으로 잡을 것)"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "딥러닝 (2026)",
-    "section": "",
-    "text": "질문하는 방법\n\n이메일: guebin@jbnu.ac.kr\n직접방문: 자연과학대학 본관 205호\nZoom: 이메일로 미리 시간을 정할 것\n\n강의노트\n\n\n\n\n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\nAuthor\n\n\n\n\n\n\n\n\nMar 30, 2026\n\n\n04wk: 파이토치식 코딩패턴\n\n\n최규빈 \n\n\n\n\n\n\nMar 30, 2026\n\n\nQuiz-7 (2026.03.30) // 범위: ~03wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 25, 2026\n\n\nQuiz-6 (2026.03.25) // 범위: ~03wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 23, 2026\n\n\n03wk: 경사하강법, 회귀분석\n\n\n최규빈 \n\n\n\n\n\n\nMar 23, 2026\n\n\nQuiz-5 (2026.03.23) // 범위: ~02wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 18, 2026\n\n\nQuiz-4 (2026.03.18) // 범위: ~02wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 16, 2026\n\n\n02wk: torch (2)\n\n\n최규빈 \n\n\n\n\n\n\nMar 16, 2026\n\n\nQuiz-3 (2026.03.16) // 범위: ~01wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 10, 2026\n\n\nQuiz-2 (2026.03.10) // 범위: ~01wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 9, 2026\n\n\n01wk: torch (1)\n\n\n최규빈 \n\n\n\n\n\n\nMar 9, 2026\n\n\nQuiz-1 (2026.03.09) // 범위: 벡터와 행렬\n\n\n최규빈 \n\n\n\n\n\n\nMar 5, 2026\n\n\nA2: 벡터와 행렬\n\n\n최규빈 \n\n\n\n\n\n\nMar 5, 2026\n\n\nA3: matploblib 기본\n\n\n최규빈 \n\n\n\n\n\n\nMar 4, 2025\n\n\nA1: 강의소개\n\n\n최규빈 \n\n\n\n\n\n\nNo matching items"
-  },
-  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
     "section": "",
     "text": "About this blog"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "딥러닝 (2026)",
+    "section": "",
+    "text": "질문하는 방법\n\n이메일: guebin@jbnu.ac.kr\n직접방문: 자연과학대학 본관 205호\nZoom: 이메일로 미리 시간을 정할 것\n\n강의노트\n\n\n\n\n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\nAuthor\n\n\n\n\n\n\n\n\nMar 30, 2026\n\n\n04wk: 파이토치식 코딩패턴\n\n\n최규빈 \n\n\n\n\n\n\nMar 30, 2026\n\n\nQuiz-7 (2026.03.30) // 범위: ~03wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 25, 2026\n\n\nQuiz-6 (2026.03.25) // 범위: ~03wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 23, 2026\n\n\n03wk: 경사하강법, 회귀분석\n\n\n최규빈 \n\n\n\n\n\n\nMar 23, 2026\n\n\nQuiz-5 (2026.03.23) // 범위: ~02wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 18, 2026\n\n\nQuiz-4 (2026.03.18) // 범위: ~02wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 16, 2026\n\n\n02wk: torch (2)\n\n\n최규빈 \n\n\n\n\n\n\nMar 16, 2026\n\n\nQuiz-3 (2026.03.16) // 범위: ~01wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 10, 2026\n\n\nQuiz-2 (2026.03.10) // 범위: ~01wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 9, 2026\n\n\n01wk: torch (1)\n\n\n최규빈 \n\n\n\n\n\n\nMar 9, 2026\n\n\nQuiz-1 (2026.03.09) // 범위: 벡터와 행렬\n\n\n최규빈 \n\n\n\n\n\n\nMar 5, 2026\n\n\nA4: 벡터미분\n\n\n최규빈 \n\n\n\n\n\n\nMar 5, 2026\n\n\nA3: matploblib 기본\n\n\n최규빈 \n\n\n\n\n\n\nMar 5, 2026\n\n\nA2: 벡터와 행렬\n\n\n최규빈 \n\n\n\n\n\n\nMar 4, 2025\n\n\nA1: 강의소개\n\n\n최규빈 \n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/A4.html",
+    "href": "posts/A4.html",
+    "title": "A4: 벡터미분",
+    "section": "",
+    "text": "아래와 같은 선형모형이 있다고 가정하자.\n\\[{\\bf y}={\\bf X}{\\boldsymbol \\beta} + {\\boldsymbol \\epsilon}\\]\n이러한 모형에 대하여 아래와 같이 손실함수를 정의하자.\n\\[loss({\\boldsymbol \\beta}) = ({\\bf y} - {\\bf X}{\\boldsymbol \\beta})^\\top({\\bf y} - {\\bf X}{\\boldsymbol \\beta}) \\]\n이때 손실함수의 미분값을 아래와 같이 주어지고,\n\\[\\frac{\\partial}{\\partial {\\boldsymbol \\beta}}loss({\\boldsymbol \\beta}) = -2{\\bf X}^\\top{\\bf y}+2{\\bf X}^\\top{\\bf X}{\\boldsymbol \\beta}\\]\n따라서 손실함수를 최소화하는 추정량이 아래와 같이 주어짐을 보여라.\n\\[\\hat{\\boldsymbol \\beta} = ({\\bf X}^\\top {\\bf X})^{-1}{\\bf X}^\\top{\\bf y}\\]"
+  },
+  {
+    "objectID": "posts/A4.html#a.-해결하고-싶은것",
+    "href": "posts/A4.html#a.-해결하고-싶은것",
+    "title": "A4: 벡터미분",
+    "section": "",
+    "text": "아래와 같은 선형모형이 있다고 가정하자.\n\\[{\\bf y}={\\bf X}{\\boldsymbol \\beta} + {\\boldsymbol \\epsilon}\\]\n이러한 모형에 대하여 아래와 같이 손실함수를 정의하자.\n\\[loss({\\boldsymbol \\beta}) = ({\\bf y} - {\\bf X}{\\boldsymbol \\beta})^\\top({\\bf y} - {\\bf X}{\\boldsymbol \\beta}) \\]\n이때 손실함수의 미분값을 아래와 같이 주어지고,\n\\[\\frac{\\partial}{\\partial {\\boldsymbol \\beta}}loss({\\boldsymbol \\beta}) = -2{\\bf X}^\\top{\\bf y}+2{\\bf X}^\\top{\\bf X}{\\boldsymbol \\beta}\\]\n따라서 손실함수를 최소화하는 추정량이 아래와 같이 주어짐을 보여라.\n\\[\\hat{\\boldsymbol \\beta} = ({\\bf X}^\\top {\\bf X})^{-1}{\\bf X}^\\top{\\bf y}\\]"
+  },
+  {
+    "objectID": "posts/A4.html#b.-해설강의-및-보충자료",
+    "href": "posts/A4.html#b.-해설강의-및-보충자료",
+    "title": "A4: 벡터미분",
+    "section": "B. 해설강의 및 보충자료",
+    "text": "B. 해설강의 및 보충자료\n\nhttps://github.com/guebin/DL2024/blob/main/posts/02wksupp.pdf"
   },
   {
     "objectID": "posts/Quiz4.html#차원과-shape",

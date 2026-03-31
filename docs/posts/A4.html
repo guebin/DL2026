@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="최규빈">
+<meta name="dcterms.date" content="2026-03-05">
 
-<title>딥러닝 (2026) – DL2026</title>
+<title>A4: 벡터미분 – DL2026</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,26 +25,24 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-3bbbbd466991e281563892c5dce73c3d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-c9977d45a3686ad219da56a32de8e67a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,35 +70,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -130,7 +101,7 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -140,7 +111,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">DL2026</span>
     </a>
   </div>
@@ -168,25 +139,44 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(15)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#a.-해결하고-싶은것" id="toc-a.-해결하고-싶은것" class="nav-link active" data-scroll-target="#a.-해결하고-싶은것">A. 해결하고 싶은것</a></li>
+  <li><a href="#b.-해설강의-및-보충자료" id="toc-b.-해설강의-및-보충자료" class="nav-link" data-scroll-target="#b.-해설강의-및-보충자료">B. 해설강의 및 보충자료</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content column-page-left" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">딥러닝 (2026)</h1>
+<h1 class="title"><em>A4: 벡터미분</em></h1>
 </div>
 
 
 
-<div class="quarto-title-meta column-page-left">
+<div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>최규빈 </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 5, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -196,237 +186,26 @@ window.Quarto = {
 </header>
 
 
-<p><strong>질문하는 방법</strong></p>
-<ul>
-<li>이메일: <a href="mailto:guebin@jbnu.ac.kr" class="email">guebin@jbnu.ac.kr</a></li>
-<li>직접방문: 자연과학대학 본관 205호</li>
-<li>Zoom: <em>이메일로 미리 시간을 정할 것</em></li>
-</ul>
-<p><strong>강의노트</strong></p>
+<section id="a.-해결하고-싶은것" class="level2">
+<h2 class="anchored" data-anchor-id="a.-해결하고-싶은것">A. 해결하고 싶은것</h2>
+<p>아래와 같은 선형모형이 있다고 가정하자.</p>
+<p><span class="math display">\[{\bf y}={\bf X}{\boldsymbol \beta} + {\boldsymbol \epsilon}\]</span></p>
+<p>이러한 모형에 대하여 아래와 같이 손실함수를 정의하자.</p>
+<p><span class="math display">\[loss({\boldsymbol \beta}) = ({\bf y} - {\bf X}{\boldsymbol \beta})^\top({\bf y} - {\bf X}{\boldsymbol \beta}) \]</span></p>
+<p>이때 손실함수의 미분값을 아래와 같이 주어지고,</p>
+<p><span class="math display">\[\frac{\partial}{\partial {\boldsymbol \beta}}loss({\boldsymbol \beta}) = -2{\bf X}^\top{\bf y}+2{\bf X}^\top{\bf X}{\boldsymbol \beta}\]</span></p>
+<p>따라서 손실함수를 최소화하는 추정량이 아래와 같이 주어짐을 보여라.</p>
+<p><span class="math display">\[\hat{\boldsymbol \beta} = ({\bf X}^\top {\bf X})^{-1}{\bf X}^\top{\bf y}\]</span></p>
+</section>
+<section id="b.-해설강의-및-보충자료" class="level2">
+<h2 class="anchored" data-anchor-id="b.-해설강의-및-보충자료">B. 해설강의 및 보충자료</h2>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/playlist?list=PLQqh36zP38-zPLHXfSQ1xtloXmczqwzod&amp;si=zZ7bvAQEPVRGthhk" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<p><a href="https://github.com/guebin/DL2024/blob/main/posts/02wksupp.pdf" class="uri">https://github.com/guebin/DL2024/blob/main/posts/02wksupp.pdf</a></p>
 
 
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-table" id="listing-listing">
-<table class="quarto-listing-table table">
-<thead>
-<tr>
-
-<th>
-Date
-</th>
-
-<th>
-Title
-</th>
-
-<th>
-Author
-</th>
-
-</tr>
-</thead>
-<tbody class="list">
-
-<tr data-index="0" data-listing-date-sort="1774843200000" data-listing-file-modified-sort="1774844942670" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="572" data-listing-title-sort="**04wk: 파이토치식 코딩패턴**" data-listing-filename-sort="04wk.ipynb">
-<td>
-<span class="listing-date">Mar 30, 2026</span>
-</td>
-<td>
-<a href="./posts/04wk.html" class="title listing-title"><strong>04wk: 파이토치식 코딩패턴</strong></a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-
-</tr>
-
-<tr data-index="1" data-listing-date-sort="1774796400000" data-listing-file-modified-sort="1774835591722" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="194" data-listing-title-sort="Quiz-7 (2026.03.30) // 범위: ~03wk" data-listing-filename-sort="Quiz7.qmd">
-<td>
-<span class="listing-date">Mar 30, 2026</span>
-</td>
-<td>
-<a href="./posts/Quiz7.html" class="title listing-title">Quiz-7 (2026.03.30) // 범위: ~03wk</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-
-</tr>
-
-<tr data-index="2" data-listing-date-sort="1774364400000" data-listing-file-modified-sort="1774410592000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="878" data-listing-title-sort="Quiz-6 (2026.03.25) // 범위: ~03wk" data-listing-filename-sort="Quiz6.ipynb">
-<td>
-<span class="listing-date">Mar 25, 2026</span>
-</td>
-<td>
-<a href="./posts/Quiz6.html" class="title listing-title">Quiz-6 (2026.03.25) // 범위: ~03wk</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-
-</tr>
-
-<tr data-index="3" data-listing-date-sort="1774238400000" data-listing-file-modified-sort="1774813516000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1145" data-listing-title-sort="**03wk: 경사하강법, 회귀분석**" data-listing-filename-sort="03wk.ipynb">
-<td>
-<span class="listing-date">Mar 23, 2026</span>
-</td>
-<td>
-<a href="./posts/03wk.html" class="title listing-title"><strong>03wk: 경사하강법, 회귀분석</strong></a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-
-</tr>
-
-<tr data-index="4" data-listing-date-sort="1774191600000" data-listing-file-modified-sort="1774244926000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="200" data-listing-title-sort="Quiz-5 (2026.03.23) // 범위: ~02wk" data-listing-filename-sort="Quiz5.qmd">
-<td>
-<span class="listing-date">Mar 23, 2026</span>
-</td>
-<td>
-<a href="./posts/Quiz5.html" class="title listing-title">Quiz-5 (2026.03.23) // 범위: ~02wk</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-
-</tr>
-
-<tr data-index="5" data-listing-date-sort="1773799200000" data-listing-file-modified-sort="1773810747000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="908" data-listing-title-sort="Quiz-4 (2026.03.18) // 범위: ~02wk" data-listing-filename-sort="Quiz4.qmd">
-<td>
-<span class="listing-date">Mar 18, 2026</span>
-</td>
-<td>
-<a href="./posts/Quiz4.html" class="title listing-title">Quiz-4 (2026.03.18) // 범위: ~02wk</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-
-</tr>
-
-<tr data-index="6" data-listing-date-sort="1773633600000" data-listing-file-modified-sort="1773805270000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="711" data-listing-title-sort="**02wk: `torch` (2)**" data-listing-filename-sort="02wk.ipynb">
-<td>
-<span class="listing-date">Mar 16, 2026</span>
-</td>
-<td>
-<a href="./posts/02wk.html" class="title listing-title"><strong>02wk: <code>torch</code> (2)</strong></a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-
-</tr>
-
-<tr data-index="7" data-listing-date-sort="1773626400000" data-listing-file-modified-sort="1773798167000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="125" data-listing-title-sort="Quiz-3 (2026.03.16) // 범위: ~01wk" data-listing-filename-sort="Quiz3.qmd">
-<td>
-<span class="listing-date">Mar 16, 2026</span>
-</td>
-<td>
-<a href="./posts/Quiz3.html" class="title listing-title">Quiz-3 (2026.03.16) // 범위: ~01wk</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-
-</tr>
-
-<tr data-index="8" data-listing-date-sort="1773108000000" data-listing-file-modified-sort="1773798167000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="953" data-listing-title-sort="Quiz-2 (2026.03.10) // 범위: ~01wk" data-listing-filename-sort="Quiz2.qmd">
-<td>
-<span class="listing-date">Mar 10, 2026</span>
-</td>
-<td>
-<a href="./posts/Quiz2.html" class="title listing-title">Quiz-2 (2026.03.10) // 범위: ~01wk</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-
-</tr>
-
-<tr data-index="9" data-listing-date-sort="1773028800000" data-listing-file-modified-sort="1773798167000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="272" data-listing-title-sort="**01wk: `torch` (1)**" data-listing-filename-sort="01wk.ipynb">
-<td>
-<span class="listing-date">Mar 9, 2026</span>
-</td>
-<td>
-<a href="./posts/01wk.html" class="title listing-title"><strong>01wk: <code>torch</code> (1)</strong></a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-
-</tr>
-
-<tr data-index="10" data-listing-date-sort="1773021600000" data-listing-file-modified-sort="1773798167000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="784" data-listing-title-sort="Quiz-1 (2026.03.09) // 범위: 벡터와 행렬" data-listing-filename-sort="Quiz1.qmd">
-<td>
-<span class="listing-date">Mar 9, 2026</span>
-</td>
-<td>
-<a href="./posts/Quiz1.html" class="title listing-title">Quiz-1 (2026.03.09) // 범위: 벡터와 행렬</a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-
-</tr>
-
-<tr data-index="11" data-listing-date-sort="1772647200000" data-listing-file-modified-sort="1774929900111" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="73" data-listing-title-sort="*A4: 벡터미분*" data-listing-filename-sort="A4.ipynb">
-<td>
-<span class="listing-date">Mar 5, 2026</span>
-</td>
-<td>
-<a href="./posts/A4.html" class="title listing-title"><em>A4: 벡터미분</em></a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-
-</tr>
-
-<tr data-index="12" data-listing-date-sort="1772643600000" data-listing-file-modified-sort="1774929802328" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="251" data-listing-title-sort="*A3: `matploblib` 기본*" data-listing-filename-sort="A3.ipynb">
-<td>
-<span class="listing-date">Mar 5, 2026</span>
-</td>
-<td>
-<a href="./posts/A3.html" class="title listing-title"><em>A3: <code>matploblib</code> 기본</em></a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-
-</tr>
-
-<tr data-index="13" data-listing-date-sort="1772640000000" data-listing-file-modified-sort="1774929788248" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="2" data-listing-title-sort="*A2: 벡터와 행렬*" data-listing-filename-sort="A2.ipynb">
-<td>
-<span class="listing-date">Mar 5, 2026</span>
-</td>
-<td>
-<a href="./posts/A2.html" class="title listing-title"><em>A2: 벡터와 행렬</em></a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-
-</tr>
-
-<tr data-index="14" data-listing-date-sort="1741014000000" data-listing-file-modified-sort="1774929778875" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="2" data-listing-title-sort="*A1: 강의소개*" data-listing-filename-sort="A1.ipynb">
-<td>
-<span class="listing-date">Mar 4, 2025</span>
-</td>
-<td>
-<a href="./posts/A1.html" class="title listing-title"><em>A1: 강의소개</em></a>
-</td>
-<td>
-<span class="listing-author">최규빈 </span>
-</td>
-
-</tr>
-
-</tbody>
-</table>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
