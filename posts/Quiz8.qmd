@@ -2,7 +2,7 @@
 title: "Quiz-8 (2026.04.01) // 범위: ~04wk"
 author: "최규빈"
 date: "04/01/2026"
-draft: false
+draft: true
 ---
 
 ## 1. 파이토치를 이용한 미분
