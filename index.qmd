@@ -19,6 +19,6 @@ title-block-banner: false
 
 **공지영상**
 
-- [공지1 - 2026.04.01](https://youtu.be/rgHV_ecG0IQ)
+- [공지영상1 - 2026.04.01](https://youtu.be/rgHV_ecG0IQ)
 
 **강의노트** 
