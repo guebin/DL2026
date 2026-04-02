@@ -46,6 +46,13 @@ y.backward()
 x1.grad, x2.grad
 ```
 
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+**정답:** (a), (b), (c) // (d)는 `requires_grad=True`를 쓰지 않아서 틀렸음. 
+
+:::
+
 `(2)` 다음 코드들 중 $z = 3(x+2)^2$ 에서 $\frac{dz}{dx}\Big|_{x=4}$ 를 올바르게 계산하는 코드를 모두 고르시오.
 
 **\(a\)**
@@ -83,9 +90,16 @@ y.backward()
 x.grad
 ```
 
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+**정답:** (a), (b) // (c),(d)가 오답인 이유는 y를 x로 미분하였기 때문. 
+
+:::
+
 ## 2. 코드 오류 찾기
 
-`(1)` 다음 코드는 $f'(3)$과 $f'(5)$를 계산하려는 코드이다. 코드의 문제점을 설명하라. 
+`(1)` 다음 코드는 $f'(3)$과 $f'(5)$를 계산하려는 코드이다. 코드의 문제점을 설명하라.
 
 ```python
 def f(x):
@@ -101,6 +115,13 @@ y = x**2
 y.backward()
 print(f"f'(5) = {x.grad}")
 ```
+
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+gradient 값을 초기화 하지 않음. 
+
+:::
 
 `(2)` 다음 코드는 회귀분석에서 $\hat{\bf w}$ 을 경사하강법으로 구하는 코드이다. 코드의 문제점을 설명하라.
 
@@ -122,6 +143,13 @@ for epoch in range(30):
     loss.backward()
     What.data = What.data - 0.1 * What.grad
 ```
+
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+gradient 값을 초기화 하지 않음. 
+
+:::
 
 `(3)` 다음 코드는 회귀분석에서 파라미터를 업데이트하는 코드이다. 코드의 문제점을 설명하라.
 
@@ -146,6 +174,13 @@ for epoch in range(30):
     loss.backward()
     optimizer.step()
 ```
+
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+gradient 값을 초기화 하지 않음. 
+
+:::
 
 ## 3. 똑같은 코드 찾기 ($\star$)
 
@@ -179,7 +214,7 @@ for epoch in range(30):
 
 아래 각 문항의 코드가 위의 코드와 **같은 결과**를 출력하도록 물음표(`???`)를 채우시오.
 
-`(1)` 
+`(1)`
 
 ```python
 What = torch.tensor([[-5.00],[10.00]], requires_grad=True)
@@ -191,6 +226,22 @@ for epoch in range(30):
     ???
     What.grad = None
 ```
+
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+```python
+What = torch.tensor([[-5.00],[10.00]], requires_grad=True)
+#---#
+for epoch in range(30):
+    Yhat = X @ What
+    loss = torch.sum((Y - Yhat)**2)
+    loss.backward()
+    What.data = What.data - 0.001 * What.grad
+    What.grad = None
+```
+
+:::
 
 `(2)` -- hint: `SSE` 에서 `MSE`로 손실이 바뀔때 학습률을 어떻게 보정해야 같은 결과가 나올까요?
 
@@ -205,11 +256,27 @@ for epoch in range(30):
     What.grad = None
 ```
 
-`(3)` 
+::: {.callout-note collapse="true"}
+## 풀이 보기
 
 ```python
 What = torch.tensor([[-5.00],[10.00]], requires_grad=True)
-loss_fn = ???? 
+#---#
+for epoch in range(30):
+    Yhat = X @ What
+    loss = torch.mean((Y - Yhat)**2)
+    loss.backward()
+    What.data = What.data - 0.1 * What.grad
+    What.grad = None
+```
+
+:::
+
+`(3)`
+
+```python
+What = torch.tensor([[-5.00],[10.00]], requires_grad=True)
+loss_fn = ????
 #---#
 for epoch in range(30):
     Yhat = X @ What
@@ -218,6 +285,23 @@ for epoch in range(30):
     What.data = What.data - ???? * What.grad
     What.grad = None
 ```
+
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+```python
+What = torch.tensor([[-5.00],[10.00]], requires_grad=True)
+loss_fn = torch.nn.MSELoss()
+#---#
+for epoch in range(30):
+    Yhat = X @ What
+    loss = loss_fn(Yhat,Y)
+    loss.backward()
+    What.data = What.data - 0.1 * What.grad
+    What.grad = None
+```
+
+:::
 
 `(4)`
 
@@ -230,9 +314,27 @@ for epoch in range(30):
     Yhat = ???
     loss = loss_fn(Yhat, Y)
     loss.backward()
-    ?????????? 
+    ??????????
     ??????????
 ```
+
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+```python
+net = torch.nn.Linear(in_features=2, out_features=1, bias=False)
+net.weight.data = torch.tensor([[-5.00, 10.00]])
+loss_fn = torch.nn.MSELoss()
+#---#
+for epoch in range(30):
+    Yhat = net(X)
+    loss = loss_fn(Yhat, Y)
+    loss.backward()
+    net.weight.data = net.weight.data - 0.1 * net.weight.grad
+    net.weight.grad = None
+```
+
+:::
 
 `(5)`
 
@@ -250,13 +352,32 @@ for epoch in range(30):
     ???
 ```
 
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+```python
+net = torch.nn.Linear(in_features=2, out_features=1, bias=False)
+net.weight.data = torch.tensor([[-5.00, 10.00]])
+loss_fn = torch.nn.MSELoss()
+optimizer = torch.optim.SGD(net.parameters(), lr=0.1)
+#---#
+for epoch in range(30):
+    Yhat = net(X)
+    loss = loss_fn(Yhat, Y)
+    loss.backward()
+    optimizer.step()
+    optimizer.zero_grad()
+```
+
+:::
+
 
 `(6)`
 
 ```python
 net = torch.nn.Linear(in_features=???, out_features=???, bias=True)
 net.weight.data = ????
-net.bias.data = ???? 
+net.bias.data = ????
 loss_fn = torch.nn.MSELoss()
 optimizer = torch.optim.SGD(net.parameters(), lr=0.1)
 #---#
@@ -267,6 +388,26 @@ for epoch in range(30):
     optimizer.step()
     optimizer.zero_grad()
 ```
+
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+```python
+net = torch.nn.Linear(in_features=1, out_features=1, bias=True)
+net.weight.data = torch.tensor([[10.00]])
+net.bias.data = torch.tensor([-5.00])
+loss_fn = torch.nn.MSELoss()
+optimizer = torch.optim.SGD(net.parameters(), lr=0.1)
+#---#
+for epoch in range(30):
+    Yhat = net(X1)
+    loss = loss_fn(Yhat, Y)
+    loss.backward()
+    optimizer.step()
+    optimizer.zero_grad()
+```
+
+:::
 
 
 ## 4. ${\bf W}^\ast$를 추정하는 두 가지 방법
@@ -279,6 +420,12 @@ for epoch in range(30):
 
 **\(3\)** 경사하강법에서 loss를 SSE에서 MSE로 바꿀 때, 학습률을 샘플 수 $n$배 만큼 조절하면 정확히 같은 결과를 얻을 수 있다.
 
-**\(4\)** 경사하강법을 사용하면 벡터미분을 수행하여 해석해 공식을 유도하지 않아도 파라미터를 추정할 수 있다. 
+**\(4\)** 경사하강법을 사용하면 벡터미분을 수행하여 해석해 공식을 유도하지 않아도 파라미터를 추정할 수 있다.
 
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+**정답:** (1), (3), (4)
+
+:::
 
