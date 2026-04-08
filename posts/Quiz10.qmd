@@ -13,6 +13,17 @@ draft: false
 
 **보기:** $f(x+5)$, $f(x-5)$, $f(2x)$, $f(-x)$
 
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+**정답:**
+
+- **(A)** = $f(-x)$ : 좌우 대칭 (감소함수로 바뀜)
+- **(B)** = $f(x+5)$ : 왼쪽으로 5만큼 이동
+- **(C)** = $f(x-5)$ : 오른쪽으로 5만큼 이동
+- **(D)** = $f(2x)$ : 기울기가 더 가파름 (수평 방향으로 압축)
+
+:::
 
 `(2)` 시그모이드 함수 $\text{sig}(x) = \frac{e^x}{e^x+1}$ 에 대하여 다음 중 옳은 것을 모두 고르시오.
 
@@ -24,6 +35,12 @@ draft: false
 
 **\(d\)** 시그모이드 함수의 출력 범위는 $(0, 1)$ 이다.
 
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+**정답:** (a), (b), (d) // (c)는 $\text{sig}(x) \to 0$ 이므로 틀렸음.
+
+:::
 
 ## 2. 로지스틱 모델
 
@@ -41,6 +58,12 @@ $$\pi_i^\ast = \frac{\exp(w_0^\ast + w_1^\ast x_i)}{1+\exp(w_0^\ast + w_1^\ast x
 
 **\(d\)** 회귀분석에서는 $y_i$가 정규분포를 따른다고 가정하지만 로지스틱에서는 $y_i$가 베르누이를 따른다고 가정한다. 
 
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+**정답:** (a), (c), (d) // (b) $\hat{y}_i$의 값은 0과 1사이의 값이다. 
+
+:::
 
 `(2)` 다음은 로지스틱 모델의 데이터를 생성하는 코드이다. 빈칸 `???`에 들어갈 코드를 고르시오.
 
@@ -59,6 +82,12 @@ y = ???
 
 **\(b\)** `torch.normal(piast, 0.5)`
 
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+**정답:** (a) // 로지스틱 모델에서 $y_i$는 베르누이 분포를 따르므로 `torch.bernoulli`를 사용해야 함.
+
+:::
 
 ## 3. `torch.nn.Sequential`
 
@@ -78,6 +107,12 @@ net = torch.nn.Sequential(linr, sig)
 
 **\(d\)** `net[0](net[1](X))`
 
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+**정답:** (a), (c) // `Sequential`은 순서대로 `linr` → `sig`를 적용하므로 `sig(linr(X))`와 같음. (b), (d)는 순서가 반대임.
+
+:::
 
 `(2)` A와 같은 효과를 가지게 하기 위해 B코드를 작성하였다. 하지만 B코드는 잘못되었다. B코드의 문제점은? (B코드의 문제점을 지적하거나, 올바르게 고친코드를 제시하면 정답으로 인정)
 
@@ -100,6 +135,17 @@ net[1].weight.data = torch.tensor([[-0.3]])
 net[1].bias.data = torch.tensor([-0.8])
 ```
 
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+net[1]이 의미하는건 torch.nn.Sigmoid()이고, 여기에는 weight, bias와 같은 파라메터가 없다. 
+
+```python
+net[0].weight.data = torch.tensor([[-0.3]])
+net[0].bias.data = torch.tensor([-0.8])
+```
+
+:::
 
 
 ## 4. 로지스틱 모델링
@@ -120,6 +166,14 @@ _employed = torch.bernoulli(v)
 
 강의에서 방식2를 채택하였다. 방식1 대신 방식2를 사용하는 이유를 서술하시오.
 
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+데이터를 표현하는 측면에서는 방식1이나 방식2나 비슷하게 유리하다. 다만 방식1은 학습할 파라메터가 방식2보다 더 많고 (정규분포의 분산도 최적화해야하므로) 
+
+방식2는 시그모이드 + BCELoss 조합으로 학습할 수 있어 손실함수가 convex에 가까워 경사하강법으로 학습하기에 유리하다. 또한 $\log\frac{\pi^\ast}{1-\pi^\ast} = w_0^\ast + w_1^\ast x_i$ 와 같이 오즈(odds)의 해석이 가능하여 의미적으로도 장점이 있다. 
+
+:::
 
 `(2)` 다음은 로지스틱 모델을 학습하는 코드이다. 이 코드의 문제점을 서술하시오.
 
@@ -134,6 +188,12 @@ for epoch in range(100):
     linr.bias.grad = None
 ```
 
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+MSELoss를 손실함수로 사용하고 있다. 로지스틱 모델에서 MSELoss를 사용하면 손실함수가 아래로 볼록(convex)하지 않아서 초기값에 따라 학습이 잘 안 되거나 느려질 수 있다. BCELoss를 사용하면 손실함수가 convex에 가까워져 같은 epoch 수에서도 훨씬 더 잘 학습된다.
+
+:::
 
 ## 5. 똑같은 코드 찾기 ($\star$)
 
@@ -193,6 +253,14 @@ for epoch in range(5000):
     linr.bias.grad = None
 ```
 
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+```python
+sig = torch.nn.Sigmoid()
+```
+
+:::
 
 `(2)` -- hint: BCELoss 수식을 `loss_fn`으로 교체
 
@@ -216,6 +284,15 @@ for epoch in range(5000):
     linr.bias.grad = None
 ```
 
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+```python
+loss_fn = torch.nn.BCELoss()
+loss = loss_fn(Yhat, Y)
+```
+
+:::
 
 `(3)` -- hint: `optimizer`를 도입하여 수동 업데이트 + grad 초기화를 대체
 
@@ -238,6 +315,17 @@ for epoch in range(5000):
     ???
 ```
 
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+```python
+optimizer = torch.optim.SGD(linr.parameters(), lr=0.25)
+# for문 안:
+    optimizer.step()
+    optimizer.zero_grad()
+```
+
+:::
 
 `(4)` -- hint: `sig(linr(X))`를 `net(X)`로 바꾸기 위해 `torch.nn.Sequential` 사용
 
@@ -262,6 +350,19 @@ for epoch in range(5000):
     optimizer.zero_grad()
 ```
 
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+```python
+net = torch.nn.Sequential(
+    torch.nn.Linear(in_features=1, out_features=1),
+    torch.nn.Sigmoid()
+)
+net[0].weight.data = torch.tensor([[-0.3]])
+net[0].bias.data = torch.tensor([-0.8])
+```
+
+:::
 
 `(5)` -- hint: `linr`과 `sig`를 따로 선언한 뒤 `Sequential`로 묶기
 
@@ -285,6 +386,14 @@ for epoch in range(5000):
     optimizer.zero_grad()
 ```
 
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+```python
+net = torch.nn.Sequential(linr, sig)
+```
+
+:::
 
 
 ## 6. 회귀분석 vs 로지스틱
@@ -302,3 +411,18 @@ for epoch in range(5000):
 | $y_i \sim ??$ | **(F)** | **(G)** |
 | 손실함수 | MSELoss | **(H)** |
 
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+| 구분 | 회귀 | 로지스틱 |
+|:---:|:---:|:---:|
+| 모수 ($\leftarrow$ 신) | $w_0^\ast, w_1^\ast$ | $w_0^\ast, w_1^\ast$ |
+| 추정값 ($\leftarrow$ 데이터) | $\hat{w}_0, \hat{w}_1$ | $\hat{w}_0, \hat{w}_1$ |
+| $x_i \to \hat{y}_i$ | $\hat{y}_i=\text{linr}(x_i)$ | **(A)** $\hat{y}_i=\text{sig}(\text{linr}(x_i))$ |
+| $\hat{y}_i$의 범위 | **(B)** $(-\infty,\infty)$ | **(C)** $(0,1)$ |
+| $y_i$의 범위 | **(D)** $(-\infty,\infty)$ | **(E)** $\{0,1\}$ |
+| $x_i$의 범위 | $(-\infty,\infty)$ | $(-\infty,\infty)$ |
+| $y_i \sim ??$ | **(F)** $N(w_0^\ast+w_1^\ast x_i, \sigma^2)$ | **(G)** $Bernoulli(\pi_i^\ast)$ 단, $\pi_i^\ast = \text{sig}(w_0^\ast + w_1^\ast x_i)$ |
+| 손실함수 | MSELoss | **(H)** BCELoss |
+
+:::
