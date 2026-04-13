@@ -544,9 +544,9 @@ window.Quarto = {
 <p>or</p>
 <p><span class="math display">\[\begin{bmatrix} \hat{y}_1 \\ \hat{y}_2 \\ \hat{y}_3 \\ \hat{y}_4 \\ \hat{y}_5 \\ \hat{y}_6 \end{bmatrix} = \text{sig}\left(\begin{bmatrix} 1 &amp; -2 \\ 1 &amp; -1 \\ 1 &amp; 0 \\ 1 &amp; 1 \\ 1 &amp; 2 \\ 1 &amp; 3 \end{bmatrix} \begin{bmatrix} \hat{w}_0 \\ \hat{w}_1 \end{bmatrix}\right)\]</span></p>
 <p><code>(풀이)</code></p>
-<p><code>(3)</code> 위 코드를 실행하여 모델을 적합한 뒤, 새로운 데이터 <span class="math inline">\(x = 1\)</span>에 대한 예측값을 구하는 코드를 작성하시오.</p>
+<p><code>(3)</code> 위 코드를 실행하여 모델을 적합한 뒤, 새로운 데이터 <span class="math inline">\(x = 2.2\)</span>에 대한 예측값을 구하는 코드를 작성하시오.</p>
 <p><code>(힌트)</code> 아래의 수식을 관찰해볼 것.</p>
-<p><span class="math display">\[\begin{aligned} \hat{y}_{\text{new}} &amp;= \text{sig}(\hat{w}_0 + \hat{w}_1 \cdot x_{\text{new}}) \\ &amp;= \text{sig}(\hat{w}_0 + \hat{w}_1 \cdot 1) \\ &amp;= \text{sig}\left(\begin{bmatrix} 1 &amp; 1 \end{bmatrix} \begin{bmatrix} \hat{w}_0 \\ \hat{w}_1 \end{bmatrix}\right) \end{aligned}\]</span></p>
+<p><span class="math display">\[\begin{aligned} \hat{y}_{\text{new}} &amp;= \text{sig}(\hat{w}_0 + \hat{w}_1 \cdot x_{\text{new}}) \\ &amp;= \text{sig}(\hat{w}_0 + \hat{w}_1 \cdot 2.2) \\ &amp;= \text{sig}\left(\begin{bmatrix} 1 &amp; 2.2 \end{bmatrix} \begin{bmatrix} \hat{w}_0 \\ \hat{w}_1 \end{bmatrix}\right) \end{aligned}\]</span></p>
 <p><code>(풀이)</code></p>
 </section>
 <section id="로지스틱-설명변수-2개" class="level2">
