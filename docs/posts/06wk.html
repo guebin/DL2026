@@ -248,7 +248,7 @@ window.Quarto = {
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-5" class="cell" data-execution_count="2">
+<div id="cell-5" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'figure.figsize'</span>] <span class="op">=</span> (<span class="fl">4.5</span>,<span class="fl">3.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -256,17 +256,17 @@ window.Quarto = {
 <h1>3. <code>matplotlib</code> 고마워</h1>
 <section id="a.-고마움1" class="level2">
 <h2 class="anchored" data-anchor-id="a.-고마움1">A. 고마움1</h2>
-<div id="cell-8" class="cell" data-outputid="5110f791-36a0-4fea-b7d3-7a1a39db8fb5" data-execution_count="3">
+<div id="cell-8" class="cell" data-outputid="5110f791-36a0-4fea-b7d3-7a1a39db8fb5" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> torch.tensor([[<span class="op">-</span><span class="dv">1</span>,<span class="dv">2</span>],[<span class="dv">2</span>,<span class="dv">4</span>],[<span class="dv">4</span>,<span class="dv">2</span>],[<span class="dv">2</span>,<span class="dv">1</span>]])</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div class="cell-output cell-output-display">
 <pre><code>tensor([[-1,  2],
         [ 2,  4],
         [ 4,  2],
         [ 2,  1]])</code></pre>
 </div>
 </div>
-<div id="cell-9" class="cell" data-outputid="9ecd5510-5f0a-4b2e-9965-2b7783cd362e" data-execution_count="4">
+<div id="cell-9" class="cell" data-outputid="9ecd5510-5f0a-4b2e-9965-2b7783cd362e" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>plt.plot(Y,<span class="st">'--o'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
