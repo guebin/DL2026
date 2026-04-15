@@ -1073,11 +1073,14 @@ Saving to: ‘05wk-spec.pt’
 <li>하지만 표현력은 더 좋죠? 꺽을수도있고, 안 꺽을수도 있고</li>
 <li>실무적으로 적합하는게 걸리는 시간도 별로 차이안남</li>
 </ul>
+<blockquote class="blockquote">
+<p>이때 강의영상에서 제가 설명을 잘못했어요. 첫번째 네트워크는 학습가능한 파라메터가 6개가 아니고 7개입니다. 그래서 “저번시간에 배운 아래의 네트워크보다 학습할 파라메터가 3배 더 많음.” 이 표현도 “저번시간에 배운 아래의 네트워크보다 학습할 파라메터가 3.5배 더 많음.” 으로 고쳐야합니다.</p>
+</blockquote>
 </section>
 <section id="많이-꺽인그래프는-생각보다-좋음" class="level1">
 <h1>7. 많이 꺽인그래프는 생각보다 좋음</h1>
 <p><code># 예제1</code> – 일부러 이상하게 만든 취업합격률 곡선</p>
-<div id="cell-91" class="cell" data-execution_count="89">
+<div id="cell-92" class="cell" data-execution_count="89">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">43052</span>)</span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.linspace(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2000</span>)</span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>u <span class="op">=</span> <span class="dv">0</span><span class="op">*</span>x<span class="op">-</span><span class="dv">3</span></span>
@@ -1087,7 +1090,7 @@ Saving to: ‘05wk-spec.pt’
 <span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> sig(u)</span>
 <span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> torch.bernoulli(v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-92" class="cell" data-outputid="c214a0c6-973a-4086-c79f-35a27109ed35" data-execution_count="93">
+<div id="cell-93" class="cell" data-outputid="c214a0c6-973a-4086-c79f-35a27109ed35" data-execution_count="93">
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'.'</span>,alpha<span class="op">=</span><span class="fl">0.03</span>)</span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x,v,<span class="st">'--r'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -1098,7 +1101,7 @@ Saving to: ‘05wk-spec.pt’
 </div>
 </div>
 </div>
-<div id="cell-93" class="cell" data-execution_count="151">
+<div id="cell-94" class="cell" data-execution_count="151">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> x.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> y.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span>
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> torch.nn.Sequential(</span>
@@ -1120,7 +1123,7 @@ Saving to: ‘05wk-spec.pt’
 <span id="cb51-19"><a href="#cb51-19" aria-hidden="true" tabindex="-1"></a>    optimizer.step()</span>
 <span id="cb51-20"><a href="#cb51-20" aria-hidden="true" tabindex="-1"></a>    optimizer.zero_grad()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-94" class="cell" data-outputid="34e78021-5d88-484a-cc95-804ba7d9c4a4" data-execution_count="153">
+<div id="cell-95" class="cell" data-outputid="34e78021-5d88-484a-cc95-804ba7d9c4a4" data-execution_count="153">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>plt.plot(X,Y,<span class="st">'.'</span>,alpha<span class="op">=</span><span class="fl">0.03</span>)</span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>plt.plot(X,v,<span class="st">'--r'</span>) <span class="co"># true: 박혜원씨는 모름</span></span>
 <span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>plt.plot(X,net(X).data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1136,7 +1139,7 @@ Saving to: ‘05wk-spec.pt’
 <li>딱 맞추진 못해서 상당히 그럴듯하게 맞춤..</li>
 </ul>
 <p>더 적합시켜보면</p>
-<div id="cell-97" class="cell" data-execution_count="154">
+<div id="cell-98" class="cell" data-execution_count="154">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3000</span>):</span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># step1</span></span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>    Yhat <span class="op">=</span> net(X)</span>
@@ -1148,7 +1151,7 @@ Saving to: ‘05wk-spec.pt’
 <span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>    optimizer.step()</span>
 <span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>    optimizer.zero_grad()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-98" class="cell" data-outputid="408c873e-a676-494e-bd46-2a1db0ba4c03" data-execution_count="155">
+<div id="cell-99" class="cell" data-outputid="408c873e-a676-494e-bd46-2a1db0ba4c03" data-execution_count="155">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>plt.plot(X,Y,<span class="st">'.'</span>,alpha<span class="op">=</span><span class="fl">0.03</span>)</span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>plt.plot(X,v,<span class="st">'--r'</span>) <span class="co"># true: 박혜원씨는 모름</span></span>
 <span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>plt.plot(X,net(X).data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1162,14 +1165,14 @@ Saving to: ‘05wk-spec.pt’
 </div>
 <p><code># 예제2</code> – 2024년 수능 미적30번 문제에 나온 곡선</p>
 <p><span class="math display">\[y_i = e^{-x_i} \times  |\cos(5x_i)| \times \sin(5x) + \epsilon_i, \quad \epsilon_i \sim N(0,\sigma^2)\]</span></p>
-<div id="cell-101" class="cell" data-execution_count="158">
+<div id="cell-102" class="cell" data-execution_count="158">
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">43052</span>)</span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.linspace(<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">2000</span>)</span>
 <span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>noise <span class="op">=</span> torch.randn(<span class="dv">2000</span>)<span class="op">*</span><span class="fl">0.05</span></span>
 <span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>structure <span class="op">=</span> torch.exp(<span class="op">-</span><span class="dv">1</span><span class="op">*</span>x)<span class="op">*</span> torch.<span class="bu">abs</span>(torch.cos(<span class="dv">3</span><span class="op">*</span>x))<span class="op">*</span>(torch.sin(<span class="dv">3</span><span class="op">*</span>x))</span>
 <span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> structure <span class="op">+</span> noise</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-102" class="cell" data-outputid="fa960ce5-362d-4998-aee4-84e072d1e666" data-execution_count="161">
+<div id="cell-103" class="cell" data-outputid="fa960ce5-362d-4998-aee4-84e072d1e666" data-execution_count="161">
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y)</span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x,structure,<span class="st">'--r'</span>) <span class="co"># 트루, 박혜원씨는 모름</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -1180,7 +1183,7 @@ Saving to: ‘05wk-spec.pt’
 </div>
 </div>
 </div>
-<div id="cell-103" class="cell" data-execution_count="177">
+<div id="cell-104" class="cell" data-execution_count="177">
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> x.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> y.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span>
 <span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> torch.nn.Sequential(</span>
@@ -1201,7 +1204,7 @@ Saving to: ‘05wk-spec.pt’
 <span id="cb57-18"><a href="#cb57-18" aria-hidden="true" tabindex="-1"></a>    optimizer.step()</span>
 <span id="cb57-19"><a href="#cb57-19" aria-hidden="true" tabindex="-1"></a>    optimizer.zero_grad()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-104" class="cell" data-outputid="7cf0e9f3-df49-4933-a534-4a097b40f99c" data-execution_count="178">
+<div id="cell-105" class="cell" data-outputid="7cf0e9f3-df49-4933-a534-4a097b40f99c" data-execution_count="178">
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y)</span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x,structure,<span class="st">'--r'</span>) <span class="co"># 트루, 박혜원씨는 모름</span></span>
 <span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>plt.plot(X,net(X).data,<span class="st">'--'</span>) <span class="co"># 되게 그럴싸함.. 생각보다 잘맞춤</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
