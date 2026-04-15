@@ -19,9 +19,9 @@ draft: false
 
 `(1)` $\begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix}$ (3×1 행렬)
 
-① `torch.tensor([1, 2, 3])` <br>
-② `torch.tensor([[1], [2], [3]])` <br>
-③ `torch.tensor([[1, 2, 3]])` <br>
+① `torch.tensor([1, 2, 3])`\
+② `torch.tensor([[1], [2], [3]])`\
+③ `torch.tensor([[1, 2, 3]])`\
 ④ `torch.tensor([[[1]], [[2]], [[3]]])`
 
 ::: {.callout-note collapse="true"}
@@ -32,9 +32,9 @@ draft: false
 
 `(2)` $\begin{bmatrix} 1 & 2 & 3 \end{bmatrix}$ (1×3 행렬)
 
-① `torch.tensor([1, 2, 3])`<br>
-② `torch.tensor([[1], [2], [3]])` <br>
-③ `torch.tensor([[1, 2, 3]])` <br>
+① `torch.tensor([1, 2, 3])`\
+② `torch.tensor([[1], [2], [3]])`\
+③ `torch.tensor([[1, 2, 3]])`\
 ④ `torch.tensor([[[1, 2, 3]]])`
 
 ::: {.callout-note collapse="true"}
@@ -45,9 +45,9 @@ draft: false
 
 `(3)` $\begin{bmatrix} 1 & 2 \\ 3 & 4 \\ 5 & 6 \end{bmatrix}$ (3×2 행렬)
 
-① `torch.tensor([[1, 2], [3, 4], [5, 6]])` <br>
-② `torch.tensor([[1, 3, 5], [2, 4, 6]])` <br>
-③ `torch.tensor([1, 2, 3, 4, 5, 6])` <br>
+① `torch.tensor([[1, 2], [3, 4], [5, 6]])`\
+② `torch.tensor([[1, 3, 5], [2, 4, 6]])`\
+③ `torch.tensor([1, 2, 3, 4, 5, 6])`\
 ④ `torch.tensor([[1, 2, 3], [4, 5, 6]])`
 
 ::: {.callout-note collapse="true"}
@@ -58,9 +58,9 @@ draft: false
 
 `(4)` $\begin{bmatrix} 5 \\ 10 \\ 15 \\ 20 \end{bmatrix}$ (4×1 행렬)
 
-① `torch.tensor([5, 10, 15, 20])` <br>
-② `torch.tensor([[5, 10, 15, 20]])` <br>
-③ `torch.tensor([[5], [10], [15], [20]])` <br>
+① `torch.tensor([5, 10, 15, 20])`\
+② `torch.tensor([[5, 10, 15, 20]])`\
+③ `torch.tensor([[5], [10], [15], [20]])`\
 ④ `torch.tensor([[[5, 10, 15, 20]]])`
 
 ::: {.callout-note collapse="true"}
@@ -71,9 +71,9 @@ draft: false
 
 `(5)` $\begin{bmatrix} 1 & 2 & 3 & 4 & 5 \end{bmatrix}$ (1×5 행렬)
 
-① `torch.tensor([1, 2, 3, 4, 5])` <br>
-② `torch.tensor([[1, 2, 3, 4, 5]])` <br>
-③ `torch.tensor([[1], [2], [3], [4], [5]])` <br>
+① `torch.tensor([1, 2, 3, 4, 5])`\
+② `torch.tensor([[1, 2, 3, 4, 5]])`\
+③ `torch.tensor([[1], [2], [3], [4], [5]])`\
 ④ `torch.tensor([[[1, 2, 3, 4, 5]]])`
 
 ::: {.callout-note collapse="true"}
@@ -84,9 +84,9 @@ draft: false
 
 `(6)` $\begin{bmatrix} 2 \\ 4 \end{bmatrix}$ (2×1 행렬)
 
-① `torch.tensor([2, 4])` <br>
-② `torch.tensor([[2, 4]])` <br>
-③ `torch.tensor([[2], [4]])` <br>
+① `torch.tensor([2, 4])`\
+② `torch.tensor([[2, 4]])`\
+③ `torch.tensor([[2], [4]])`\
 ④ `torch.tensor([[[2]], [[4]]])`
 
 ::: {.callout-note collapse="true"}
@@ -97,9 +97,9 @@ draft: false
 
 `(7)` $\begin{bmatrix} 7 & 8 \end{bmatrix}$ (1×2 행렬)
 
-① `torch.tensor([7, 8])` <br>
-② `torch.tensor([[7, 8]])` <br>
-③ `torch.tensor([[7], [8]])` <br>
+① `torch.tensor([7, 8])`\
+② `torch.tensor([[7, 8]])`\
+③ `torch.tensor([[7], [8]])`\
 ④ `torch.tensor([7], [8])`
 
 ::: {.callout-note collapse="true"}
@@ -113,9 +113,9 @@ draft: false
 a = torch.tensor([[1, 2, 3]])
 ```
 
-① `torch.Size([3])` <br>
-② `torch.Size([1, 3])` <br>
-③ `torch.Size([3, 1])` <br>
+① `torch.Size([3])`\
+② `torch.Size([1, 3])`\
+③ `torch.Size([3, 1])`\
 ④ `torch.Size([1, 1, 3])`
 
 ::: {.callout-note collapse="true"}
@@ -129,9 +129,9 @@ a = torch.tensor([[1, 2, 3]])
 b = torch.tensor([[1], [2], [3]])
 ```
 
-① `torch.Size([3])` <br>
-② `torch.Size([1, 3])` <br>
-③ `torch.Size([3, 1])` <br>
+① `torch.Size([3])`\
+② `torch.Size([1, 3])`\
+③ `torch.Size([3, 1])`\
 ④ `torch.Size([1, 1, 3])`
 
 ::: {.callout-note collapse="true"}
@@ -145,9 +145,9 @@ b = torch.tensor([[1], [2], [3]])
 c = torch.tensor([1, 2, 3, 4])
 ```
 
-① `torch.Size([4])` <br>
-② `torch.Size([1, 4])` <br>
-③ `torch.Size([4, 1])` <br>
+① `torch.Size([4])`\
+② `torch.Size([1, 4])`\
+③ `torch.Size([4, 1])`\
 ④ `torch.Size([1, 1, 4])`
 
 ::: {.callout-note collapse="true"}
@@ -161,9 +161,9 @@ c = torch.tensor([1, 2, 3, 4])
 d = torch.tensor([[1, 2], [3, 4], [5, 6]])
 ```
 
-① `torch.Size([3, 2])` <br>
-② `torch.Size([2, 3])` <br>
-③ `torch.Size([6])` <br>
+① `torch.Size([3, 2])`\
+② `torch.Size([2, 3])`\
+③ `torch.Size([6])`\
 ④ `torch.Size([1, 3, 2])`
 
 ::: {.callout-note collapse="true"}
@@ -176,9 +176,9 @@ d = torch.tensor([[1, 2], [3, 4], [5, 6]])
 ```python
 e = torch.tensor([[[1, 2, 3]]])
 ```
-① `torch.Size([3])` <br>
-② `torch.Size([1, 3])` <br>
-③ `torch.Size([3, 1])` <br>
+① `torch.Size([3])`\
+② `torch.Size([1, 3])`\
+③ `torch.Size([3, 1])`\
 ④ `torch.Size([1, 1, 3])`
 
 ::: {.callout-note collapse="true"}

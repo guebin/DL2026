@@ -29,12 +29,9 @@ draft: false
 
 `(2)` 시그모이드 함수 $\text{sig}(x) = \frac{e^x}{e^x+1}$ 에 대하여 다음 중 옳은 것을 모두 고르시오.
 
-**\(a\)** $\text{sig}(0) = 0.5$
-
-**\(b\)** $x \to \infty$ 이면 $\text{sig}(x) \to 1$
-
-**\(c\)** $x \to -\infty$ 이면 $\text{sig}(x) \to -1$
-
+**\(a\)** $\text{sig}(0) = 0.5$\
+**\(b\)** $x \to \infty$ 이면 $\text{sig}(x) \to 1$\
+**\(c\)** $x \to -\infty$ 이면 $\text{sig}(x) \to -1$\
 **\(d\)** 시그모이드 함수의 출력 범위는 $(0, 1)$ 이다.
 
 ::: {.callout-note collapse="true"}
@@ -52,12 +49,9 @@ $$\pi_i^\ast = \frac{\exp(w_0^\ast + w_1^\ast x_i)}{1+\exp(w_0^\ast + w_1^\ast x
 
 다음 중 옳은 것을 모두 고르시오.
 
-**\(a\)** $\pi_i^\ast$ 의 범위는 $(0, 1)$ 이다.
-
-**\(b\)** $y_i$, $\hat{y}_i$ 의 값은 $0$ 또는 $1$ 이다.
-
-**\(c\)** $\hat{y}_i = \text{sig}(\text{linr}(x_i))$ 로 표현할 수 있다.
-
+**\(a\)** $\pi_i^\ast$ 의 범위는 $(0, 1)$ 이다.\
+**\(b\)** $y_i$, $\hat{y}_i$ 의 값은 $0$ 또는 $1$ 이다.\
+**\(c\)** $\hat{y}_i = \text{sig}(\text{linr}(x_i))$ 로 표현할 수 있다.\
 **\(d\)** 회귀분석에서는 $y_i$가 정규분포를 따른다고 가정하지만 로지스틱에서는 $y_i$가 베르누이를 따른다고 가정한다. 
 
 ::: {.callout-note collapse="true"}
@@ -80,8 +74,7 @@ piast = sig(w0ast + w1ast * x)
 y = ???
 ```
 
-**\(a\)** `torch.bernoulli(piast)`
-
+**\(a\)** `torch.bernoulli(piast)`\
 **\(b\)** `torch.normal(piast, 0.5)`
 
 ::: {.callout-note collapse="true"}
@@ -101,12 +94,9 @@ sig = torch.nn.Sigmoid()
 net = torch.nn.Sequential(linr, sig)
 ```
 
-**\(a\)** `sig(linr(X))`
-
-**\(b\)** `linr(sig(X))`
-
-**\(c\)** `net[1](net[0](X))`
-
+**\(a\)** `sig(linr(X))`\
+**\(b\)** `linr(sig(X))`\
+**\(c\)** `net[1](net[0](X))`\
 **\(d\)** `net[0](net[1](X))`
 
 ::: {.callout-note collapse="true"}
