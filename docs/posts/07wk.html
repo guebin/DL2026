@@ -208,7 +208,14 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#a.-로지스틱" id="toc-a.-로지스틱" class="nav-link" data-scroll-target="#a.-로지스틱">A. 로지스틱</a></li>
   <li><a href="#b.-스펙의역설" id="toc-b.-스펙의역설" class="nav-link" data-scroll-target="#b.-스펙의역설">B. 스펙의역설</a></li>
-  <li><a href="#c.-레이어를-세는방법" id="toc-c.-레이어를-세는방법" class="nav-link" data-scroll-target="#c.-레이어를-세는방법">C. 레이어를 세는방법</a></li>
+  <li><a href="#c.-이상한-취업률-곡선" id="toc-c.-이상한-취업률-곡선" class="nav-link" data-scroll-target="#c.-이상한-취업률-곡선">C. 이상한 취업률 곡선</a></li>
+  <li><a href="#d.-2024년수능30번" id="toc-d.-2024년수능30번" class="nav-link" data-scroll-target="#d.-2024년수능30번">D. 2024년수능30번</a></li>
+  </ul></li>
+  <li><a href="#레이어" id="toc-레이어" class="nav-link" data-scroll-target="#레이어">2. 레이어</a>
+  <ul class="collapse">
+  <li><a href="#a.-레이어를-세는-방법" id="toc-a.-레이어를-세는-방법" class="nav-link" data-scroll-target="#a.-레이어를-세는-방법">A. 레이어를 세는 방법</a></li>
+  <li><a href="#b.-예시" id="toc-b.-예시" class="nav-link" data-scroll-target="#b.-예시">B. 예시</a></li>
+  <li><a href="#c.-참고사항" id="toc-c.-참고사항" class="nav-link" data-scroll-target="#c.-참고사항">C. 참고사항</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -250,46 +257,51 @@ window.Quarto = {
 <p><a href="https://colab.research.google.com/github/guebin/DL2026/blob/master/posts/07wk.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" style="text-align: left"></a></p>
 <section id="강의영상" class="level1">
 <h1>1. 강의영상</h1>
-<div id="cell-3" class="cell" data-execution_count="1">
+<div id="cell-3" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># {{&lt;video https://youtu.be/playlist?list=PLQqh36zP38-xB7p8AzMKUrEfxL0Vte-pY&amp;si=BwVUNxT8IIPrjIcA&gt;}}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="imports" class="level1">
 <h1>2. Imports</h1>
-<div id="cell-5" class="cell" data-execution_count="81">
+<div id="cell-5" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torchvision</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-6" class="cell" data-execution_count="2">
+<div id="cell-6" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'figure.figsize'</span>] <span class="op">=</span> (<span class="fl">4.5</span>,<span class="fl">3.0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="신경망의-표현" class="level1 page-columns page-full">
+<section id="신경망의-표현" class="level1">
 <h1>3. 신경망의 표현</h1>
 <p>신경망의 표현: <span class="math inline">\({\bf X} \to \hat{\bf Y}\)</span> 로 가는 과정을 그림으로 표현</p>
 <section id="a.-로지스틱" class="level2">
 <h2 class="anchored" data-anchor-id="a.-로지스틱">A. 로지스틱</h2>
-<p><span class="math display">\[\underset{(n,1)}{\bf X} \overset{l_1}{\to} \underset{(n,1)}{\bf U^{(1)}} \overset{sig}{\to} \underset{(n,1)}{\bf V^{(1)}} =\underset{(n,1)}{\hat{\bf Y}}\]</span></p>
+<p><span class="math display">\[\underset{(n,1)}{\bf X} \overset{l_1}{\to} \underset{(n,1)}{\bf U} \overset{sig}{\to} \underset{(n,1)}{\bf V} =\underset{(n,1)}{\hat{\bf Y}}\]</span></p>
+<p><strong>참고: 코드로 표현</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>torch.nn.Sequential(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">1</span>,<span class="dv">1</span>),</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.Sigmoid()</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><code>-</code> 모든 observation과 가중치를 명시한 버전</p>
 <p><strong>(표현1)</strong></p>
-<p><img src="07wk-fig-01.svg" class="img-fluid"></p>
+<p><img src="https://github.com/guebin/DL2026/blob/master/posts/07wk-fig-01.svg?raw=1" class="img-fluid"></p>
 <ul>
 <li>단점: 똑같은 그림의 반복이 너무 많음</li>
 </ul>
 <p><code>-</code> observation 반복을 생략한 버전들</p>
 <p><strong>(표현2)</strong> 모든 <span class="math inline">\(i\)</span>에 대하여 아래의 그림을 반복한다고 하면 (표현1)과 같다.</p>
-<p><img src="07wk-fig-02.svg" class="img-fluid"></p>
+<p><img src="https://github.com/guebin/DL2026/blob/master/posts/07wk-fig-02.svg?raw=1" class="img-fluid"></p>
 <p><strong>(표현3)</strong> 그런데 (표현2)에서 아래와 같이 <span class="math inline">\(x_i\)</span>, <span class="math inline">\(y_i\)</span> 대신에 간단히 <span class="math inline">\(x\)</span>, <span class="math inline">\(y\)</span>로 쓰는 경우도 많음</p>
-<p><img src="07wk-fig-03.svg" class="img-fluid"></p>
+<p><img src="https://github.com/guebin/DL2026/blob/master/posts/07wk-fig-03.svg?raw=1" class="img-fluid"></p>
 <p><code>-</code> 1을 생략한 버전들</p>
 <p><strong>(표현4)</strong> bais=False 대신에 bias=True를 주면 1을 생략할 수 있음</p>
-<p><img src="07wk-fig-04.svg" class="img-fluid"></p>
+<p><img src="https://github.com/guebin/DL2026/blob/master/posts/07wk-fig-04.svg?raw=1" class="img-fluid"></p>
 <p><strong>(표현4의 수정)</strong> <span class="math inline">\(\hat{w}_1\)</span>대신에 <span class="math inline">\(\hat{w}\)</span>를 쓰는 것이 더 자연스러움</p>
-<p><img src="07wk-fig-05.svg" class="img-fluid"></p>
+<p><img src="https://github.com/guebin/DL2026/blob/master/posts/07wk-fig-05.svg?raw=1" class="img-fluid"></p>
 <p><strong>(표현5)</strong> 선형변환의 결과는 아래와 같이 <span class="math inline">\(u\)</span>로 표현하기도 한다.</p>
-<p><img src="07wk-fig-06.svg" class="img-fluid"></p>
+<p><img src="https://github.com/guebin/DL2026/blob/master/posts/07wk-fig-06.svg?raw=1" class="img-fluid"></p>
 <blockquote class="blockquote">
 <p>다이어그램은 그리는 사람의 취향에 따라 그리는 방법이 조금씩 다릅니다. 즉 교재마다 달라요.</p>
 </blockquote>
@@ -298,37 +310,68 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="b.-스펙의역설">B. 스펙의역설</h2>
 <p><span class="math display">\[\underset{(n,1)}{\bf X} \overset{l_1}{\to} \underset{(n,2)}{\bf U^{(1)}} \overset{relu}{\to} \underset{(n,2)}{\bf V^{(1)}} \overset{l_2}{\to} \underset{(n,1)}{\bf U^{(2)}} \overset{sig}{\to} \underset{(n,1)}{\bf V^{(2)}} =\underset{(n,1)}{\hat{\bf Y}}\]</span></p>
 <p><strong>참고: 코드로 표현</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>torch.nn.Sequential(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(in_features<span class="op">=</span><span class="dv">1</span>,out_features<span class="op">=</span><span class="dv">2</span>),</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU(),</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(in_features<span class="op">=</span><span class="dv">2</span>,out_features<span class="op">=</span><span class="dv">1</span>),</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    torch.nn.Sigmoid()</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>torch.nn.Sequential(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(in_features<span class="op">=</span><span class="dv">1</span>,out_features<span class="op">=</span><span class="dv">2</span>),</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU(),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(in_features<span class="op">=</span><span class="dv">2</span>,out_features<span class="op">=</span><span class="dv">1</span>),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    torch.nn.Sigmoid()</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><code>-</code> 이해를 위해서 예젠에 다루었던 아래의 상황을 고려하자.</p>
 <p><img src="https://guebin.github.io/DL2024/posts/03wk-2_files/figure-html/cell-11-output-1.png" class="img-fluid"></p>
 <p><strong>(강의노트의 표현)</strong></p>
-<p><img src="07wk-fig-07.svg" class="img-fluid"></p>
+<p><img src="https://github.com/guebin/DL2026/blob/master/posts/07wk-fig-07.svg?raw=1" class="img-fluid"></p>
 <p><strong>(좀 더 일반화된 표현)</strong> 상황을 일반화하면 아래와 같다.</p>
-<p><img src="07wk-fig-08.svg" class="img-fluid"></p>
-<p><code>*</code> Layer의 개념: <span class="math inline">\({\bf X}\)</span>에서 <span class="math inline">\(\hat{\boldsymbol y}\)</span>로 가는 과정은 “선형변환+비선형변환”이 반복되는 구조이다. “선형변환+비선형변환”을 하나의 세트로 보면 아래와 같이 표현할 수 있다.</p>
+<p><img src="https://github.com/guebin/DL2026/blob/master/posts/07wk-fig-08.svg?raw=1" class="img-fluid"></p>
+<p><code>*</code> Layer의 개념: <span class="math inline">\({\bf X}\)</span>에서 <span class="math inline">\(\hat{\bf Y}\)</span>로 가는 과정은 “선형변환+비선형변환”이 반복되는 구조이다. “선형변환+비선형변환”을 하나의 세트로 보면 아래와 같이 표현할 수 있다.</p>
 <ul>
 <li><span class="math inline">\(\underset{(n,1)}{\bf X}  \overset{l_1}{\to} \left( \underset{(n,2)}{\bf U^{(1)}} \overset{relu}{\to} \underset{(n,2)}{\bf V^{(1)}} \right) \overset{l_2}{\to} \left(\underset{(n,1)}{\bf U^{(2)}} \overset{sig}{\to} \underset{(n,1)}{\bf V^{(2)}}\right), \quad  \underset{(n,1)}{\bf V^{(2)}}=\underset{(n,1)}{net({\bf X})}=\underset{(n,1)}{\hat{\bf Y}}\)</span></li>
 </ul>
 <p>이것을 다이어그램으로 표현한다면 아래와 같다.</p>
 <p><strong>(선형+비선형을 하나의 Layer로 묶은 표현)</strong></p>
-<p><img src="07wk-fig-09.svg" class="img-fluid"></p>
+<p><img src="https://github.com/guebin/DL2026/blob/master/posts/07wk-fig-09.svg?raw=1" class="img-fluid"></p>
 <p><code>-</code> node의 개념: <span class="math inline">\(u\to v\)</span>로 가는 쌍을 간단히 노드라는 개념을 이용하여 나타낼 수 있음.</p>
 <p><strong>(노드의 개념이 포함된 그림)</strong></p>
-<p><img src="07wk-fig-10.svg" class="img-fluid"></p>
+<p><img src="https://github.com/guebin/DL2026/blob/master/posts/07wk-fig-10.svg?raw=1" class="img-fluid"></p>
 <p>여기에서 <code>node의 숫자 = feature의 숫자</code>와 같이 이해할 수 있다. 즉 아래와 같이 이해할 수 있다.</p>
 <p><strong>(“number of nodes = number of features”로 이해한 그림)</strong></p>
-<p><img src="07wk-fig-11.svg" class="img-fluid"></p>
+<p><img src="https://github.com/guebin/DL2026/blob/master/posts/07wk-fig-11.svg?raw=1" class="img-fluid"></p>
 <blockquote class="blockquote">
 <p>다이어그램의 표현방식은 교재마다 달라서 모든 예시를 달달 외울 필요는 없습니다. 다만 임의의 다이어그램을 보고 대응하는 네트워크를 pytorch로 구현하는 능력은 매우 중요합니다.</p>
 </blockquote>
 </section>
-<section id="c.-레이어를-세는방법" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="c.-레이어를-세는방법">C. 레이어를 세는방법</h2>
+<section id="c.-이상한-취업률-곡선" class="level2">
+<h2 class="anchored" data-anchor-id="c.-이상한-취업률-곡선">C. 이상한 취업률 곡선</h2>
+<p><span class="math display">\[\underset{(n,1)}{\bf X} \overset{l_1}{\to} \underset{(n,512)}{\bf U^{(1)}} \overset{relu}{\to} \underset{(n,512)}{\bf V^{(1)}} \overset{l_2}{\to} \underset{(n,1)}{\bf U^{(2)}} \overset{sig}{\to} \underset{(n,1)}{\bf V^{(2)}} =\underset{(n,1)}{\hat{\bf Y}}\]</span></p>
+<p><strong>참고: 코드로 표현</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>torch.nn.Sequential(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(in_features<span class="op">=</span><span class="dv">1</span>,out_features<span class="op">=</span><span class="dv">512</span>),</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU(),</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(in_features<span class="op">=</span><span class="dv">2</span>,out_features<span class="op">=</span><span class="dv">512</span>),</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    torch.nn.Sigmoid()</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>-</code> 그림으로 표현하면 아래와 같다.</p>
+<p><img src="07wk-fig-12.svg" class="img-fluid"></p>
+</section>
+<section id="d.-2024년수능30번" class="level2">
+<h2 class="anchored" data-anchor-id="d.-2024년수능30번">D. 2024년수능30번</h2>
+<p><span class="math display">\[\underset{(n,1)}{\bf X} \overset{l_1}{\to} \underset{(n,512)}{\bf U^{(1)}} \overset{relu}{\to} \underset{(n,512)}{\bf V^{(1)}} \overset{l_2}{\to} \underset{(n,1)}{\bf U^{(2)}} =\underset{(n,1)}{\hat{\bf Y}}\]</span></p>
+<p><strong>참고: 코드로 표현</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>torch.nn.Sequential(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(in_features<span class="op">=</span><span class="dv">1</span>,out_features<span class="op">=</span><span class="dv">512</span>),</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU(),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(in_features<span class="op">=</span><span class="dv">2</span>,out_features<span class="op">=</span><span class="dv">512</span>),</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>-</code> 그림으로 표현하면 아래와 같다.</p>
+<p><img src="07wk-fig-13.svg" class="img-fluid"></p>
+<blockquote class="blockquote">
+<p>포인트: (다이어그림, 코드, 수식) 을 셋트로 잘 기억할 것.</p>
+</blockquote>
+</section>
+</section>
+<section id="레이어" class="level1 page-columns page-full">
+<h1>2. 레이어</h1>
+<section id="a.-레이어를-세는-방법" class="level2">
+<h2 class="anchored" data-anchor-id="a.-레이어를-세는-방법">A. 레이어를 세는 방법</h2>
 <p><code>-</code> Layer를 세는 방법</p>
 <ul>
 <li>제 방식: 학습가능한 파라메터가 몇층으로 있는지… &lt;– 이것만 기억하세여</li>
@@ -341,55 +384,61 @@ window.Quarto = {
 <li>일부 교재 설명: <code>Layer의 수 = Hidden Layer의 수 + 출력층의 수</code> &lt;– 기억하지 마세여</li>
 </ul>
 <p><code>-</code> 몇가지 예시들</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 예시1 -- 2층 (히든레이어는 1층)</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>torch.nn.Sequential(</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(??,??), <span class="co">## &lt;-- 학습해야할 가중치가 있는 층</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU(),</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(??,??), <span class="co">## &lt;-- 학습해야할 가중치가 있는 층</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 예시2 -- 2층 (히든레이어는 1층)</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>torch.nn.Sequential(</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(??,??), <span class="co">## &lt;-- 학습해야할 가중치가 있는 층</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU(),</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(??,??), <span class="co">## &lt;-- 학습해야할 가중치가 있는 층</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    torch.nn.Sigmoid(),</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 예시3 -- 1층 (히든레이어는 없음!!)</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>torch.nn.Sequential(</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(??,??), <span class="co">## &lt;-- 학습해야할 가중치가 있는 층</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 예시4 -- 1층 (히든레이어는 없음!!)</span></span>
+</section>
+<section id="b.-예시" class="level2">
+<h2 class="anchored" data-anchor-id="b.-예시">B. 예시</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 예시1 -- 2층 (히든레이어는 1층)</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>torch.nn.Sequential(</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(??,??), <span class="co">## &lt;-- 학습해야할 가중치가 있는 층</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.Sigmoid()</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 예시5 -- 3층 (히든레이어는 2층)</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU(),</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(??,??), <span class="co">## &lt;-- 학습해야할 가중치가 있는 층</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 예시2 -- 2층 (히든레이어는 1층)</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>torch.nn.Sequential(</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(??,??), <span class="co">## &lt;-- 학습해야할 가중치가 있는 층</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.Sigmoid()</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU(),</span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(??,??), <span class="co">## &lt;-- 학습해야할 가중치가 있는 층</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    torch.nn.Sigmoid()</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(??,??), <span class="co">## &lt;-- 학습해야할 가중치가 있는 층    </span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 예시6 -- 3층 (히든레이어는 2층)</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    torch.nn.Sigmoid(),</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 예시3 -- 1층 (히든레이어는 없음!!)</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>torch.nn.Sequential(</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(??,??), <span class="co">## &lt;-- 학습해야할 가중치가 있는 층</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU()</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    torch.nn.Dropout(??)</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(??,??), <span class="co">## &lt;-- 학습해야할 가중치가 있는 층</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU()</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    torch.nn.Dropout(??)</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(??,??), <span class="co">## &lt;-- 학습해야할 가중치가 있는 층  </span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    torch.nn.Sigmoid()</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><code>-</code> 참고1: 문헌에 따라서 레이어를 세는 개념이 제가 설명한 방식과 다른경우가 있습니다. 제가 설명한 방식보다 1씩 더해서 셉니다. 즉 아래의 경우 레이어를 3개로 카운트합니다.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 예시1 -- 문헌에 따라 3층으로 세는 경우가 있음 (히든레이어는 1층)</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 예시4 -- 1층 (히든레이어는 없음!!)</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>torch.nn.Sequential(</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(??,??), <span class="co">## &lt;-- 학습해야할 가중치가 있는 층</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU(),</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(??,??), <span class="co">## &lt;-- 학습해야할 가중치가 있는 층</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    torch.nn.Sigmoid()</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.Sigmoid()</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 예시5 -- 3층 (히든레이어는 2층)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>torch.nn.Sequential(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(??,??), <span class="co">## &lt;-- 학습해야할 가중치가 있는 층</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.Sigmoid()</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(??,??), <span class="co">## &lt;-- 학습해야할 가중치가 있는 층</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    torch.nn.Sigmoid()</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(??,??), <span class="co">## &lt;-- 학습해야할 가중치가 있는 층    </span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 예시6 -- 3층 (히든레이어는 2층)</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>torch.nn.Sequential(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(??,??), <span class="co">## &lt;-- 학습해야할 가중치가 있는 층</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU()</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    torch.nn.Dropout(??)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(??,??), <span class="co">## &lt;-- 학습해야할 가중치가 있는 층</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU()</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    torch.nn.Dropout(??)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(??,??), <span class="co">## &lt;-- 학습해야할 가중치가 있는 층  </span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    torch.nn.Sigmoid()</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="c.-참고사항" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="c.-참고사항">C. 참고사항</h2>
+<p><code>-</code> 참고1: 문헌에 따라서 레이어를 세는 개념이 제가 설명한 방식과 다른경우가 있습니다. 제가 설명한 방식보다 1씩 더해서 셉니다. 즉 아래의 경우 레이어를 3개로 카운트합니다.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 예시1 -- 문헌에 따라 3층으로 세는 경우가 있음 (히든레이어는 1층)</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>torch.nn.Sequential(</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(??,??), <span class="co">## &lt;-- 학습해야할 가중치가 있는 층</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU(),</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(??,??), <span class="co">## &lt;-- 학습해야할 가중치가 있는 층</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    torch.nn.Sigmoid()</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>예를 들어 <a href="https://en.wikipedia.org/wiki/Multilayer_perceptron#Layers">여기</a>에서는 위의 경우 레이어는 3개라고 설명하고 있습니다. 이러한 카운팅은 <strong>“무시”하세요. 제가 설명한 방식이 맞아요.</strong> <a href="https://en.wikipedia.org/wiki/Multilayer_perceptron#Layers">이 링크</a> 잘못(?) 나와있는 이유는 아래와 같습니다.</p>
 <ul>
 <li>진짜 예전에 MLP를 소개할 초창기에서는 위의 경우 Layer를 3개로 셌음. <span class="citation" data-cites="rosenblatt1962principles">(<a href="#ref-rosenblatt1962principles" role="doc-biblioref">Rosenblatt et al. 1962</a>)</span></li>
