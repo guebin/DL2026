@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="최규빈">
-<meta name="dcterms.date" content="2026-04-22">
+<meta name="dcterms.date" content="2026-04-20">
 
-<title>Quiz-13 (2026.04.22) // 범위: ~06wk – DL2026</title>
+<title>Quiz-13 (2026.04.20) // 범위: ~06wk – DL2026</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -192,7 +192,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Quiz-13 (2026.04.22) // 범위: ~06wk</h1>
+<h1 class="title">Quiz-13 (2026.04.20) // 범위: ~06wk</h1>
 </div>
 
 
@@ -209,7 +209,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 22, 2026</p>
+      <p class="date">April 20, 2026</p>
     </div>
   </div>
   
@@ -232,20 +232,98 @@ window.Quarto = {
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>이 네트워크는 중간에 ReLU가 포함되어 있으므로 “<strong>시그모이드 이전 값이 항상 꺾인 직선인 네트워크</strong>”라고 흔히 오해된다. 즉 이 네트워크는 <code>torch.nn.Linear(1,1) → torch.nn.Sigmoid()</code>가 만드는 <strong>꺾이지 않은 단순 S자 곡선(시그모이드 이전 값이 그냥 직선인 경우)</strong> 은 출력할 수 없다고 주장하는 사람이 있다.</p>
 <p><code>(1)</code> 이 주장이 맞는지 틀린지 본인의 의견을 서술하시오.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>풀이 보기
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>주장은 틀렸음. 이 네트워크는 꺾인선도 만들 수 있고, 꺾이지 않은 선도 만들 수 있음.</p>
+</div>
+</div>
+</div>
 <p><code>(2)</code> <code>(1)</code>에서 이 네트워크가 꺾이지 않은 직선도 시그모이드 이전 값으로 출력할 수 있다고 답했다면, 이를 <strong>실제로 실현하는 가중치의 예시</strong>를 하나 제시하시오. 구체적으로 <code>net[0].weight</code>, <code>net[0].bias</code>, <code>net[2].weight</code>, <code>net[2].bias</code>를 어떻게 설정해야 시그모이드 이전 값이 꺾이지 않은 직선이 되는지 적고, 왜 그러한 설정이 꺾이지 않은 직선을 만드는지 과정을 단계별로 서술하시오.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>풀이 보기
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>정답 예시 (시그모이드 이전 값이 <span class="math inline">\(x\)</span> 가 되는 가중치):</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Linear(1,2): weight shape [2,1], bias shape [2]</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>net[<span class="dv">0</span>].weight.data <span class="op">=</span> torch.tensor([[<span class="fl">1.0</span>], [<span class="op">-</span><span class="fl">1.0</span>]])</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>net[<span class="dv">0</span>].bias.data   <span class="op">=</span> torch.tensor([<span class="fl">0.0</span>, <span class="fl">0.0</span>])</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Linear(2,1): weight shape [1,2], bias shape [1]</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>net[<span class="dv">2</span>].weight.data <span class="op">=</span> torch.tensor([[<span class="fl">1.0</span>, <span class="op">-</span><span class="fl">1.0</span>]])</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>net[<span class="dv">2</span>].bias.data   <span class="op">=</span> torch.tensor([<span class="fl">0.0</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>단계별 확인:</strong></p>
+<p>입력 <span class="math inline">\(x\)</span> 를 각 단계에 통과시킨 모습은 아래와 같다.</p>
+<p><img src="Quiz13-fig-01.svg" class="img-fluid"></p>
+</div>
+</div>
+</div>
 </section>
 <section id="네트워크의-한계와-true-structure" class="level2">
 <h2 class="anchored" data-anchor-id="네트워크의-한계와-true-structure">2. 네트워크의 한계와 True Structure</h2>
 <p><code>(1)</code> 아래와 같이 참값이 매우 복잡한 곡선을 따르는 데이터가 있다고 하자.</p>
 <p><span class="math display">\[y_i = e^{-x_i}\,|\cos(3x_i)|\,\sin(3x_i) + \epsilon_i, \qquad i = 1, 2, 3, \ldots, n\]</span></p>
 <p>강의에서는 아래 네트워크로 이 곡선을 적합하였다.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> torch.nn.Sequential(</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">1</span>, <span class="dv">512</span>),</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU(),</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">512</span>, <span class="dv">1</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>데이터 수 <span class="math inline">\(n\)</span>을 <strong>무한대로 키운다고 해도</strong> 이 네트워크의 적합 결과가 참 구조 <span class="math inline">\(y^\ast = e^{-x}|\cos(3x)|\sin(3x)\)</span>와 <strong>정확히 일치한다고 보기는 어렵다</strong>. 그 이유를 서술하시오. (hint: 이 네트워크가 표현할 수 있는 함수 집합과, 참 구조의 매끄러운(smooth) 성질을 비교할 것)</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> torch.nn.Sequential(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">1</span>, <span class="dv">512</span>),</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU(),</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">512</span>, <span class="dv">1</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>풀이 보기
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>데이터의 숫자와 네트워크의 표현력은 관련이 없다. 이 네트워크가 표현할 수 있는 형태는 꺾인 직선이므로, 곡선형태를 표현할 수 없다.</p>
+</div>
+</div>
+</div>
 <p><code>(2)</code> <code>(1)</code>에서 보았듯이, 데이터 수 <span class="math inline">\(n\)</span>을 무한히 키우는 것만으로는 네트워크의 적합 결과가 참 구조에 정확히 가까워지지 않는다. 그렇다면 네트워크의 적합 결과가 참 구조에 점점 가까워지게 하기 위해서는 <strong>무엇을 늘려야 하는지</strong> 서술하시오.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>풀이 보기
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>아래의 코드에서 512를 점점 더 키우면 점점 더 곡선에 가까워진다.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> torch.nn.Sequential(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">1</span>, <span class="dv">512</span>),</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU(),</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">512</span>, <span class="dv">1</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
 
 
 </section>
