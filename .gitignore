@@ -1,4 +1,6 @@
 /.quarto/
 /secret/
+/notes/
+/posts/data/
 
 **/*.quarto_ipynb
