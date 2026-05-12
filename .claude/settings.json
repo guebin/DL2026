@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/cgb/miniconda3/**)",
+      "Read(//Users/cgb/anaconda3/**)",
+      "Read(//opt/miniconda3/**)",
+      "Read(//Users/cgb/.pyenv/**)"
+    ]
+  }
+}
