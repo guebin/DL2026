@@ -194,7 +194,7 @@ window.Quarto = {
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -1419,15 +1419,15 @@ tensor(0.2926)</code></pre>
 <p>정답: ③</p>
 </blockquote>
 </section>
-<section id="문제-8.-딥러닝-종합-개념" class="level2">
+<section id="문제-8.-딥러닝-종합-개념" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="문제-8.-딥러닝-종합-개념">문제 8. 딥러닝 종합 개념</h2>
 <p>다음은 딥러닝의 핵심 개념을 주제별로 묶은 종합 문제이다.</p>
-<section id="학습률의-발산-임계값" class="level5">
+<section id="학습률의-발산-임계값" class="level5 page-columns page-full">
 <h5 class="anchored" data-anchor-id="학습률의-발산-임계값">학습률의 발산 임계값</h5>
 <p>다음 그림은 <span class="math inline">\(f(x) = (x-2)^2\)</span> 에 대해 시작점 <span class="math inline">\(x_{sol} = 6.5\)</span> 에서 학습률을 <span class="math inline">\(0.1, 0.5, 0.95, 1.05\)</span> 로 바꿔가며 경사하강법을 진행한 결과이다.</p>
 <p><img src="Midterm-fig-05.png" class="img-fluid"></p>
-<p><code>(1)</code> 그림에서 최소점 <span class="math inline">\(x = 2\)</span> <span style="color:red">까지</span> <span style="color:red">수렴하는</span> 데 <strong>가장 많은 반복</strong> 이 필요한 학습률은?</p>
-<p>① <span class="math inline">\(\alpha = 0.1\)</span><br>
+<p><code>(1)</code> 그림에서 최소점 <span class="math inline">\(x = 2\)</span> 의 <span style="color:red">근방으로</span> 도달하는 데<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> <strong>가장 많은 반복</strong> 이 필요한 학습률은?</p>
+<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;<span style="color:red">근방으로 도달의 의미: 임의의 <span class="math inline">\(\varepsilon &gt; 0\)</span> 에 대해 어떤 자연수 <span class="math inline">\(N\)</span> 이 존재하여 <span class="math inline">\(n \geq N\)</span> 일 때 <span class="math inline">\(|x_n - 2| &lt; \varepsilon\)</span> 이 성립함 (즉, 수열 <span class="math inline">\(\{x_n\}\)</span> 이 <span class="math inline">\(2\)</span> 로 수렴함).</span></p></div></div><p>① <span class="math inline">\(\alpha = 0.1\)</span><br>
 ② <span class="math inline">\(\alpha = 0.5\)</span><br>
 ③ <span class="math inline">\(\alpha = 0.95\)</span><br>
 ④ <span class="math inline">\(\alpha = 1.05\)</span></p>
@@ -1624,6 +1624,7 @@ tensor(0.2926)</code></pre>
 
 </section>
 </section>
+
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

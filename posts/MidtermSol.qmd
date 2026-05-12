@@ -2,7 +2,7 @@
 title: "**중간고사 수정 & 해설 (2026.05.04)**"
 author: "최규빈"
 date: "05/05/2026"
-draft: true
+draft: false
 ---
 
 {{<video https://youtu.be/playlist?list=PLQqh36zP38-ycHUuPXaF1e2zVsZ3r1z6d&si=Vl5QsYh6exU7lG8p>}}
@@ -856,7 +856,7 @@ $$\hat p = \bar x$$
 
 ![](Midterm-fig-05.png)
 
-`(1)` 그림에서 최소점 $x = 2$ [까지]{style="color:red"} [수렴하는]{style="color:red"} 데 **가장 많은 반복** 이 필요한 학습률은?
+`(1)` 그림에서 최소점 $x = 2$ 의 [근방으로]{style="color:red"} 도달하는 데^[[근방으로 도달의 의미: 임의의 $\varepsilon > 0$ 에 대해 어떤 자연수 $N$ 이 존재하여 $n \geq N$ 일 때 $|x_n - 2| < \varepsilon$ 이 성립함 (즉, 수열 $\{x_n\}$ 이 $2$ 로 수렴함).]{style="color:red"}] **가장 많은 반복** 이 필요한 학습률은?
 
 ① $\alpha = 0.1$\
 ② $\alpha = 0.5$\
