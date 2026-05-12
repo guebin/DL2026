@@ -5,6 +5,7 @@ date: "05/04/2026"
 draft: false
 ---
 
+{{<video https://youtu.be/playlist?list=PLQqh36zP38-ycHUuPXaF1e2zVsZ3r1z6d&si=Vl5QsYh6exU7lG8p>}}
 
 ## 문제 1. 광고비와 매출
 
