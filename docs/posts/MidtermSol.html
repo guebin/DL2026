@@ -1497,7 +1497,7 @@ tensor(0.2926)</code></pre>
 </section>
 <section id="노드-수와-표현력" class="level5">
 <h5 class="anchored" data-anchor-id="노드-수와-표현력">노드 수와 표현력</h5>
-<p><code>(7)</code> 다음 두 네트워크 중 <span style="color:red"><span class="math inline">\(0 \sim 1\)</span> 사이에 있는</span> 더 복잡한 곡선을 적합할 수 있는 것은?</p>
+<p><code>(7)</code> 다음 두 네트워크 중 <span style="color:red"><span class="math inline">\(0 \sim 1\)</span> 사이의</span> 더 복잡한 곡선을 적합할 수 있는 것은?</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (가)</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>net_a <span class="op">=</span> torch.nn.Sequential(</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">1</span>, <span class="dv">2</span>),</span>
@@ -1521,7 +1521,7 @@ tensor(0.2926)</code></pre>
 <blockquote class="blockquote">
 <p>정답: ② (<span style="color:red">문제 오류로 ①, ②, ③, ④ 모두 정답으로 인정</span>)</p>
 </blockquote>
-<p><code>(8)</code> <span style="color:red"><span class="math inline">\(0 \sim 1\)</span> 사이에 있는</span> 어떤 곡선 데이터를 위 <code>net_a</code>, <code>net_b</code> 로 적합한다고 하자. 데이터 수 <span class="math inline">\(n\)</span> 을 점점 키울 때 다음 중 옳은 것은? (학습률·epoch 충분히 적절히 가정)</p>
+<p><code>(8)</code> <span style="color:red"><span class="math inline">\(0 \sim 1\)</span> 사이의</span> 어떤 곡선 데이터를 위 <code>net_a</code>, <code>net_b</code> 로 적합한다고 하자. 데이터 수 <span class="math inline">\(n\)</span> 을 점점 키울 때 다음 중 옳은 것은? (학습률·epoch 충분히 적절히 가정)</p>
 <p>① <span class="math inline">\(n\)</span> 이 커지면 어떠한 네트워크라도 참함수에 정확히 가까워진다<br>
 ② <span style="color:red"><span class="math inline">\(n\)</span> 이 커진다고 해서 표현력이 자동으로 늘어나지 않음. 따라서 <span class="math inline">\(n\)</span> 이 커져도 <code>net_a</code>, <code>net_b</code> 모두 참함수에 가까워지지 않음</span><br>
 ③ <span class="math inline">\(n\)</span> 이 커지면 네트워크가 꺾을 수 있는 횟수가 자동으로 증가한다<br>
