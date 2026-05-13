@@ -1152,28 +1152,28 @@
     "href": "posts/Quiz17.html",
     "title": "Quiz-17 (2026.05.13) // 범위: ~10wk-1",
     "section": "",
-    "text": "다음 코드를 실행했다고 하자.\nimport torch\n\nXcpu = torch.tensor([0.0, 0.1, 0.2]).reshape(-1, 1)\nYcpu = torch.tensor([0.0, 0.2, 0.4]).reshape(-1, 1)\n\nXgpu = Xcpu.to(\"cuda:0\")\nYgpu = Ycpu.to(\"cuda:0\")\n\nnet = torch.nn.Linear(1, 1)\n다음 중 오류 없이 연산 가능한 것 을 모두 고르시오.\n# (a)\nnet.to(\"cpu\")\nnet(Xcpu)\n\n# (b)\nnet.to(\"cuda:0\")\nnet(Xgpu)\n\n# (c)\nnet.to(\"cpu\")\nnet(Xgpu)\n\n# (d)\nnet.to(\"cuda:0\")\nnet(Xcpu)"
+    "text": "다음 코드를 실행했다고 하자.\nimport torch\n\nXcpu = torch.tensor([0.0, 0.1, 0.2]).reshape(-1, 1)\nYcpu = torch.tensor([0.0, 0.2, 0.4]).reshape(-1, 1)\n\nXgpu = Xcpu.to(\"cuda:0\")\nYgpu = Ycpu.to(\"cuda:0\")\n\nnet = torch.nn.Linear(1, 1)\n다음 중 오류 없이 연산 가능한 것 을 모두 고르시오.\n# (a)\nnet.to(\"cpu\")\nnet(Xcpu)\n\n# (b)\nnet.to(\"cuda:0\")\nnet(Xgpu)\n\n# (c)\nnet.to(\"cpu\")\nnet(Xgpu)\n\n# (d)\nnet.to(\"cuda:0\")\nnet(Xcpu)\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답: (a), (b)"
   },
   {
     "objectID": "posts/Quiz17.html#cpugpu-연산-가능-여부",
     "href": "posts/Quiz17.html#cpugpu-연산-가능-여부",
     "title": "Quiz-17 (2026.05.13) // 범위: ~10wk-1",
     "section": "",
-    "text": "다음 코드를 실행했다고 하자.\nimport torch\n\nXcpu = torch.tensor([0.0, 0.1, 0.2]).reshape(-1, 1)\nYcpu = torch.tensor([0.0, 0.2, 0.4]).reshape(-1, 1)\n\nXgpu = Xcpu.to(\"cuda:0\")\nYgpu = Ycpu.to(\"cuda:0\")\n\nnet = torch.nn.Linear(1, 1)\n다음 중 오류 없이 연산 가능한 것 을 모두 고르시오.\n# (a)\nnet.to(\"cpu\")\nnet(Xcpu)\n\n# (b)\nnet.to(\"cuda:0\")\nnet(Xgpu)\n\n# (c)\nnet.to(\"cpu\")\nnet(Xgpu)\n\n# (d)\nnet.to(\"cuda:0\")\nnet(Xcpu)"
+    "text": "다음 코드를 실행했다고 하자.\nimport torch\n\nXcpu = torch.tensor([0.0, 0.1, 0.2]).reshape(-1, 1)\nYcpu = torch.tensor([0.0, 0.2, 0.4]).reshape(-1, 1)\n\nXgpu = Xcpu.to(\"cuda:0\")\nYgpu = Ycpu.to(\"cuda:0\")\n\nnet = torch.nn.Linear(1, 1)\n다음 중 오류 없이 연산 가능한 것 을 모두 고르시오.\n# (a)\nnet.to(\"cpu\")\nnet(Xcpu)\n\n# (b)\nnet.to(\"cuda:0\")\nnet(Xgpu)\n\n# (c)\nnet.to(\"cpu\")\nnet(Xgpu)\n\n# (d)\nnet.to(\"cuda:0\")\nnet(Xcpu)\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답: (a), (b)"
   },
   {
     "objectID": "posts/Quiz17.html#cpu와-gpu의-속도",
     "href": "posts/Quiz17.html#cpu와-gpu의-속도",
     "title": "Quiz-17 (2026.05.13) // 범위: ~10wk-1",
     "section": "2. CPU와 GPU의 속도",
-    "text": "2. CPU와 GPU의 속도\n다음은 같은 구조의 네트워크를 CPU 또는 GPU에서 1000 epoch 학습하는 상황이다.\nnet = torch.nn.Sequential(\n    torch.nn.Linear(1, m),\n    torch.nn.ReLU(),\n    torch.nn.Linear(m, 1),\n)\n강의노트의 실습 결과와 가장 가까운 설명을 고르시오.\n(a) m이 커질수록 CPU가 GPU보다 빨라진다.\n(b) m이 커질수록 GPU가 CPU보다 빨라진다.\n(c) m의 크기와 상관없이 CPU가 항상 더 빠르다.\n(d) m이 크기와 상관없이 GPU가 항상 더 빠르다."
+    "text": "2. CPU와 GPU의 속도\n다음은 같은 구조의 네트워크를 CPU 또는 GPU에서 1000 epoch 학습하는 상황이다.\nnet = torch.nn.Sequential(\n    torch.nn.Linear(1, m),\n    torch.nn.ReLU(),\n    torch.nn.Linear(m, 1),\n)\n강의노트의 실습 결과와 가장 가까운 설명을 고르시오.\n(a) m이 커질수록 CPU가 GPU보다 빨라진다.\n(b) m이 커질수록 GPU가 CPU보다 빨라진다.\n(c) m의 크기와 상관없이 CPU가 항상 더 빠르다.\n(d) m이 크기와 상관없이 GPU가 항상 더 빠르다.\n\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답: (b)"
   },
   {
     "objectID": "posts/Quiz17.html#텐서는-어디에-저장되는가",
     "href": "posts/Quiz17.html#텐서는-어디에-저장되는가",
     "title": "Quiz-17 (2026.05.13) // 범위: ~10wk-1",
     "section": "3. 텐서는 어디에 저장되는가?",
-    "text": "3. 텐서는 어디에 저장되는가?\nColab에서 GPU 런타임을 사용 중이라고 하자. 다음 코드를 실행했다.\nXcpu = torch.tensor([0.0, 0.1, 0.2]).reshape(-1, 1)\nXgpu = Xcpu.to(\"cuda:0\")\nXcpu와 Xgpu가 저장되는 위치에 대한 설명으로 가장 적절한 것을 고르시오.\n(a) Xcpu는 시스템 RAM에 저장되고, Xgpu는 GPU RAM에 저장된다.\n(b) Xcpu는 GPU RAM에 저장되고, Xgpu는 시스템 RAM에 저장된다. (c) Xcpu와 Xgpu는 모두 시스템 RAM에 저장된다.\n(d) Xcpu와 Xgpu는 모두 GPU RAM에 저장된다."
+    "text": "3. 텐서는 어디에 저장되는가?\nColab에서 GPU 런타임을 사용 중이라고 하자. 다음 코드를 실행했다.\nXcpu = torch.tensor([0.0, 0.1, 0.2]).reshape(-1, 1)\nXgpu = Xcpu.to(\"cuda:0\")\nXcpu와 Xgpu가 저장되는 위치에 대한 설명으로 가장 적절한 것을 고르시오.\n(a) Xcpu는 시스템 RAM에 저장되고, Xgpu는 GPU RAM에 저장된다.\n(b) Xcpu는 GPU RAM에 저장되고, Xgpu는 시스템 RAM에 저장된다.\n(c) Xcpu와 Xgpu는 모두 시스템 RAM에 저장된다.\n(d) Xcpu와 Xgpu는 모두 GPU RAM에 저장된다.\n\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답: (a)"
   },
   {
     "objectID": "posts/02wk.html#e.-차원-전환",

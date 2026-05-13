@@ -41,6 +41,13 @@ net.to("cuda:0")
 net(Xcpu)
 ```
 
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+**정답:** (a), (b)
+
+:::
+
 ## 2. CPU와 GPU의 속도
 
 다음은 같은 구조의 네트워크를 CPU 또는 GPU에서 1000 epoch 학습하는 상황이다.
@@ -60,6 +67,12 @@ net = torch.nn.Sequential(
 **\(c\)** `m`의 크기와 상관없이 CPU가 항상 더 빠르다. \
 **\(d\)** `m`이 크기와 상관없이 GPU가 항상 더 빠르다. \
 
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+**정답:** (b)
+
+:::
 
 ## 3. 텐서는 어디에 저장되는가?
 
@@ -73,8 +86,13 @@ Xgpu = Xcpu.to("cuda:0")
 `Xcpu`와 `Xgpu`가 저장되는 위치에 대한 설명으로 가장 적절한 것을 고르시오.
 
 **\(a\)** `Xcpu`는 시스템 RAM에 저장되고, `Xgpu`는 GPU RAM에 저장된다.\
-**\(b\)** `Xcpu`는 GPU RAM에 저장되고, `Xgpu`는 시스템 RAM에 저장된다.
+**\(b\)** `Xcpu`는 GPU RAM에 저장되고, `Xgpu`는 시스템 RAM에 저장된다.\
 **\(c\)** `Xcpu`와 `Xgpu`는 모두 시스템 RAM에 저장된다.\
 **\(d\)** `Xcpu`와 `Xgpu`는 모두 GPU RAM에 저장된다.\
 
+::: {.callout-note collapse="true"}
+## 풀이 보기
 
+**정답:** (a)
+
+:::
