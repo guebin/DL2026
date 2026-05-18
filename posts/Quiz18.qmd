@@ -1,0 +1,139 @@
+---
+title: "Quiz-18 (2026.05.19) // 범위: ~10wk-2"
+author: "최규빈"
+date: "05/19/2026"
+draft: false
+---
+
+## 1. 확률적 경사하강법을 사용하는 이유
+
+확률적 경사하강법(SGD)을 사용하는 주된 이유로 가장 적절한 것을 고르시오.
+
+**\(a\)** 데이터가 너무 많아서 버리고 학습하기 위해서 \
+**\(b\)** GPU-RAM 사용량을 줄이기 위해 \
+**\(c\)** 에폭 수를 줄이기 위해 \
+**\(d\)** 네트워크 구조를 단순화하기 위해 \
+
+## 2. 에폭과 업데이트 횟수
+
+전체 데이터 $n=12396$개를 `batch_size=2048`로 DataLoader를 만들어 `100` 에폭 학습하였다. 다음 물음에 답하시오.
+
+**(1)** 한 에폭에서 Step1-4는 총 몇 번 수행되는가?
+
+**(2)** 100 에폭 학습이 끝났을 때, Step1-4는 총 몇 번 수행되었는가?
+
+## 3. Dataset과 DataLoader
+
+다음 코드를 실행하였다.
+
+```python
+X = torch.tensor([1,2,3,4,5]).float().reshape(-1,1)
+Y = torch.tensor([1,1,1,0,0]).float().reshape(-1,1)
+ds = torch.utils.data.TensorDataset(X,Y)
+dl = torch.utils.data.DataLoader(ds, batch_size=2, shuffle=True)
+```
+
+다음 중 **올바른** 설명을 모두 고르시오.
+
+**\(a\)** `ds[-1]`은 `(tensor([5.]), tensor([0.]))` 을 반환한다. \
+**\(b\)** `dl[0]`은 첫 번째 미니배치를 반환한다. \
+**\(c\)** `for Xm, Ym in dl`로 반복하면 3번 반복된다. \
+**\(d\)** `shuffle=True`이므로 에폭마다 미니배치의 구성이 달라진다. \
+
+## 4. logit의 해석
+
+아래와 같은 네트워크와 손실함수를 고려하자. 
+
+```python
+net = torch.nn.Sequential(
+    torch.nn.Linear(784,32),
+    torch.nn.ReLU(),
+    torch.nn.Linear(32,1),
+)
+loss_fn = torch.nn.BCEWithLogitsLoss()
+```
+
+적합 후 어떤 샘플 ${\bf x}_i$에 대하여 `net(Xnew)`의 값이 `-3.17`이었다. 다음 물음에 답하시오.
+
+**(1)** `net(Xnew).sigmoid()` 의 값은 0.5보다 큰가, 작은가?
+
+**(2)** 이 샘플의 예측 클래스는 $y=0$인가, $y=1$인가?
+
+**(3)** 이 logit 값을 "근거"의 관점에서 해석하시오.
+
+## 5. 동일한 결과를 내는 코드 짝짓기
+
+아래 코드 (가)~(라)는 MNIST 이항분류(3 vs 7) 모델의 적합과 예측을 수행하는 코드이다. 동일한 시드에서 **동일한 결과**를 내는 코드끼리 짝지으시오.
+
+**(가)**
+
+```python
+net = torch.nn.Sequential(
+    torch.nn.Linear(784,32),
+    torch.nn.ReLU(),
+    torch.nn.Linear(32,1),
+    torch.nn.Sigmoid()
+)
+loss_fn = torch.nn.BCELoss()
+# 적합 후 예측:
+Yhat = (net(X) > 0.5).float()
+```
+
+**(나)**
+
+```python
+net = torch.nn.Sequential(
+    torch.nn.Linear(784,32),
+    torch.nn.ReLU(),
+    torch.nn.Linear(32,1),
+)
+loss_fn = torch.nn.BCEWithLogitsLoss()
+# 적합 후 예측:
+Yhat = (net(X) > 0).float()
+```
+
+**(다)**
+
+```python
+net = torch.nn.Sequential(
+    torch.nn.Linear(784,32),
+    torch.nn.ReLU(),
+    torch.nn.Linear(32,1),
+)
+loss_fn = torch.nn.BCELoss()
+# 적합 후 예측:
+Yhat = (net(X) > 0.5).float()
+```
+
+**(라)**
+
+```python
+net = torch.nn.Sequential(
+    torch.nn.Linear(784,32),
+    torch.nn.ReLU(),
+    torch.nn.Linear(32,1),
+    torch.nn.Sigmoid()
+)
+loss_fn = torch.nn.BCEWithLogitsLoss()
+# 적합 후 예측:
+Yhat = (net(X) > 0).float()
+```
+
+## 6. softmax의 역할
+
+다음 중 logit, sigmoid, logits, softmax에 대한 설명으로 **틀린** 것을 고르시오.
+
+**\(a\)** logit은 $y=1$이 나올 근거를 수치화한 것이다. \
+**\(b\)** sigmoid는 근거를 확률로 바꾸는 함수이다. \
+**\(c\)** logits는 각 클래스가 나올 근거를 벡터 형태로 모아둔 것이다. \
+**\(d\)** softmax는 근거들 중 최대값을 찾는 함수이다. \
+
+## 7. 용어 정리
+
+다음 빈칸에 들어갈 용어를 각각 쓰시오.
+
+**(1)** 전체 데이터셋을 한 번 통과하는 단위를 \_\_\_\_이라고 한다.
+
+**(2)** 전체 데이터 중 일부 샘플의 묶음 하나를 \_\_\_\_라고 한다.
+
+**(3)** 하나의 묶음 안에 들어있는 샘플의 개수 $m$을 \_\_\_\_라고 한다.
