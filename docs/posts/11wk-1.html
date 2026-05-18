@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="최규빈">
-<meta name="dcterms.date" content="2026-05-19">
+<meta name="dcterms.date" content="2026-05-18">
 
-<title>Quiz-18 (2026.05.19) // 범위: ~10wk-2 – DL2026</title>
+<title>11wk-1: 다항분류 – DL2026</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -78,6 +78,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-c9977d45a3686ad219da56a32de8e67a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/videojs/video.min.js"></script>
+<link href="../site_libs/quarto-contrib/videojs/video-js.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -182,22 +184,13 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#확률적-경사하강법을-사용하는-이유" id="toc-확률적-경사하강법을-사용하는-이유" class="nav-link active" data-scroll-target="#확률적-경사하강법을-사용하는-이유">1. 확률적 경사하강법을 사용하는 이유</a></li>
-  <li><a href="#에폭과-업데이트-횟수" id="toc-에폭과-업데이트-횟수" class="nav-link" data-scroll-target="#에폭과-업데이트-횟수">2. 에폭과 업데이트 횟수</a></li>
-  <li><a href="#dataset과-dataloader" id="toc-dataset과-dataloader" class="nav-link" data-scroll-target="#dataset과-dataloader">3. Dataset과 DataLoader</a></li>
-  <li><a href="#logit의-해석" id="toc-logit의-해석" class="nav-link" data-scroll-target="#logit의-해석">4. logit의 해석</a></li>
-  <li><a href="#동일한-결과를-내는-코드-짝짓기" id="toc-동일한-결과를-내는-코드-짝짓기" class="nav-link" data-scroll-target="#동일한-결과를-내는-코드-짝짓기">5. 동일한 결과를 내는 코드 짝짓기</a></li>
-  <li><a href="#softmax의-역할" id="toc-softmax의-역할" class="nav-link" data-scroll-target="#softmax의-역할">6. softmax의 역할</a></li>
-  <li><a href="#용어-정리" id="toc-용어-정리" class="nav-link" data-scroll-target="#용어-정리">7. 용어 정리</a></li>
-  <li><a href="#정답" id="toc-정답" class="nav-link" data-scroll-target="#정답">정답</a>
+  <li><a href="#강의영상" id="toc-강의영상" class="nav-link active" data-scroll-target="#강의영상">1. 강의영상</a></li>
+  <li><a href="#imports" id="toc-imports" class="nav-link" data-scroll-target="#imports">2. Imports</a></li>
+  <li><a href="#다항분류" id="toc-다항분류" class="nav-link" data-scroll-target="#다항분류">3. 다항분류</a>
   <ul class="collapse">
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">1.</a></li>
-  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2.</a></li>
-  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">3.</a></li>
-  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">4.</a></li>
-  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">5.</a></li>
-  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">6.</a></li>
-  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">7.</a></li>
+  <li><a href="#a.-범주형자료" id="toc-a.-범주형자료" class="nav-link" data-scroll-target="#a.-범주형자료">A. 범주형자료</a></li>
+  <li><a href="#b.-실습-3개의-클래스를-구분" id="toc-b.-실습-3개의-클래스를-구분" class="nav-link" data-scroll-target="#b.-실습-3개의-클래스를-구분">B. 실습: 3개의 클래스를 구분</a></li>
+  <li><a href="#c.-결론" id="toc-c.-결론" class="nav-link" data-scroll-target="#c.-결론">C. 결론</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -207,7 +200,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Quiz-18 (2026.05.19) // 범위: ~10wk-2</h1>
+<h1 class="title"><strong>11wk-1: 다항분류</strong></h1>
 </div>
 
 
@@ -224,7 +217,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 19, 2026</p>
+      <p class="date">May 18, 2026</p>
     </div>
   </div>
   
@@ -236,142 +229,266 @@ window.Quarto = {
 </header>
 
 
-<section id="확률적-경사하강법을-사용하는-이유" class="level2">
-<h2 class="anchored" data-anchor-id="확률적-경사하강법을-사용하는-이유">1. 확률적 경사하강법을 사용하는 이유</h2>
-<p>확률적 경사하강법(SGD)을 사용하는 주된 이유로 가장 적절한 것을 고르시오.</p>
-<p><strong>(a)</strong> 데이터가 너무 많아서 버리고 학습하기 위해서<br>
-<strong>(b)</strong> GPU-RAM 사용량을 줄이기 위해<br>
-<strong>(c)</strong> 에폭 수를 줄이기 위해<br>
-<strong>(d)</strong> 네트워크 구조를 단순화하기 위해<br>
-</p>
+<p><a href="https://colab.research.google.com/github/guebin/DL2026/blob/master/posts/11wk-1.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" style="text-align: left"></a></p>
+<section id="강의영상" class="level1">
+<h1>1. 강의영상</h1>
+<div class="quarto-video"><video id="video_shortcode_videojs_video1" class="video-js vjs-default-skin vjs-fluid" controls="" preload="auto" data-setup="{}" title=""><source src="https://youtube.com/playlist?list=PLQqh36zP38-w26UVLonYupRuwwsCVH9nU&amp;si=3vWKfq0HQEY8ByU4"></video></div>
 </section>
-<section id="에폭과-업데이트-횟수" class="level2">
-<h2 class="anchored" data-anchor-id="에폭과-업데이트-횟수">2. 에폭과 업데이트 횟수</h2>
-<p>전체 데이터 <span class="math inline">\(n=12396\)</span>개를 <code>batch_size=2048</code>로 DataLoader를 만들어 <code>100</code> 에폭 학습하였다. 다음 물음에 답하시오.</p>
-<p><strong>(1)</strong> 한 에폭에서 Step1-4는 총 몇 번 수행되는가?</p>
-<p><strong>(2)</strong> 100 에폭 학습이 끝났을 때, Step1-4는 총 몇 번 수행되었는가?</p>
+<section id="imports" class="level1">
+<h1>2. Imports</h1>
+<div id="cell-5" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torchvision</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-6" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'figure.figsize'</span>] <span class="op">=</span> (<span class="fl">4.5</span>,<span class="fl">3.0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
-<section id="dataset과-dataloader" class="level2">
-<h2 class="anchored" data-anchor-id="dataset과-dataloader">3. Dataset과 DataLoader</h2>
-<p>다음 코드를 실행하였다.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> torch.tensor([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>]).<span class="bu">float</span>().reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> torch.tensor([<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>]).<span class="bu">float</span>().reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> torch.utils.data.TensorDataset(X,Y)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>dl <span class="op">=</span> torch.utils.data.DataLoader(ds, batch_size<span class="op">=</span><span class="dv">2</span>, shuffle<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>다음 중 <strong>올바른</strong> 설명을 모두 고르시오.</p>
-<p><strong>(a)</strong> <code>ds[-1]</code>은 <code>(tensor([5.]), tensor([0.]))</code> 을 반환한다.<br>
-<strong>(b)</strong> <code>dl[0]</code>은 첫 번째 미니배치를 반환한다.<br>
-<strong>(c)</strong> <code>for Xm, Ym in dl</code>로 반복하면 3번 반복된다.<br>
-<strong>(d)</strong> <code>shuffle=True</code>이므로 에폭마다 미니배치의 구성이 달라진다.<br>
-</p>
+<section id="다항분류" class="level1">
+<h1>3. 다항분류</h1>
+<section id="a.-범주형자료" class="level2">
+<h2 class="anchored" data-anchor-id="a.-범주형자료">A. 범주형자료</h2>
+<p><code>-</code> 범주형자료를 숫자로 어떻게 바꿀까?</p>
+<ul>
+<li>실패/성공 <span class="math inline">\(\to\)</span> 0/1</li>
+<li>숫자3그림/숫자7그림 <span class="math inline">\(\to\)</span> 0/1</li>
+<li>강아지그림/고양이그림 <span class="math inline">\(\to\)</span> 0/1</li>
+<li>강아지그림/고양이그림/토끼그림 <span class="math inline">\(\to\)</span> 0/1/2 ???</li>
+</ul>
+<p><code>-</code> 주입식 교육</p>
+<ul>
+<li>잘못된방식: 강아지그림 = 0, 고양이그림 = 1, 토끼그림 = 2</li>
+<li>올바른방식: 강아지그림 = [1,0,0], 고양이그림 = [0,1,0], 토끼그림 = [0,0,1] // &lt;– 이러한 방식을 원핫인코딩이라함</li>
+</ul>
+<p><code>-</code> 왜??</p>
+<ul>
+<li>설명1: 강아지그림, 고양이그림, 토끼그림은 서열척도가 아니라 명목척도다. 그래서 범주를 0,1,2로 으로 숫자화하면 평균등의 의미가 없음 (사회조사분석사 2급 스타일)</li>
+<li>설명2: 범주형은 원핫인코딩으로 해야함 (“30일만에 끝내는 실전머신러닝” 이런 책에 나오는 스타일)</li>
+<li>설명3: 동전을 한번 던져서 나오는 결과는 베르누이분포, 즉 시행횟수=1인 이항분포 <span class="math inline">\(B(1,p)\)</span>를 따름. 주사위를 한번 던져서 나오는 눈금의 숫자는 시행횟수가=1인 다항분포 <span class="math inline">\(M(1,{\bf p})\)</span>를 따름. 시행횟수가=1인 다항분포의 실현값은 0,1 이고, 시행횟수가=1인 다항분포의 실현값은 [1,0,0], [0,1,0], [0,0,1] 이므로 당연히 <span class="math inline">\(y_i\)</span> 는 [1,0,0], [0,1,0], [0,0,1] 중 하나의 형태랄 가정하는게 바람직함.</li>
+</ul>
 </section>
-<section id="logit의-해석" class="level2">
-<h2 class="anchored" data-anchor-id="logit의-해석">4. logit의 해석</h2>
-<p>아래와 같은 네트워크와 손실함수를 고려하자.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> torch.nn.Sequential(</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">784</span>,<span class="dv">32</span>),</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU(),</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">32</span>,<span class="dv">1</span>),</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>loss_fn <span class="op">=</span> torch.nn.BCEWithLogitsLoss()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>적합 후 어떤 샘플 <span class="math inline">\({\bf x}_i\)</span>에 대하여 <code>net(Xnew)</code>의 값이 <code>-3.17</code>이었다. 다음 물음에 답하시오.</p>
-<p><strong>(1)</strong> <code>net(Xnew).sigmoid()</code> 의 값은 0.5보다 큰가, 작은가?</p>
-<p><strong>(2)</strong> 이 샘플의 예측 클래스는 <span class="math inline">\(y=0\)</span>인가, <span class="math inline">\(y=1\)</span>인가?</p>
-<p><strong>(3)</strong> 이 logit 값을 “근거”의 관점에서 해석하시오.</p>
+<section id="b.-실습-3개의-클래스를-구분" class="level2">
+<h2 class="anchored" data-anchor-id="b.-실습-3개의-클래스를-구분">B. 실습: 3개의 클래스를 구분</h2>
+<p><code>-</code> 데이터준비</p>
+<div id="cell-14" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>train_dataset <span class="op">=</span> torchvision.datasets.MNIST(root<span class="op">=</span><span class="st">'./data'</span>,train<span class="op">=</span><span class="va">True</span>,download<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>to_tensor <span class="op">=</span> torchvision.transforms.ToTensor()</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>X3 <span class="op">=</span> torch.stack([to_tensor(Xi) <span class="cf">for</span> Xi, yi <span class="kw">in</span> train_dataset <span class="cf">if</span> yi<span class="op">==</span><span class="dv">3</span>])</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>X7 <span class="op">=</span> torch.stack([to_tensor(Xi) <span class="cf">for</span> Xi, yi <span class="kw">in</span> train_dataset <span class="cf">if</span> yi<span class="op">==</span><span class="dv">7</span>])</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>X9 <span class="op">=</span> torch.stack([to_tensor(Xi) <span class="cf">for</span> Xi, yi <span class="kw">in</span> train_dataset <span class="cf">if</span> yi<span class="op">==</span><span class="dv">9</span>])</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> torch.concat([X3,X7,X9]).reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span><span class="op">*</span><span class="dv">28</span><span class="op">*</span><span class="dv">28</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> torch.tensor([<span class="dv">0</span>]<span class="op">*</span><span class="dv">6131</span> <span class="op">+</span> [<span class="dv">1</span>]<span class="op">*</span><span class="dv">6265</span><span class="op">+</span> [<span class="dv">2</span>]<span class="op">*</span><span class="bu">len</span>(X9)) <span class="co"># 숫자3은0, 숫자7은1, 숫자9는2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-15" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="af04fdba-aaf0-427b-e843-5bfe436a0a8c">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X.shape)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y.shape)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>torch.Size([18345, 784])
+torch.Size([18345])</code></pre>
+</div>
+</div>
+<div id="cell-16" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="9dad8fa0-ff66-4479-fa45-e37faf2617c9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>y <span class="co"># 이러한식으로 y를 만들면 안된다고 했음</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<pre><code>tensor([0, 0, 0,  ..., 2, 2, 2])</code></pre>
+</div>
+</div>
+<div id="cell-17" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="f86b81e4-5df9-4e74-d050-f93faab2eecf">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> torch.nn.functional.one_hot(y).<span class="bu">float</span>()</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>Y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="51">
+<pre><code>tensor([[1., 0., 0.],
+        [1., 0., 0.],
+        [1., 0., 0.],
+        ...,
+        [0., 0., 1.],
+        [0., 0., 1.],
+        [0., 0., 1.]])</code></pre>
+</div>
+</div>
+<p><code>-</code> 적합</p>
+<div id="cell-19" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">0</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> torch.nn.Sequential(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">784</span>,<span class="dv">32</span>),</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU(),</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">32</span>,<span class="dv">3</span>),</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>loss_fn <span class="op">=</span> torch.nn.CrossEntropyLoss() <span class="co"># 이게 이름이 CEWithLogitsLoss 였다면 좋았을텐데.</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>optimizer <span class="op">=</span> torch.optim.Adam(net.parameters())</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">100</span>):</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">#step1</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    Logits <span class="op">=</span> net(X)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">#step2</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> loss_fn(Logits,Y)</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">#step3</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    loss.backward()</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">#step4</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    optimizer.step()</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    optimizer.zero_grad()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-20" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="130e422c-ca15-40be-b177-d95d9cde97a2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>(net(X).argmax(axis<span class="op">=</span><span class="dv">1</span>) <span class="op">==</span> y).<span class="bu">float</span>().mean()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="88">
+<pre><code>tensor(0.9531)</code></pre>
+</div>
+</div>
+<p><code>-</code> 그런데 사실…</p>
+<div id="cell-22" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">0</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> torch.nn.Sequential(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">784</span>,<span class="dv">32</span>),</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU(),</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">32</span>,<span class="dv">3</span>),</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>loss_fn <span class="op">=</span> torch.nn.CrossEntropyLoss() <span class="co"># 이게 이름이 CEWithLogitsLoss 였다면 좋았을텐데.</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>optimizer <span class="op">=</span> torch.optim.Adam(net.parameters())</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">100</span>):</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">#step1</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    Logits <span class="op">=</span> net(X)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">#step2</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> loss_fn(Logits,y)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">#step3</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    loss.backward()</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">#step4</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    optimizer.step()</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    optimizer.zero_grad()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-23" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="dc7942e1-663e-4dfa-efc3-6f71dafdf71f">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>(net(X).argmax(axis<span class="op">=</span><span class="dv">1</span>) <span class="op">==</span> y).<span class="bu">float</span>().mean()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="91">
+<pre><code>tensor(0.9531)</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>파이토치 착해요. 친절함. Y가 아니고 y를 넣어도 돌려줘요.</p>
+</blockquote>
+<div id="cell-25" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="cf0c6a1e-87b6-486d-f167-793b39f8c302">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>net(X).softmax(axis<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="97">
+<pre><code>tensor([[9.9819e-01, 2.7907e-04, 1.5294e-03],
+        [9.9341e-01, 1.5609e-03, 5.0314e-03],
+        [9.9979e-01, 1.5516e-04, 5.1536e-05],
+        ...,
+        [2.8185e-03, 1.4823e-01, 8.4895e-01],
+        [4.1827e-03, 2.6862e-02, 9.6896e-01],
+        [2.8057e-02, 1.3784e-01, 8.3410e-01]], grad_fn=&lt;SoftmaxBackward0&gt;)</code></pre>
+</div>
+</div>
 </section>
-<section id="동일한-결과를-내는-코드-짝짓기" class="level2">
-<h2 class="anchored" data-anchor-id="동일한-결과를-내는-코드-짝짓기">5. 동일한 결과를 내는 코드 짝짓기</h2>
-<p>아래 코드 (가)~(라)는 MNIST 이항분류(3 vs 7) 모델의 적합과 예측을 수행하는 코드이다. 동일한 시드에서 <strong>동일한 결과</strong>를 내는 코드끼리 짝지으시오.</p>
-<p><strong>(가)</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> torch.nn.Sequential(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">784</span>,<span class="dv">32</span>),</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU(),</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">32</span>,<span class="dv">1</span>),</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    torch.nn.Sigmoid()</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>loss_fn <span class="op">=</span> torch.nn.BCELoss()</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 적합 후 예측:</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>Yhat <span class="op">=</span> (net(X) <span class="op">&gt;</span> <span class="fl">0.5</span>).<span class="bu">float</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>(나)</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> torch.nn.Sequential(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">784</span>,<span class="dv">32</span>),</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU(),</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">32</span>,<span class="dv">1</span>),</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>loss_fn <span class="op">=</span> torch.nn.BCEWithLogitsLoss()</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 적합 후 예측:</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>Yhat <span class="op">=</span> (net(X) <span class="op">&gt;</span> <span class="dv">0</span>).<span class="bu">float</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>(다)</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> torch.nn.Sequential(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">784</span>,<span class="dv">32</span>),</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU(),</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">32</span>,<span class="dv">1</span>),</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>loss_fn <span class="op">=</span> torch.nn.BCELoss()</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 적합 후 예측:</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>Yhat <span class="op">=</span> (net(X) <span class="op">&gt;</span> <span class="fl">0.5</span>).<span class="bu">float</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>(라)</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> torch.nn.Sequential(</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">784</span>,<span class="dv">32</span>),</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU(),</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">32</span>,<span class="dv">1</span>),</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    torch.nn.Sigmoid()</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>loss_fn <span class="op">=</span> torch.nn.BCEWithLogitsLoss()</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 적합 후 예측:</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>Yhat <span class="op">=</span> (net(X) <span class="op">&gt;</span> <span class="dv">0</span>).<span class="bu">float</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="softmax의-역할" class="level2">
-<h2 class="anchored" data-anchor-id="softmax의-역할">6. softmax의 역할</h2>
-<p>다음 중 logit, sigmoid, logits, softmax에 대한 설명으로 <strong>틀린</strong> 것을 고르시오.</p>
-<p><strong>(a)</strong> logit은 <span class="math inline">\(y=1\)</span>이 나올 근거를 수치화한 것이다.<br>
-<strong>(b)</strong> sigmoid는 근거를 확률로 바꾸는 함수이다.<br>
-<strong>(c)</strong> logits는 각 클래스가 나올 근거를 벡터 형태로 모아둔 것이다.<br>
-<strong>(d)</strong> softmax는 근거들 중 최대값을 찾는 함수이다.<br>
-</p>
-</section>
-<section id="용어-정리" class="level2">
-<h2 class="anchored" data-anchor-id="용어-정리">7. 용어 정리</h2>
-<p>다음 빈칸에 들어갈 용어를 각각 쓰시오.</p>
-<p><strong>(1)</strong> 전체 데이터셋을 한 번 통과하는 단위를 ____이라고 한다.</p>
-<p><strong>(2)</strong> 전체 데이터 중 일부 샘플의 묶음 하나를 ____라고 한다.</p>
-<p><strong>(3)</strong> 하나의 묶음 안에 들어있는 샘플의 개수 <span class="math inline">\(m\)</span>을 ____라고 한다.</p>
-<hr>
-</section>
-<section id="정답" class="level1">
-<h1>정답</h1>
-<section id="section" class="level2">
-<h2 class="anchored" data-anchor-id="section">1.</h2>
-<p><strong>(b)</strong></p>
-</section>
-<section id="section-1" class="level2">
-<h2 class="anchored" data-anchor-id="section-1">2.</h2>
-<p><strong>(1)</strong> 7번</p>
-<p><strong>(2)</strong> 700번</p>
-</section>
-<section id="section-2" class="level2">
-<h2 class="anchored" data-anchor-id="section-2">3.</h2>
-<p><strong>(a), (c), (d)</strong></p>
-</section>
-<section id="section-3" class="level2">
-<h2 class="anchored" data-anchor-id="section-3">4.</h2>
-<p><strong>(1)</strong> 0.5보다 작다.</p>
-<p><strong>(2)</strong> <span class="math inline">\(y=0\)</span></p>
-<p><strong>(3)</strong> <span class="math inline">\(y=1\)</span>쪽 근거가 <span class="math inline">\(-3.17\)</span>이므로, <span class="math inline">\(y=0\)</span>쪽에 강한 근거가 있다.</p>
-</section>
-<section id="section-4" class="level2">
-<h2 class="anchored" data-anchor-id="section-4">5.</h2>
-<p><strong>(가)</strong> = <strong>(나)</strong></p>
-</section>
-<section id="section-5" class="level2">
-<h2 class="anchored" data-anchor-id="section-5">6.</h2>
-<p><strong>(d)</strong></p>
-</section>
-<section id="section-6" class="level2">
-<h2 class="anchored" data-anchor-id="section-6">7.</h2>
-<p><strong>(1)</strong> 에폭(epoch)</p>
-<p><strong>(2)</strong> 미니배치(mini-batch)</p>
-<p><strong>(3)</strong> 배치 사이즈(batch size)</p>
+<section id="c.-결론" class="level2">
+<h2 class="anchored" data-anchor-id="c.-결론">C. 결론</h2>
+<p><code>-</code> 조금 헷갈리지만…</p>
+<table class="table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">task</th>
+<th style="text-align: center;">오차항의가정</th>
+<th style="text-align: center;">마지막활성화함수</th>
+<th style="text-align: center;">netout의 의미</th>
+<th style="text-align: center;">손실함수(파이토치)</th>
+<th style="text-align: center;">손실함수(개념)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">이항분류</td>
+<td style="text-align: center;">시행횟수=1인 이항분포</td>
+<td style="text-align: center;">Sigmoid</td>
+<td style="text-align: center;">prob</td>
+<td style="text-align: center;"><code>BCELoss</code></td>
+<td style="text-align: center;">BCE</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">이항분류</td>
+<td style="text-align: center;">시행횟수=1인 이항분포</td>
+<td style="text-align: center;">None</td>
+<td style="text-align: center;">logit</td>
+<td style="text-align: center;"><code>BCEWithLogitsLoss</code></td>
+<td style="text-align: center;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">다항분류</td>
+<td style="text-align: center;">시행횟수=1인 다항분포</td>
+<td style="text-align: center;">Softmax</td>
+<td style="text-align: center;">probs</td>
+<td style="text-align: center;">NA</td>
+<td style="text-align: center;">CE</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">다항분류</td>
+<td style="text-align: center;">시행횟수=1인 다항분포</td>
+<td style="text-align: center;">Noen</td>
+<td style="text-align: center;">logits</td>
+<td style="text-align: center;"><code>CrossEntropyLoss</code></td>
+<td style="text-align: center;">NA</td>
+</tr>
+</tbody>
+</table>
+<p><code>-</code> 나같으면 이렇게 만들었겠다..</p>
+<table class="table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">task</th>
+<th style="text-align: center;">오차항의가정</th>
+<th style="text-align: center;">마지막활성화함수</th>
+<th style="text-align: center;">netout의 의미</th>
+<th style="text-align: center;">손실함수(파이토치)</th>
+<th style="text-align: center;">손실함수(개념)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">이항분류</td>
+<td style="text-align: center;">시행횟수=1인 이항분포</td>
+<td style="text-align: center;">Sigmoid</td>
+<td style="text-align: center;">prob</td>
+<td style="text-align: center;"><code>BCELoss</code></td>
+<td style="text-align: center;">BCE</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">이항분류</td>
+<td style="text-align: center;">시행횟수=1인 이항분포</td>
+<td style="text-align: center;">None</td>
+<td style="text-align: center;">logit</td>
+<td style="text-align: center;"><code>BCEWithLogitsLoss</code></td>
+<td style="text-align: center;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">다항분류</td>
+<td style="text-align: center;">시행횟수=1인 다항분포</td>
+<td style="text-align: center;">Softmax</td>
+<td style="text-align: center;">probs</td>
+<td style="text-align: center;"><code>CELoss</code></td>
+<td style="text-align: center;">CE</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">다항분류</td>
+<td style="text-align: center;">시행횟수=1인 다항분포</td>
+<td style="text-align: center;">Noen</td>
+<td style="text-align: center;">logits</td>
+<td style="text-align: center;"><code>CEWithLogitsLoss</code></td>
+<td style="text-align: center;">NA</td>
+</tr>
+</tbody>
+</table>
 
 
 </section>
@@ -779,6 +896,7 @@ window.Quarto = {
   });
   </script>
 </div> <!-- /content -->
+<script>videojs(video_shortcode_videojs_video1);</script>
 
 
 
