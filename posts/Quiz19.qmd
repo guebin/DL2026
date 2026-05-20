@@ -14,12 +14,6 @@ draft: false
 **\(c\)** 개=-1, 고양이=0, 토끼=1 \
 **\(d\)** 개=\[1,1\], 고양이=\[1,0\], 토끼=\[0,0\] \
 
-::: {.callout-note collapse="true"}
-## 풀이 보기
-
-**정답:** (b)
-
-:::
 
 ## 2. 원-핫 인코딩
 
@@ -32,12 +26,7 @@ Y = torch.nn.functional.one_hot(y).float()
 
 `Y`의 shape과 `Y[1]`의 값을 각각 쓰시오.
 
-::: {.callout-note collapse="true"}
-## 풀이 보기
 
-**정답:** shape은 `(5, 3)`, `Y[1]`은 `tensor([0., 0., 1.])`
-
-:::
 
 ## 3. 네트워크 출력의 해석
 
@@ -59,12 +48,6 @@ loss_fn = torch.nn.CrossEntropyLoss()
 **\(c\)** 출력 중 가장 값이 큰 클래스로 예측한다. \
 **\(d\)** 출력 결과가 `[2.0, -3.0, 5.0]`라면 숫자 9로 예측한다. \
 
-::: {.callout-note collapse="true"}
-## 풀이 보기
-
-**정답:** (a), (c), (d)
-
-:::
 
 ## 4. 손실함수와 레이블 형태
 
@@ -88,63 +71,4 @@ loss = loss_fn(Logits, ???)
 **\(b\)** `Y` — 원-핫 인코딩, shape `(18345, 3)` \
 **\(c\)** `y.float()` — 실수형 정수 레이블, shape `(18345,)` \
 
-::: {.callout-note collapse="true"}
-## 풀이 보기
 
-**정답:** (a), (b)
-
-:::
-
-
-## 5. 손실함수와 레이블 조합
-
-MNIST 이항분류(3 vs 7)를 위해 아래와 같이 데이터와 네트워크를 준비하였다.
-
-```python
-X = ...  # shape: (n, 784), 입력 이미지
-y = torch.tensor([0]*6131 + [1]*6265)                  # shape: (n,), dtype: int64
-Y = torch.nn.functional.one_hot(y).float()              # shape: (n, 2), dtype: float32
-
-# BCELoss용 네트워크
-net1 = torch.nn.Sequential(
-    torch.nn.Linear(784,32),
-    torch.nn.ReLU(),
-    torch.nn.Linear(32,1),
-    torch.nn.Sigmoid()
-)  # net1(X) shape: (n, 1)
-
-# BCEWithLogitsLoss용 네트워크
-net2 = torch.nn.Sequential(
-    torch.nn.Linear(784,32),
-    torch.nn.ReLU(),
-    torch.nn.Linear(32,1),
-)  # net2(X) shape: (n, 1)
-
-# CrossEntropyLoss용 네트워크
-net3 = torch.nn.Sequential(
-    torch.nn.Linear(784,32),
-    torch.nn.ReLU(),
-    torch.nn.Linear(32,2),
-)  # net3(X) shape: (n, 2)
-```
-
-아래 표의 각 조합에 대해 오류 없이 올바르게 학습이 가능하면 O, 불가능하면 X를 표시하시오.
-
-| | `y` | `y.float().reshape(-1,1)` | `Y` |
-|:--:|:--:|:--:|:--:|
-| `BCELoss(net1(X), ?)` | (1) | (2) | (3) |
-| `BCEWithLogitsLoss(net2(X), ?)` | (4) | (5) | (6) |
-| `CrossEntropyLoss(net3(X), ?)` | (7) | (8) | (9) |
-
-::: {.callout-note collapse="true"}
-## 풀이 보기
-
-**정답:** (2), (5), (7), (9)만 O, 나머지는 X
-
-| | `y` | `y.float().reshape(-1,1)` | `Y` |
-|:--:|:--:|:--:|:--:|
-| `BCELoss` | X | O | X |
-| `BCEWithLogitsLoss` | X | O | X |
-| `CrossEntropyLoss` | O | X | O |
-
-:::
