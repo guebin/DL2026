@@ -1,0 +1,177 @@
+---
+title: "Quiz-19 (2026.05.20) // 범위: ~11wk-1"
+author: "최규빈"
+date: "05/20/2026"
+draft: false
+---
+
+## 1. 범주형 자료의 인코딩
+
+개, 고양이, 토끼를 분류하는 다항분류 문제에서, 레이블 $y$를 인코딩하는 방법으로 가장 적절한 것을 고르시오.
+
+**\(a\)** 개=0, 고양이=1, 토끼=2 \
+**\(b\)** 개=\[1,0,0\], 고양이=\[0,1,0\], 토끼=\[0,0,1\] \
+**\(c\)** 개=-1, 고양이=0, 토끼=1 \
+**\(d\)** 개=\[1,1\], 고양이=\[1,0\], 토끼=\[0,0\] \
+
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+**정답:** (b)
+
+:::
+
+## 2. 원-핫 인코딩
+
+다음 코드를 실행하였다.
+
+```python
+y = torch.tensor([0, 2, 1, 0, 2])
+Y = torch.nn.functional.one_hot(y).float()
+```
+
+`Y`의 shape과 `Y[1]`의 값을 각각 쓰시오.
+
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+**정답:** shape은 `(5, 3)`, `Y[1]`은 `tensor([0., 0., 1.])`
+
+:::
+
+## 3. 네트워크 출력의 의미
+
+MNIST에서 숫자 3, 7, 9를 분류하는 다항분류 문제를 고려하자. 아래와 같은 네트워크를 사용할 때, `net(X)`의 출력 shape으로 올바른 것을 고르시오. (단, `X`의 shape은 `(18345, 784)`이다.)
+
+```python
+net = torch.nn.Sequential(
+    torch.nn.Linear(784,32),
+    torch.nn.ReLU(),
+    torch.nn.Linear(32,3),
+)
+```
+
+**\(a\)** `(18345,)` \
+**\(b\)** `(18345, 1)` \
+**\(c\)** `(18345, 3)` \
+**\(d\)** `(18345, 784)` \
+
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+**정답:** (c)
+
+:::
+
+## 4. 손실함수와 레이블 형태
+
+다음 코드에서 `loss_fn`에 전달할 수 있는 레이블의 형태로 **올바른** 것을 모두 고르시오.
+
+```python
+loss_fn = torch.nn.CrossEntropyLoss()
+Logits = net(X)  # shape: (18345, 3)
+loss = loss_fn(Logits, ???)
+```
+
+**\(a\)** `y` — 정수 레이블, shape `(18345,)`, 값: 0, 1, 2 \
+**\(b\)** `Y` — 원-핫 인코딩, shape `(18345, 3)` \
+**\(c\)** `y.float()` — 실수형 정수 레이블, shape `(18345,)` \
+**\(d\)** (a)와 (b) 모두 가능 \
+
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+**정답:** (d)
+
+:::
+
+## 5. logits과 softmax
+
+어떤 샘플에 대해 네트워크의 출력(logits)이 `[2.1, -0.5, 0.3]`이었다. 다음 물음에 답하시오. (클래스 0=숫자3, 클래스 1=숫자7, 클래스 2=숫자9)
+
+**(1)** 이 샘플의 예측 클래스는 무엇인가?
+
+**(2)** `torch.softmax(logits, dim=-1)`를 적용하면 출력값의 합은 얼마인가?
+
+**(3)** logits 값 `[2.1, -0.5, 0.3]`을 "근거"의 관점에서 해석하시오.
+
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+**정답:** (1) 클래스 0 (숫자 3). (2) 1. (3) 숫자 3일 근거가 2.1, 숫자 7일 근거가 -0.5, 숫자 9일 근거가 0.3이므로 숫자 3쪽에 가장 강한 근거가 있다.
+
+:::
+
+## 6. 이항분류 vs 다항분류 비교
+
+다음 표의 빈칸 (ㄱ)~(ㄹ)에 들어갈 내용을 각각 쓰시오.
+
+| | 이항분류 | 다항분류 |
+|:--:|:--:|:--:|
+| 오차항 분포 가정 | Bernoulli | (ㄱ) |
+| 마지막 활성화 함수 (확률 출력) | Sigmoid | (ㄴ) |
+| 마지막 활성화 함수 (logit(s) 출력) | None | (ㄷ) |
+| 손실함수 (logit(s) 입력, PyTorch) | BCEWithLogitsLoss | (ㄹ) |
+
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+**정답:** (ㄱ) Multinomial, (ㄴ) Softmax, (ㄷ) None, (ㄹ) CrossEntropyLoss
+
+:::
+
+## 7. 올바른 코드 조합
+
+다음 중 MNIST 다항분류(3 vs 7 vs 9)를 위한 코드 조합으로 **올바른** 것을 모두 고르시오.
+
+**\(a\)**
+
+```python
+net = torch.nn.Sequential(
+    torch.nn.Linear(784,32),
+    torch.nn.ReLU(),
+    torch.nn.Linear(32,3),
+)
+loss_fn = torch.nn.CrossEntropyLoss()
+```
+
+**\(b\)**
+
+```python
+net = torch.nn.Sequential(
+    torch.nn.Linear(784,32),
+    torch.nn.ReLU(),
+    torch.nn.Linear(32,3),
+    torch.nn.Softmax(dim=-1)
+)
+loss_fn = torch.nn.CrossEntropyLoss()
+```
+
+**\(c\)**
+
+```python
+net = torch.nn.Sequential(
+    torch.nn.Linear(784,32),
+    torch.nn.ReLU(),
+    torch.nn.Linear(32,1),
+)
+loss_fn = torch.nn.CrossEntropyLoss()
+```
+
+**\(d\)**
+
+```python
+net = torch.nn.Sequential(
+    torch.nn.Linear(784,32),
+    torch.nn.ReLU(),
+    torch.nn.Linear(32,3),
+)
+loss_fn = torch.nn.BCEWithLogitsLoss()
+```
+
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+**정답:** (a)
+
+:::
