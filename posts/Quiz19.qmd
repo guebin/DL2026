@@ -39,9 +39,9 @@ Y = torch.nn.functional.one_hot(y).float()
 
 :::
 
-## 3. 네트워크 출력의 의미
+## 3. 네트워크 출력의 해석
 
-MNIST에서 숫자 3, 7, 9를 분류하는 다항분류 문제를 고려하자. 아래와 같은 네트워크를 사용할 때, `net(X)`의 출력 shape으로 올바른 것을 고르시오. (단, `X`의 shape은 `(18345, 784)`이다.)
+MNIST에서 숫자 3, 7, 9를 분류하는 다항분류 문제를 고려하자. 아래와 같은 네트워크와 손실함수를 사용하였다. (클래스 0=숫자3, 클래스 1=숫자7, 클래스 2=숫자9)
 
 ```python
 net = torch.nn.Sequential(
@@ -49,23 +49,34 @@ net = torch.nn.Sequential(
     torch.nn.ReLU(),
     torch.nn.Linear(32,3),
 )
+loss_fn = torch.nn.CrossEntropyLoss()
 ```
 
-**\(a\)** `(18345,)` \
-**\(b\)** `(18345, 1)` \
-**\(c\)** `(18345, 3)` \
-**\(d\)** `(18345, 784)` \
+다음 중 `net(X)`의 출력에 대한 설명으로 **올바른** 것을 모두 고르시오.
+
+**\(a\)** 출력은 각 클래스에 대한 logits(근거)이다. \
+**\(b\)** 출력의 범위는 0\~1이므로 확률로 해석할 수 있다. \
+**\(c\)** 출력 중 가장 값이 큰 클래스로 예측한다. \
+**\(d\)** 출력 결과가 `[2, -3, 5]`라면 숫자 9로 예측한다. \
 
 ::: {.callout-note collapse="true"}
 ## 풀이 보기
 
-**정답:** (c)
+**정답:** (a), (c), (d)
 
 :::
 
 ## 4. 손실함수와 레이블 형태
 
-다음 코드에서 `loss_fn`에 전달할 수 있는 레이블의 형태로 **올바른** 것을 모두 고르시오.
+MNIST에서 숫자 3, 7, 9를 분류하는 다항분류 문제를 고려하자. 데이터는 아래와 같이 준비되었다.
+
+```python
+X = ...  # shape: (18345, 784), 입력 이미지
+y = torch.tensor([0]*6131 + [1]*6265 + [2]*5949)  # 정수 레이블
+Y = torch.nn.functional.one_hot(y).float()  # 원-핫 인코딩
+```
+
+다음 코드에서 `???`에 전달할 수 있는 레이블의 형태로 **올바른** 것을 모두 고르시오.
 
 ```python
 loss_fn = torch.nn.CrossEntropyLoss()
@@ -76,12 +87,11 @@ loss = loss_fn(Logits, ???)
 **\(a\)** `y` — 정수 레이블, shape `(18345,)`, 값: 0, 1, 2 \
 **\(b\)** `Y` — 원-핫 인코딩, shape `(18345, 3)` \
 **\(c\)** `y.float()` — 실수형 정수 레이블, shape `(18345,)` \
-**\(d\)** (a)와 (b) 모두 가능 \
 
 ::: {.callout-note collapse="true"}
 ## 풀이 보기
 
-**정답:** (d)
+**정답:** (a), (b)
 
 :::
 
@@ -120,9 +130,16 @@ loss = loss_fn(Logits, ???)
 
 :::
 
-## 7. 올바른 코드 조합
+## 7. 이항분류에서 손실함수와 레이블 조합
 
-다음 중 MNIST 다항분류(3 vs 7 vs 9)를 위한 코드 조합으로 **올바른** 것을 모두 고르시오.
+MNIST 이항분류(3 vs 7)를 위해 아래와 같이 데이터를 준비하였다.
+
+```python
+X = ...  # shape: (12396, 784), 입력 이미지
+y = torch.tensor([0]*6131 + [1]*6265).reshape(-1,1).float()  # shape: (12396, 1)
+```
+
+다음 조합 중 오류 없이 학습이 가능한 것을 모두 고르시오.
 
 **\(a\)**
 
@@ -130,9 +147,11 @@ loss = loss_fn(Logits, ???)
 net = torch.nn.Sequential(
     torch.nn.Linear(784,32),
     torch.nn.ReLU(),
-    torch.nn.Linear(32,3),
+    torch.nn.Linear(32,1),
+    torch.nn.Sigmoid()
 )
-loss_fn = torch.nn.CrossEntropyLoss()
+loss_fn = torch.nn.BCELoss()
+loss = loss_fn(net(X), y)
 ```
 
 **\(b\)**
@@ -141,10 +160,11 @@ loss_fn = torch.nn.CrossEntropyLoss()
 net = torch.nn.Sequential(
     torch.nn.Linear(784,32),
     torch.nn.ReLU(),
-    torch.nn.Linear(32,3),
-    torch.nn.Softmax(dim=-1)
+    torch.nn.Linear(32,1),
+    torch.nn.Sigmoid()
 )
-loss_fn = torch.nn.CrossEntropyLoss()
+loss_fn = torch.nn.BCEWithLogitsLoss()
+loss = loss_fn(net(X), y)
 ```
 
 **\(c\)**
@@ -155,7 +175,8 @@ net = torch.nn.Sequential(
     torch.nn.ReLU(),
     torch.nn.Linear(32,1),
 )
-loss_fn = torch.nn.CrossEntropyLoss()
+loss_fn = torch.nn.BCELoss()
+loss = loss_fn(net(X), y)
 ```
 
 **\(d\)**
@@ -164,14 +185,15 @@ loss_fn = torch.nn.CrossEntropyLoss()
 net = torch.nn.Sequential(
     torch.nn.Linear(784,32),
     torch.nn.ReLU(),
-    torch.nn.Linear(32,3),
+    torch.nn.Linear(32,1),
 )
 loss_fn = torch.nn.BCEWithLogitsLoss()
+loss = loss_fn(net(X), y)
 ```
 
 ::: {.callout-note collapse="true"}
 ## 풀이 보기
 
-**정답:** (a)
+**정답:** (a), (b), (d)
 
 :::
