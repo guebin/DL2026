@@ -57,7 +57,7 @@ loss_fn = torch.nn.CrossEntropyLoss()
 **\(a\)** 출력은 각 클래스에 대한 logits(근거)이다. \
 **\(b\)** 출력의 범위는 0\~1이므로 확률로 해석할 수 있다. \
 **\(c\)** 출력 중 가장 값이 큰 클래스로 예측한다. \
-**\(d\)** 출력 결과가 `[2, -3, 5]`라면 숫자 9로 예측한다. \
+**\(d\)** 출력 결과가 `[2.0, -3.0, 5.0]`라면 숫자 9로 예측한다. \
 
 ::: {.callout-note collapse="true"}
 ## 풀이 보기
@@ -84,7 +84,7 @@ Logits = net(X)  # shape: (18345, 3)
 loss = loss_fn(Logits, ???)
 ```
 
-**\(a\)** `y` — 정수 레이블, shape `(18345,)`, 값: 0, 1, 2 \
+**\(a\)** `y` — 정수 레이블, shape `(18345,)` \
 **\(b\)** `Y` — 원-핫 인코딩, shape `(18345, 3)` \
 **\(c\)** `y.float()` — 실수형 정수 레이블, shape `(18345,)` \
 
@@ -95,105 +95,56 @@ loss = loss_fn(Logits, ???)
 
 :::
 
-## 5. logits과 softmax
 
-어떤 샘플에 대해 네트워크의 출력(logits)이 `[2.1, -0.5, 0.3]`이었다. 다음 물음에 답하시오. (클래스 0=숫자3, 클래스 1=숫자7, 클래스 2=숫자9)
+## 5. 손실함수와 레이블 조합
 
-**(1)** 이 샘플의 예측 클래스는 무엇인가?
-
-**(2)** `torch.softmax(logits, dim=-1)`를 적용하면 출력값의 합은 얼마인가?
-
-**(3)** logits 값 `[2.1, -0.5, 0.3]`을 "근거"의 관점에서 해석하시오.
-
-::: {.callout-note collapse="true"}
-## 풀이 보기
-
-**정답:** (1) 클래스 0 (숫자 3). (2) 1. (3) 숫자 3일 근거가 2.1, 숫자 7일 근거가 -0.5, 숫자 9일 근거가 0.3이므로 숫자 3쪽에 가장 강한 근거가 있다.
-
-:::
-
-## 6. 이항분류 vs 다항분류 비교
-
-다음 표의 빈칸 (ㄱ)~(ㄹ)에 들어갈 내용을 각각 쓰시오.
-
-| | 이항분류 | 다항분류 |
-|:--:|:--:|:--:|
-| 오차항 분포 가정 | Bernoulli | (ㄱ) |
-| 마지막 활성화 함수 (확률 출력) | Sigmoid | (ㄴ) |
-| 마지막 활성화 함수 (logit(s) 출력) | None | (ㄷ) |
-| 손실함수 (logit(s) 입력, PyTorch) | BCEWithLogitsLoss | (ㄹ) |
-
-::: {.callout-note collapse="true"}
-## 풀이 보기
-
-**정답:** (ㄱ) Multinomial, (ㄴ) Softmax, (ㄷ) None, (ㄹ) CrossEntropyLoss
-
-:::
-
-## 7. 이항분류에서 손실함수와 레이블 조합
-
-MNIST 이항분류(3 vs 7)를 위해 아래와 같이 데이터를 준비하였다.
+MNIST 이항분류(3 vs 7)를 위해 아래와 같이 데이터와 네트워크를 준비하였다.
 
 ```python
-X = ...  # shape: (12396, 784), 입력 이미지
-y = torch.tensor([0]*6131 + [1]*6265).reshape(-1,1).float()  # shape: (12396, 1)
-```
+X = ...  # shape: (n, 784), 입력 이미지
+y = torch.tensor([0]*6131 + [1]*6265)                  # shape: (n,), dtype: int64
+Y = torch.nn.functional.one_hot(y).float()              # shape: (n, 2), dtype: float32
 
-다음 조합 중 오류 없이 학습이 가능한 것을 모두 고르시오.
-
-**\(a\)**
-
-```python
-net = torch.nn.Sequential(
+# BCELoss용 네트워크
+net1 = torch.nn.Sequential(
     torch.nn.Linear(784,32),
     torch.nn.ReLU(),
     torch.nn.Linear(32,1),
     torch.nn.Sigmoid()
-)
-loss_fn = torch.nn.BCELoss()
-loss = loss_fn(net(X), y)
-```
+)  # net1(X) shape: (n, 1)
 
-**\(b\)**
-
-```python
-net = torch.nn.Sequential(
+# BCEWithLogitsLoss용 네트워크
+net2 = torch.nn.Sequential(
     torch.nn.Linear(784,32),
     torch.nn.ReLU(),
     torch.nn.Linear(32,1),
-    torch.nn.Sigmoid()
-)
-loss_fn = torch.nn.BCEWithLogitsLoss()
-loss = loss_fn(net(X), y)
-```
+)  # net2(X) shape: (n, 1)
 
-**\(c\)**
-
-```python
-net = torch.nn.Sequential(
+# CrossEntropyLoss용 네트워크
+net3 = torch.nn.Sequential(
     torch.nn.Linear(784,32),
     torch.nn.ReLU(),
-    torch.nn.Linear(32,1),
-)
-loss_fn = torch.nn.BCELoss()
-loss = loss_fn(net(X), y)
+    torch.nn.Linear(32,2),
+)  # net3(X) shape: (n, 2)
 ```
 
-**\(d\)**
+아래 표의 각 조합에 대해 오류 없이 올바르게 학습이 가능하면 O, 불가능하면 X를 표시하시오.
 
-```python
-net = torch.nn.Sequential(
-    torch.nn.Linear(784,32),
-    torch.nn.ReLU(),
-    torch.nn.Linear(32,1),
-)
-loss_fn = torch.nn.BCEWithLogitsLoss()
-loss = loss_fn(net(X), y)
-```
+| | `y` | `y.float().reshape(-1,1)` | `Y` |
+|:--:|:--:|:--:|:--:|
+| `BCELoss(net1(X), ?)` | (1) | (2) | (3) |
+| `BCEWithLogitsLoss(net2(X), ?)` | (4) | (5) | (6) |
+| `CrossEntropyLoss(net3(X), ?)` | (7) | (8) | (9) |
 
 ::: {.callout-note collapse="true"}
 ## 풀이 보기
 
-**정답:** (a), (b), (d)
+**정답:** (2), (5), (7), (9)만 O, 나머지는 X
+
+| | `y` | `y.float().reshape(-1,1)` | `Y` |
+|:--:|:--:|:--:|:--:|
+| `BCELoss` | X | O | X |
+| `BCEWithLogitsLoss` | X | O | X |
+| `CrossEntropyLoss` | O | X | O |
 
 :::
