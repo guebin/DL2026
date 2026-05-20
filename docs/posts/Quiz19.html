@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="최규빈">
-<meta name="dcterms.date" content="2026-05-18">
+<meta name="dcterms.date" content="2026-05-20">
 
-<title>Quiz-18 (2026.05.19) // 범위: ~10wk-2 – DL2026</title>
+<title>Quiz-19 (2026.05.20) // 범위: ~11wk-1 – DL2026</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -182,13 +182,10 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#확률적-경사하강법을-사용하는-이유" id="toc-확률적-경사하강법을-사용하는-이유" class="nav-link active" data-scroll-target="#확률적-경사하강법을-사용하는-이유">1. 확률적 경사하강법을 사용하는 이유</a></li>
-  <li><a href="#에폭과-업데이트-횟수" id="toc-에폭과-업데이트-횟수" class="nav-link" data-scroll-target="#에폭과-업데이트-횟수">2. 에폭과 업데이트 횟수</a></li>
-  <li><a href="#dataset과-dataloader" id="toc-dataset과-dataloader" class="nav-link" data-scroll-target="#dataset과-dataloader">3. Dataset과 DataLoader</a></li>
-  <li><a href="#logit의-해석" id="toc-logit의-해석" class="nav-link" data-scroll-target="#logit의-해석">4. logit의 해석</a></li>
-  <li><a href="#동일한-결과를-내는-코드-짝짓기" id="toc-동일한-결과를-내는-코드-짝짓기" class="nav-link" data-scroll-target="#동일한-결과를-내는-코드-짝짓기">5. 동일한 결과를 내는 코드 짝짓기</a></li>
-  <li><a href="#softmax의-역할" id="toc-softmax의-역할" class="nav-link" data-scroll-target="#softmax의-역할">6. softmax의 역할</a></li>
-  <li><a href="#용어-정리" id="toc-용어-정리" class="nav-link" data-scroll-target="#용어-정리">7. 용어 정리</a></li>
+  <li><a href="#범주형-자료의-인코딩" id="toc-범주형-자료의-인코딩" class="nav-link active" data-scroll-target="#범주형-자료의-인코딩">1. 범주형 자료의 인코딩</a></li>
+  <li><a href="#원-핫-인코딩" id="toc-원-핫-인코딩" class="nav-link" data-scroll-target="#원-핫-인코딩">2. 원-핫 인코딩</a></li>
+  <li><a href="#네트워크-출력의-해석" id="toc-네트워크-출력의-해석" class="nav-link" data-scroll-target="#네트워크-출력의-해석">3. 네트워크 출력의 해석</a></li>
+  <li><a href="#손실함수와-레이블-형태" id="toc-손실함수와-레이블-형태" class="nav-link" data-scroll-target="#손실함수와-레이블-형태">4. 손실함수와 레이블 형태</a></li>
   </ul>
 </nav>
     </div>
@@ -197,7 +194,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Quiz-18 (2026.05.19) // 범위: ~10wk-2</h1>
+<h1 class="title">Quiz-19 (2026.05.20) // 범위: ~11wk-1</h1>
 </div>
 
 
@@ -214,7 +211,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 18, 2026</p>
+      <p class="date">May 20, 2026</p>
     </div>
   </div>
   
@@ -226,218 +223,52 @@ window.Quarto = {
 </header>
 
 
-<section id="확률적-경사하강법을-사용하는-이유" class="level2">
-<h2 class="anchored" data-anchor-id="확률적-경사하강법을-사용하는-이유">1. 확률적 경사하강법을 사용하는 이유</h2>
-<p>확률적 경사하강법(SGD)을 사용하는 주된 이유로 가장 적절한 것을 고르시오.</p>
-<p><strong>(a)</strong> 데이터가 너무 많아서 버리고 학습하기 위해서<br>
-<strong>(b)</strong> GPU-RAM 사용량을 줄이기 위해<br>
-<strong>(c)</strong> 에폭 수를 줄이기 위해<br>
-<strong>(d)</strong> 네트워크 구조를 단순화하기 위해<br>
+<section id="범주형-자료의-인코딩" class="level2">
+<h2 class="anchored" data-anchor-id="범주형-자료의-인코딩">1. 범주형 자료의 인코딩</h2>
+<p>개, 고양이, 토끼를 분류하는 다항분류 문제에서, 레이블 <span class="math inline">\(y\)</span>를 인코딩하는 방법으로 가장 적절한 것을 고르시오.</p>
+<p><strong>(a)</strong> 개=0, 고양이=1, 토끼=2<br>
+<strong>(b)</strong> 개=[1,0,0], 고양이=[0,1,0], 토끼=[0,0,1]<br>
+<strong>(c)</strong> 개=-1, 고양이=0, 토끼=1<br>
+<strong>(d)</strong> 개=[1,1], 고양이=[1,0], 토끼=[0,0]<br>
 </p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>풀이 보기
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>정답:</strong> (b)</p>
-</div>
-</div>
-</div>
 </section>
-<section id="에폭과-업데이트-횟수" class="level2">
-<h2 class="anchored" data-anchor-id="에폭과-업데이트-횟수">2. 에폭과 업데이트 횟수</h2>
-<p>전체 데이터 <span class="math inline">\(n=12396\)</span>개를 <code>batch_size=2048</code>로 DataLoader를 만들어 <code>100</code> 에폭 학습하였다. 다음 물음에 답하시오.</p>
-<p><strong>(1)</strong> 한 에폭에서 Step1-4는 총 몇 번 수행되는가?</p>
-<p><strong>(2)</strong> 100 에폭 학습이 끝났을 때, Step1-4는 총 몇 번 수행되었는가?</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>풀이 보기
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>정답:</strong> (1) 7번, (2) 700번</p>
-</div>
-</div>
-</div>
-</section>
-<section id="dataset과-dataloader" class="level2">
-<h2 class="anchored" data-anchor-id="dataset과-dataloader">3. Dataset과 DataLoader</h2>
+<section id="원-핫-인코딩" class="level2">
+<h2 class="anchored" data-anchor-id="원-핫-인코딩">2. 원-핫 인코딩</h2>
 <p>다음 코드를 실행하였다.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> torch.tensor([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>]).<span class="bu">float</span>().reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> torch.tensor([<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>]).<span class="bu">float</span>().reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> torch.utils.data.TensorDataset(X,Y)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>dl <span class="op">=</span> torch.utils.data.DataLoader(ds, batch_size<span class="op">=</span><span class="dv">2</span>, shuffle<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>다음 중 <strong>올바른</strong> 설명을 모두 고르시오.</p>
-<p><strong>(a)</strong> <code>ds[-1]</code>은 <code>(tensor([5.]), tensor([0.]))</code> 을 반환한다.<br>
-<strong>(b)</strong> <code>dl[0]</code>은 첫 번째 미니배치를 반환한다.<br>
-<strong>(c)</strong> <code>for Xm, Ym in dl</code>로 반복하면 3번 반복된다.<br>
-<strong>(d)</strong> <code>shuffle=True</code>이므로 에폭마다 미니배치의 구성이 달라진다.<br>
-</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>풀이 보기
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>정답:</strong> (a), (c), (d)</p>
-</div>
-</div>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> torch.tensor([<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>])</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> torch.nn.functional.one_hot(y).<span class="bu">float</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>Y</code>의 shape과 <code>Y[1]</code>의 값을 각각 쓰시오.</p>
 </section>
-<section id="logit의-해석" class="level2">
-<h2 class="anchored" data-anchor-id="logit의-해석">4. logit의 해석</h2>
-<p>아래와 같은 네트워크와 손실함수를 고려하자.</p>
+<section id="네트워크-출력의-해석" class="level2">
+<h2 class="anchored" data-anchor-id="네트워크-출력의-해석">3. 네트워크 출력의 해석</h2>
+<p>MNIST에서 숫자 3, 7, 9를 분류하는 다항분류 문제를 고려하자. 아래와 같은 네트워크와 손실함수를 사용하였다. (클래스 0=숫자3, 클래스 1=숫자7, 클래스 2=숫자9)</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> torch.nn.Sequential(</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">784</span>,<span class="dv">32</span>),</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU(),</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">32</span>,<span class="dv">1</span>),</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">32</span>,<span class="dv">3</span>),</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>loss_fn <span class="op">=</span> torch.nn.BCEWithLogitsLoss()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>적합 후 어떤 샘플 <span class="math inline">\({\bf x}_i\)</span>에 대하여 <code>net(Xnew)</code>의 값이 <code>-3.17</code>이었다. 다음 물음에 답하시오.</p>
-<p><strong>(1)</strong> <code>net(Xnew).sigmoid()</code> 의 값은 0.5보다 큰가, 작은가?</p>
-<p><strong>(2)</strong> 이 샘플의 예측 클래스는 <span class="math inline">\(y=0\)</span>인가, <span class="math inline">\(y=1\)</span>인가?</p>
-<p><strong>(3)</strong> 이 logit 값을 “근거”의 관점에서 해석하시오.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>풀이 보기
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>정답:</strong> (1) 0.5보다 작다. (2) <span class="math inline">\(y=0\)</span>. (3) <span class="math inline">\(y=1\)</span>쪽 근거가 <span class="math inline">\(-3.17\)</span>이므로, <span class="math inline">\(y=0\)</span>쪽에 강한 근거가 있다.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="동일한-결과를-내는-코드-짝짓기" class="level2">
-<h2 class="anchored" data-anchor-id="동일한-결과를-내는-코드-짝짓기">5. 동일한 결과를 내는 코드 짝짓기</h2>
-<p>아래 코드 (가)~(라)는 MNIST 이항분류(3 vs 7) 모델의 적합과 예측을 수행하는 코드이다. 동일한 시드에서 <strong>동일한 결과</strong>를 내는 코드끼리 짝지으시오.</p>
-<p><strong>(가)</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> torch.nn.Sequential(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">784</span>,<span class="dv">32</span>),</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU(),</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">32</span>,<span class="dv">1</span>),</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    torch.nn.Sigmoid()</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>loss_fn <span class="op">=</span> torch.nn.BCELoss()</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 적합 후 예측:</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>Yhat <span class="op">=</span> (net(X) <span class="op">&gt;</span> <span class="fl">0.5</span>).<span class="bu">float</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>(나)</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> torch.nn.Sequential(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">784</span>,<span class="dv">32</span>),</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU(),</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">32</span>,<span class="dv">1</span>),</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>loss_fn <span class="op">=</span> torch.nn.BCEWithLogitsLoss()</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 적합 후 예측:</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>Yhat <span class="op">=</span> (net(X) <span class="op">&gt;</span> <span class="dv">0</span>).<span class="bu">float</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>(다)</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> torch.nn.Sequential(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">784</span>,<span class="dv">32</span>),</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU(),</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">32</span>,<span class="dv">1</span>),</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>loss_fn <span class="op">=</span> torch.nn.BCELoss()</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 적합 후 예측:</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>Yhat <span class="op">=</span> (net(X) <span class="op">&gt;</span> <span class="fl">0.5</span>).<span class="bu">float</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>(라)</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> torch.nn.Sequential(</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">784</span>,<span class="dv">32</span>),</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    torch.nn.ReLU(),</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    torch.nn.Linear(<span class="dv">32</span>,<span class="dv">1</span>),</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    torch.nn.Sigmoid()</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>loss_fn <span class="op">=</span> torch.nn.BCEWithLogitsLoss()</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 적합 후 예측:</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>Yhat <span class="op">=</span> (net(X) <span class="op">&gt;</span> <span class="dv">0</span>).<span class="bu">float</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>풀이 보기
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>정답:</strong> (가) = (나)</p>
-</div>
-</div>
-</div>
-</section>
-<section id="softmax의-역할" class="level2">
-<h2 class="anchored" data-anchor-id="softmax의-역할">6. softmax의 역할</h2>
-<p>다음 중 logit, sigmoid, logits, softmax에 대한 설명으로 <strong>틀린</strong> 것을 고르시오.</p>
-<p><strong>(a)</strong> logit은 <span class="math inline">\(y=1\)</span>이 나올 근거를 수치화한 것이다.<br>
-<strong>(b)</strong> sigmoid는 근거를 확률로 바꾸는 함수이다.<br>
-<strong>(c)</strong> logits는 각 클래스가 나올 근거를 벡터 형태로 모아둔 것이다.<br>
-<strong>(d)</strong> softmax는 근거들 중 최대값을 찾는 함수이다.<br>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>loss_fn <span class="op">=</span> torch.nn.CrossEntropyLoss()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>다음 중 <code>net(X)</code>의 출력에 대한 설명으로 <strong>올바른</strong> 것을 모두 고르시오.</p>
+<p><strong>(a)</strong> 출력은 각 클래스에 대한 logits(근거)이다.<br>
+<strong>(b)</strong> 출력의 범위는 0~1이므로 확률로 해석할 수 있다.<br>
+<strong>(c)</strong> 출력 중 가장 값이 큰 클래스로 예측한다.<br>
+<strong>(d)</strong> 출력 결과가 <code>[2.0, -3.0, 5.0]</code>라면 숫자 9로 예측한다.<br>
 </p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>풀이 보기
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>정답:</strong> (d)</p>
-</div>
-</div>
-</div>
 </section>
-<section id="용어-정리" class="level2">
-<h2 class="anchored" data-anchor-id="용어-정리">7. 용어 정리</h2>
-<p>다음 빈칸에 들어갈 용어를 각각 쓰시오.</p>
-<p><strong>(1)</strong> 전체 데이터셋을 한 번 통과하는 단위를 ____이라고 한다.</p>
-<p><strong>(2)</strong> 전체 데이터 중 일부 샘플의 묶음 하나를 ____라고 한다.</p>
-<p><strong>(3)</strong> 하나의 묶음 안에 들어있는 샘플의 개수 <span class="math inline">\(m\)</span>을 ____라고 한다.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>풀이 보기
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>정답:</strong> (1) 에폭(epoch), (2) 미니배치(mini-batch), (3) 배치 사이즈(batch size)</p>
-</div>
-</div>
-</div>
+<section id="손실함수와-레이블-형태" class="level2">
+<h2 class="anchored" data-anchor-id="손실함수와-레이블-형태">4. 손실함수와 레이블 형태</h2>
+<p>MNIST에서 숫자 3, 7, 9를 분류하는 다항분류 문제를 고려하자. 데이터는 아래와 같이 준비되었다.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> ...  <span class="co"># shape: (18345, 784), 입력 이미지</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> torch.tensor([<span class="dv">0</span>]<span class="op">*</span><span class="dv">6131</span> <span class="op">+</span> [<span class="dv">1</span>]<span class="op">*</span><span class="dv">6265</span> <span class="op">+</span> [<span class="dv">2</span>]<span class="op">*</span><span class="dv">5949</span>)  <span class="co"># 정수 레이블</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> torch.nn.functional.one_hot(y).<span class="bu">float</span>()  <span class="co"># 원-핫 인코딩</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>다음 코드에서 <code>???</code>에 전달할 수 있는 레이블의 형태로 <strong>올바른</strong> 것을 모두 고르시오.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>loss_fn <span class="op">=</span> torch.nn.CrossEntropyLoss()</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>Logits <span class="op">=</span> net(X)  <span class="co"># shape: (18345, 3)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>loss <span class="op">=</span> loss_fn(Logits, ???)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>(a)</strong> <code>y</code> — 정수 레이블, shape <code>(18345,)</code><br>
+<strong>(b)</strong> <code>Y</code> — 원-핫 인코딩, shape <code>(18345, 3)</code><br>
+<strong>(c)</strong> <code>y.float()</code> — 실수형 정수 레이블, shape <code>(18345,)</code><br>
+</p>
 
 
 </section>
