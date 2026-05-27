@@ -236,6 +236,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>(a)</strong> 두 네트워크가 표현하는 함수의 형태는 모두 직선이다.<br>
 <strong>(b)</strong> (가)는 파라메터의 수가 더 많으므로 (나)보다 더 표현력이 풍부하다.<br>
 </p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>풀이 보기
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>정답:</strong> (a)</p>
+</div>
+</div>
+</div>
 </section>
 <section id="취업예제" class="level2">
 <h2 class="anchored" data-anchor-id="취업예제">2. 취업예제</h2>
@@ -253,6 +269,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>loss_fn <span class="op">=</span> torch.nn.CrossEntropyLoss()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>두 네트워크의 차이를 표현력, 파라메터수 등 다양한 관점에서 비교하라.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>풀이 보기
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>표현력은 동일하고 파라메터수는 (나)가 더 많다.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="fashionmnist-분류를-위한-네트워크-설계" class="level2">
 <h2 class="anchored" data-anchor-id="fashionmnist-분류를-위한-네트워크-설계">3. FashionMNIST 분류를 위한 네트워크 설계</h2>
@@ -303,6 +335,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <strong>(e)</strong> (라)의 Dropout은 오버피팅 위험을 줄이기 위한 장치로 볼 수 있다. 단, Dropout을 넣었다고 해서 평가 성능 향상이 항상 보장되는 것은 아니다.<br>
 <strong>(g)</strong> 위 네트워크들은 모두 마지막에 10개의 값을 출력하므로, 그 값들은 <code>CrossEntropyLoss</code>에 들어가는 logits로 해석할 수 있다.<br>
 </p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>풀이 보기
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>정답:</strong> (a), (b), (e), (g)</p>
+</div>
+</div>
+</div>
 
 
 </section>
