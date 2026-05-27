@@ -245,130 +245,116 @@
     "text": "C. 드랍아웃 레이어의 위치\n- ReLU, dropout의 특이한 성질: \\(\\text{dropout}(\\text{relu}({\\bf X}))=\\text{relu}(\\text{dropout}({\\bf X}))\\)\n\nu = torch.randn(10,2)\nr = torch.nn.ReLU()\nd = torch.nn.Dropout()\n\n\ntorch.manual_seed(0)\nr(d(u))\n\ntensor([[-0.0000, -0.0000],\n        [4.0484, -0.0000],\n        [0.0000, 0.0000],\n        [0.4972, 0.0000],\n        [-0.0000, 0.0000],\n        [0.0000, 0.0000],\n        [0.8571, 0.0000],\n        [0.0000, 3.2206],\n        [0.0000, 0.0000],\n        [-0.0000, -0.0000]])\n\n\n\ntorch.manual_seed(0)\nd(r(u))\n\ntensor([[0.0000, 0.0000],\n        [4.0484, 0.0000],\n        [0.0000, 0.0000],\n        [0.4972, 0.0000],\n        [0.0000, 0.0000],\n        [0.0000, 0.0000],\n        [0.8571, 0.0000],\n        [0.0000, 3.2206],\n        [0.0000, 0.0000],\n        [0.0000, 0.0000]])\n\n\n- 다른 활성화함수는 성립안함.\n\nu = torch.randn(10,2)\ns = torch.nn.Sigmoid()\nd = torch.nn.Dropout()\n\n\ntorch.manual_seed(0)\ns(d(u))\n\ntensor([[0.5000, 0.5000],\n        [0.7550, 0.5000],\n        [0.5000, 0.5000],\n        [0.7339, 0.2347],\n        [0.5000, 0.8629],\n        [0.9022, 0.9295],\n        [0.0478, 0.5000],\n        [0.7091, 0.9340],\n        [0.0370, 0.2498],\n        [0.5000, 0.5000]])\n\n\n\ntorch.manual_seed(0)\nd(s(u))\n\ntensor([[0.0000, 0.0000],\n        [1.2742, 0.0000],\n        [0.0000, 0.0000],\n        [1.2484, 0.7128],\n        [0.0000, 1.4301],\n        [1.5046, 1.5683],\n        [0.3661, 0.0000],\n        [1.2191, 1.5801],\n        [0.3278, 0.7318],\n        [0.0000, 0.0000]])\n\n\n- 드랍아웃 레이어는 아래와 같이 활성화함수 뒤에 위치해야함.\nnet = torch.nn.Sequential(\n    torch.nn.Linear(1,512),\n    torch.nn.ReLU(),\n    torch.nn.Dropout(0.8),\n    torch.nn.Linear(512,1)\n)\n- 그런데 활성화함수가 렐루일 경우에는 아래와 같이 드랍아웃과 렐루의 위치를 바꿔도 상관없다.\nnet = torch.nn.Sequential(\n    torch.nn.Linear(1,512),\n    torch.nn.Dropout(0.8),\n    torch.nn.ReLU(),\n    torch.nn.Linear(512,1)\n)\n\n심지어 보통 네트워크는 위와 같은 형태가 많음. (왜냐하면 계산효율이 더 좋음)"
   },
   {
-    "objectID": "posts/01wk.html#a.-list-vs-torch.tensor",
-    "href": "posts/01wk.html#a.-list-vs-torch.tensor",
-    "title": "01wk: torch (1)",
-    "section": "A. list vs torch.tensor",
-    "text": "A. list vs torch.tensor\n- 선언\n\nl = [1,2,3]\nl\n\n[1, 2, 3]\n\n\n\na = torch.tensor([1,2,3])\na\n\ntensor([1, 2, 3])\n\n\n- 기본연산\n\na+a\n\ntensor([2, 4, 6])\n\n\n\nl+l\n\n[1, 2, 3, 1, 2, 3]\n\n\n\n3*a\n\ntensor([3, 6, 9])\n\n\n\n3*l\n\n[1, 2, 3, 1, 2, 3, 1, 2, 3]\n\n\n\na+2\n\ntensor([3, 4, 5])\n\n\n\nl+2\n\n\n---------------------------------------------------------------------------\nTypeError                                 Traceback (most recent call last)\n/tmp/ipykernel_3997/384152985.py in &lt;cell line: 0&gt;()\n----&gt; 1 l+2\n\nTypeError: can only concatenate list (not \"int\") to list\n\n\n\n\n벡터의 느낌이 나는것은 [1,2,3]이 아니라 torch.tensor([1,2,3]) 임.\n\n- 수학연산\n\na = torch.tensor([1,2,3])\na\n\ntensor([1, 2, 3])\n\n\n\ntorch.exp(a)\n\ntensor([ 2.7183,  7.3891, 20.0855])\n\n\n\ntorch.sqrt(a)\n\ntensor([1.0000, 1.4142, 1.7321])\n\n\n\ntorch.log(a)\n\ntensor([0.0000, 0.6931, 1.0986])"
+    "objectID": "posts/Quiz13.html",
+    "href": "posts/Quiz13.html",
+    "title": "Quiz-13 (2026.04.20) // 범위: ~06wk",
+    "section": "",
+    "text": "아래와 같은 네트워크를 생각하자.\nnet = torch.nn.Sequential(\n    torch.nn.Linear(1, 2, bias=True),\n    torch.nn.ReLU(),\n    torch.nn.Linear(2, 1, bias=True),\n    torch.nn.Sigmoid()\n)\n이 네트워크는 중간에 ReLU가 포함되어 있으므로 “시그모이드 이전 값이 항상 꺾인 직선인 네트워크”라고 흔히 오해된다. 즉 이 네트워크는 torch.nn.Linear(1,1) → torch.nn.Sigmoid()가 만드는 꺾이지 않은 단순 S자 곡선(시그모이드 이전 값이 그냥 직선인 경우) 은 출력할 수 없다고 주장하는 사람이 있다.\n(1) 이 주장이 맞는지 틀린지 본인의 의견을 서술하시오.\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n주장은 틀렸음. 이 네트워크는 꺾인선도 만들 수 있고, 꺾이지 않은 선도 만들 수 있음.\n\n\n\n(2) (1)에서 이 네트워크가 꺾이지 않은 직선도 시그모이드 이전 값으로 출력할 수 있다고 답했다면, 이를 실제로 실현하는 가중치의 예시를 하나 제시하시오. 구체적으로 net[0].weight, net[0].bias, net[2].weight, net[2].bias를 어떻게 설정해야 시그모이드 이전 값이 꺾이지 않은 직선이 되는지 적고, 왜 그러한 설정이 꺾이지 않은 직선을 만드는지 과정을 단계별로 서술하시오.\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답 예시 (시그모이드 이전 값이 \\(x\\) 가 되는 가중치):\n# Linear(1,2): weight shape [2,1], bias shape [2]\nnet[0].weight.data = torch.tensor([[1.0], [-1.0]])\nnet[0].bias.data   = torch.tensor([0.0, 0.0])\n\n# Linear(2,1): weight shape [1,2], bias shape [1]\nnet[2].weight.data = torch.tensor([[1.0, -1.0]])\nnet[2].bias.data   = torch.tensor([0.0])\n단계별 확인:\n입력 \\(x\\) 를 각 단계에 통과시킨 모습은 아래와 같다."
   },
   {
-    "objectID": "posts/01wk.html#b.-인덱싱",
-    "href": "posts/01wk.html#b.-인덱싱",
-    "title": "01wk: torch (1)",
-    "section": "B. 인덱싱",
-    "text": "B. 인덱싱\n- 선언\n\nl = [11, 22, 33, 44, 55, 66]\na = torch.tensor(l)\n\n- 인덱스로 원소를 뽑아보자.\n\nl[0],l[1],l[2],l[3],l[4],l[5]\n\n(11, 22, 33, 44, 55, 66)\n\n\n\nl[-1],l[-2],l[-3],l[-4],l[-5],l[-6]\n\n(66, 55, 44, 33, 22, 11)\n\n\n\na[0],a[1],a[2],a[3],a[4],a[5]\n\n(tensor(11), tensor(22), tensor(33), tensor(44), tensor(55), tensor(66))\n\n\n\na[-1],a[-2],a[-3],a[-4],a[-5],a[-6]\n\n(tensor(66), tensor(55), tensor(44), tensor(33), tensor(22), tensor(11))\n\n\n- :이용 (슬라이싱)\n\nl[2:4]\n\n[33, 44]\n\n\n\n이런느낌임.. \\(2 \\leq ... &lt; 4\\)\n\n\na[2:4] # a[2]부터 a[4]까지인데, 끝점은 제외\n\ntensor([33, 44])\n\n\n\nl[2:] # l[2]부터 끝까지\n\n[33, 44, 55, 66]\n\n\n\na[2:] # a[2]부터 끝까지\n\ntensor([33, 44, 55, 66])\n\n\n\nl[:4] # 처음부터 l[3]까지\n\n[11, 22, 33, 44]\n\n\n\na[:4] # 처음부터 a[3]까지\n\ntensor([11, 22, 33, 44])\n\n\n\nl[:]\n\n[11, 22, 33, 44, 55, 66]\n\n\n\na[:]\n\ntensor([11, 22, 33, 44, 55, 66])\n\n\n- 인덱스의 리스트로 원소를 뽑기\n\na[[1,3,4]]\n\ntensor([22, 44, 55])\n\n\n\nl[[1,3,4]]\n\n\n---------------------------------------------------------------------------\nTypeError                                 Traceback (most recent call last)\n/tmp/ipykernel_3997/2588203874.py in &lt;cell line: 0&gt;()\n----&gt; 1 l[[1,3,4]]\n\nTypeError: list indices must be integers or slices, not list"
+    "objectID": "posts/Quiz13.html#꺾인-직선만-나올까",
+    "href": "posts/Quiz13.html#꺾인-직선만-나올까",
+    "title": "Quiz-13 (2026.04.20) // 범위: ~06wk",
+    "section": "",
+    "text": "아래와 같은 네트워크를 생각하자.\nnet = torch.nn.Sequential(\n    torch.nn.Linear(1, 2, bias=True),\n    torch.nn.ReLU(),\n    torch.nn.Linear(2, 1, bias=True),\n    torch.nn.Sigmoid()\n)\n이 네트워크는 중간에 ReLU가 포함되어 있으므로 “시그모이드 이전 값이 항상 꺾인 직선인 네트워크”라고 흔히 오해된다. 즉 이 네트워크는 torch.nn.Linear(1,1) → torch.nn.Sigmoid()가 만드는 꺾이지 않은 단순 S자 곡선(시그모이드 이전 값이 그냥 직선인 경우) 은 출력할 수 없다고 주장하는 사람이 있다.\n(1) 이 주장이 맞는지 틀린지 본인의 의견을 서술하시오.\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n주장은 틀렸음. 이 네트워크는 꺾인선도 만들 수 있고, 꺾이지 않은 선도 만들 수 있음.\n\n\n\n(2) (1)에서 이 네트워크가 꺾이지 않은 직선도 시그모이드 이전 값으로 출력할 수 있다고 답했다면, 이를 실제로 실현하는 가중치의 예시를 하나 제시하시오. 구체적으로 net[0].weight, net[0].bias, net[2].weight, net[2].bias를 어떻게 설정해야 시그모이드 이전 값이 꺾이지 않은 직선이 되는지 적고, 왜 그러한 설정이 꺾이지 않은 직선을 만드는지 과정을 단계별로 서술하시오.\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답 예시 (시그모이드 이전 값이 \\(x\\) 가 되는 가중치):\n# Linear(1,2): weight shape [2,1], bias shape [2]\nnet[0].weight.data = torch.tensor([[1.0], [-1.0]])\nnet[0].bias.data   = torch.tensor([0.0, 0.0])\n\n# Linear(2,1): weight shape [1,2], bias shape [1]\nnet[2].weight.data = torch.tensor([[1.0, -1.0]])\nnet[2].bias.data   = torch.tensor([0.0])\n단계별 확인:\n입력 \\(x\\) 를 각 단계에 통과시킨 모습은 아래와 같다."
   },
   {
-    "objectID": "posts/01wk.html#c.-2차원배열",
-    "href": "posts/01wk.html#c.-2차원배열",
-    "title": "01wk: torch (1)",
-    "section": "C. 2차원배열",
-    "text": "C. 2차원배열\n- 중첩된 배열의 선언\n\nl = [[1,2,3,4],[-1,-2,-3,-4],[5,6,7,8],[-5,-6,-7,-8]]\na = torch.tensor(l)\n\n\nl\n\n[[1, 2, 3, 4], [-1, -2, -3, -4], [5, 6, 7, 8], [-5, -6, -7, -8]]\n\n\n\na # 매트릭스처럼 보였지만, 사실 이것도 중첩된 배열임\n\ntensor([[ 1,  2,  3,  4],\n        [-1, -2, -3, -4],\n        [ 5,  6,  7,  8],\n        [-5, -6, -7, -8]])\n\n\n- l의 원소를 인덱싱해보자.\n\nl[0][0]\n\n1\n\n\n\nl[0][1]\n\n2\n\n\n\nl[1][2]\n\n-3\n\n\n\nl[-1][0]\n\n-5\n\n\n- a의 원소를 인덱싱해보자.\n\na\n\ntensor([[ 1,  2,  3,  4],\n        [-1, -2, -3, -4],\n        [ 5,  6,  7,  8],\n        [-5, -6, -7, -8]])\n\n\n\na[0][0]\n\ntensor(1)\n\n\n\na[0][1]\n\ntensor(2)\n\n\n\na[1][2]\n\ntensor(-3)\n\n\n\na[-1][0]\n\ntensor(-5)\n\n\n- 새로운 기능 (l에서는 안되고 a에서만 가능함)\n\na[0,0]\n\ntensor(1)\n\n\n\na[0,1]\n\ntensor(2)\n\n\n\na[1,2]\n\ntensor(-3)\n\n\n\na[-1,0]\n\ntensor(-5)\n\n\n- 응용\n\na\n\ntensor([[ 1,  2,  3,  4],\n        [-1, -2, -3, -4],\n        [ 5,  6,  7,  8],\n        [-5, -6, -7, -8]])\n\n\n\na[:,:]\n\ntensor([[ 1,  2,  3,  4],\n        [-1, -2, -3, -4],\n        [ 5,  6,  7,  8],\n        [-5, -6, -7, -8]])\n\n\n\na[:,[0,2]]\n\ntensor([[ 1,  3],\n        [-1, -3],\n        [ 5,  7],\n        [-5, -7]])\n\n\n\na[:2,[0,2,3]]\n\ntensor([[ 1,  3,  4],\n        [-1, -3, -4]])\n\n\n\n정리: 1차원 배열을 의미하는 리스트를 텐서화하면, 그 결과는 거의 벡터처럼 취급해도 무방하다. 그리고 2차원 배열을 의미하는 (중첩된)리스트를 텐서화하면, 그 결과는 거의 행렬처럼 취급해도 무방하다."
+    "objectID": "posts/Quiz13.html#네트워크의-한계와-true-structure",
+    "href": "posts/Quiz13.html#네트워크의-한계와-true-structure",
+    "title": "Quiz-13 (2026.04.20) // 범위: ~06wk",
+    "section": "2. 네트워크의 한계와 True Structure",
+    "text": "2. 네트워크의 한계와 True Structure\n(1) 아래와 같이 참값이 매우 복잡한 곡선을 따르는 데이터가 있다고 하자.\n\\[y_i = e^{-x_i}\\,|\\cos(3x_i)|\\,\\sin(3x_i) + \\epsilon_i, \\qquad i = 1, 2, 3, \\ldots, n\\]\n강의에서는 아래 네트워크로 이 곡선을 적합하였다.\nnet = torch.nn.Sequential(\n    torch.nn.Linear(1, 512),\n    torch.nn.ReLU(),\n    torch.nn.Linear(512, 1)\n)\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n데이터의 숫자와 네트워크의 표현력은 관련이 없다. 이 네트워크가 표현할 수 있는 형태는 꺾인 직선이므로, 곡선형태를 표현할 수 없다.\n\n\n\n(2) (1)에서 보았듯이, 데이터 수 \\(n\\)을 무한히 키우는 것만으로는 네트워크의 적합 결과가 참 구조에 정확히 가까워지지 않는다. 그렇다면 네트워크의 적합 결과가 참 구조에 점점 가까워지게 하기 위해서는 무엇을 늘려야 하는지 서술하시오.\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n아래의 코드에서 512를 점점 더 키우면 점점 더 곡선에 가까워진다.\nnet = torch.nn.Sequential(\n    torch.nn.Linear(1, 512),\n    torch.nn.ReLU(),\n    torch.nn.Linear(512, 1)\n)"
   },
   {
-    "objectID": "posts/01wk.html#d.-torch를-이용한-행렬연산",
-    "href": "posts/01wk.html#d.-torch를-이용한-행렬연산",
-    "title": "01wk: torch (1)",
-    "section": "D. torch를 이용한 행렬연산",
-    "text": "D. torch를 이용한 행렬연산\n- torch를 이용한 행렬곱\n\na = torch.tensor([[1,2],[3,4]])\na\n\ntensor([[1, 2],\n        [3, 4]])\n\n\n\nb = torch.tensor([[2,-1],[4,-3]])\nb\n\ntensor([[ 2, -1],\n        [ 4, -3]])\n\n\n\na @ b\n\ntensor([[ 10,  -7],\n        [ 22, -15]])\n\n\n# 이상한 예제\n\na = torch.tensor([[1,2],[3,4]])\nb = torch.tensor([[2,-1],[1/2,-3]])\n\n\na@b\n\n\n---------------------------------------------------------------------------\nRuntimeError                              Traceback (most recent call last)\n/tmp/ipykernel_3997/1067337049.py in &lt;cell line: 0&gt;()\n----&gt; 1 a@b\n\nRuntimeError: expected m1 and m2 to have the same dtype, but got: long int != float\n\n\n\n해결책?\n\na = torch.tensor([[1.0 ,2.0],[3.0, 4.0]])\nb = torch.tensor([[2.0,-1.0],[1/2,-3.0]])\n\n\na@b\n\ntensor([[  3.,  -7.],\n        [  8., -15.]])\n\n\n#\n# 역행렬 – 역행렬을 구하라..\n\na = torch.tensor([[1,2],[3,4]])\na\n\ntensor([[1, 2],\n        [3, 4]])\n\n\n\ntorch.linalg.inv(a)\n\n\n---------------------------------------------------------------------------\nRuntimeError                              Traceback (most recent call last)\n/tmp/ipykernel_3997/4217229845.py in &lt;cell line: 0&gt;()\n----&gt; 1 torch.linalg.inv(a)\n\nRuntimeError: linalg.inv: Expected a floating point or complex tensor as input. Got Long\n\n\n\n해결책1\n\na = torch.tensor([[1.0,2.0],[3.0,4.0]])\na\n\ntensor([[1., 2.],\n        [3., 4.]])\n\n\n\ntorch.linalg.inv(a)\n\ntensor([[-2.0000,  1.0000],\n        [ 1.5000, -0.5000]])\n\n\n해결책2\n\na = torch.tensor([[1.0,2],[3,4]])\na\n\ntensor([[1., 2.],\n        [3., 4.]])\n\n\n\ntorch.linalg.inv(a)\n\ntensor([[-2.0000,  1.0000],\n        [ 1.5000, -0.5000]])\n\n\n해결책3\n\na = torch.tensor([[1,2],[3,4]])\na\n\ntensor([[1, 2],\n        [3, 4]])\n\n\n\na.float()\n\ntensor([[1., 2.],\n        [3., 4.]])\n\n\n\ntorch.linalg.inv(a.float())\n\ntensor([[-2.0000,  1.0000],\n        [ 1.5000, -0.5000]])\n\n\n#\n# 연립1차방정식 – 아래의 연립방정식을 풀어라.\n\\[\\begin{cases}\nw+2x+3y+4z = 1 \\\\\n2w+2x+y = 9 \\\\\nx-y=4 \\\\\n3w+x-y+3z = 7\n\\end{cases}\\]\n행렬을 이용하여 위의식을 표현하면 아래와 같다.\n\\[\\begin{bmatrix}\n1 & 2 & 3 & 4 \\\\\n2 & 2 & 1 & 0 \\\\\n0 & 1 & -1 & 0 \\\\\n3 & 1 & -1 & 3\n\\end{bmatrix}\\begin{bmatrix}\nw \\\\\nx \\\\\ny \\\\\nz\n\\end{bmatrix} = \\begin{bmatrix}\n1 \\\\\n9 \\\\\n4 \\\\\n7\n\\end{bmatrix}  \\]\n\na = torch.tensor([[1,2,3,4],[2,2,1,0],[0,1,-1,0],[3,1,-1,3]]).float()\nb = torch.tensor([[1],[9],[4],[7]]).float()\n\n\ntorch.linalg.inv(a) @ b\n\ntensor([[ 2.0000],\n        [ 3.0000],\n        [-1.0000],\n        [-1.0000]])\n\n\n#"
+    "objectID": "posts/Quiz12.html#꺾인-직선-만들기",
+    "href": "posts/Quiz12.html#꺾인-직선-만들기",
+    "title": "Quiz-12 (2026.04.15) // 범위: ~06wk",
+    "section": "1. 꺾인 직선 만들기",
+    "text": "1. 꺾인 직선 만들기\n(1) 다음 코드의 출력을 고르시오.\nrelu = torch.nn.ReLU()\nrelu(torch.tensor(-3.0))\n(a) tensor(-3.0)\n(b) tensor(3.0)\n(c) tensor(0.0)\n(d) tensor(-1.0)\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답: (c)\n\\(\\operatorname{relu}(-3) = \\max(0, -3) = 0\\)\n\n\n\n(2) 다음 코드의 출력을 고르시오.\nrelu = torch.nn.ReLU()\nrelu(torch.tensor(5.0))\n(a) tensor(0.0)\n(b) tensor(1.0)\n(c) tensor(-5.0)\n(d) tensor(5.0)\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답: (d)\n\\(\\operatorname{relu}(5) = \\max(0, 5) = 5\\)\n\n\n\n(3) 벡터 \\({\\bf x} = [-2,-1,0,1,2]\\)가 주어졌다고 하자. torch.nn.Linear를 이용하여 \\({\\bf X}\\)를 입력하면 첫 번째 열은 \\({\\bf x}\\), 두 번째 열은 \\(-{\\bf x}\\)가 되도록 만들고 싶다. 주석 부분에 들어갈 코드를 작성하시오.\n\\[\n{\\bf X} =\n\\begin{bmatrix}\nx_1 \\\\\nx_2 \\\\\nx_3 \\\\\nx_4 \\\\\nx_5\n\\end{bmatrix}\n=\n\\begin{bmatrix}\n-2 \\\\\n-1 \\\\\n0 \\\\\n1 \\\\\n2\n\\end{bmatrix}\n\\quad \\Longrightarrow \\quad\n{\\bf U} =\n\\begin{bmatrix}\nx_1 & -x_1 \\\\\nx_2 & -x_2 \\\\\nx_3 & -x_3 \\\\\nx_4 & -x_4 \\\\\nx_5 & -x_5\n\\end{bmatrix}\n=\n\\begin{bmatrix}\n-2 & 2 \\\\\n-1 & 1 \\\\\n0 & 0 \\\\\n1 & -1 \\\\\n2 & -2\n\\end{bmatrix}\n\\]\nx = torch.tensor([-2.0, -1.0, 0.0, 1.0, 2.0])\nX = x.reshape(-1, 1)\n\n###################\n# 여기를 잘 채워주세요 #\n###################\n\nU = lin(X)\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답 예시:\nlin = torch.nn.Linear(1, 2, bias=False)\nlin.weight.data = torch.tensor([[1.0, -1.0]]).T\n입력 \\({\\bf X}\\)는 \\(5 \\times 1\\) 행렬이고, 출력 \\({\\bf U}\\)는 \\(5 \\times 2\\) 행렬이어야 한다. 따라서 입력 특성은 1개, 출력 특성은 2개이므로 torch.nn.Linear(1, 2, bias=False)를 사용한다. 이때 weight는 shape이 \\([2,1]\\)이어야 한다.\n수식표현은 아래를 참고하라.\n\\[\n{\\bf U} =\n{\\bf X}\n\\begin{bmatrix}\n1 & -1\n\\end{bmatrix}\n=\n\\begin{bmatrix}\n-2 & 2 \\\\\n-1 & 1 \\\\\n0 & 0 \\\\\n1 & -1 \\\\\n2 & -2\n\\end{bmatrix}\n\\]\n\n\n\n(4)\n아래와 같이 \\({\\bf V}\\)가 \\(5 \\times 2\\) 행렬로 주어졌다고 하자.\n\\[\n{\\bf V}\n=\n\\begin{bmatrix}\nv_{11} & v_{12} \\\\\nv_{21} & v_{22} \\\\\nv_{31} & v_{32} \\\\\nv_{41} & v_{42} \\\\\nv_{51} & v_{52}\n\\end{bmatrix}\n=\n\\begin{bmatrix}\n1 & 2 \\\\\n3 & 4 \\\\\n5 & 6 \\\\\n7 & 8 \\\\\n9 & 10\n\\end{bmatrix}.\n\\]\n이 행렬을 이용하여 각 행 \\((v_1,v_2)\\)를 \\(2v_1 - 3v_2 + 1\\)로 바꾸고 싶다. 즉 아래와 같은 \\(5 \\times 1\\) 행렬 \\({\\bf Y}\\)를 만들고 싶다.\n\\[\n{\\bf Y}\n=\n\\begin{bmatrix}\n2v_{11}-3v_{12}+1 \\\\\n2v_{21}-3v_{22}+1 \\\\\n2v_{31}-3v_{32}+1 \\\\\n2v_{41}-3v_{42}+1 \\\\\n2v_{51}-3v_{52}+1\n\\end{bmatrix}\n=\n\\begin{bmatrix}\n2(1)-3(2)+1 \\\\\n2(3)-3(4)+1 \\\\\n2(5)-3(6)+1 \\\\\n2(7)-3(8)+1 \\\\\n2(9)-3(10)+1\n\\end{bmatrix}\n=\n\\begin{bmatrix}\n-3 \\\\\n-5 \\\\\n-7 \\\\\n-9 \\\\\n-11\n\\end{bmatrix}.\n\\]\n주석 부분에 들어갈 코드를 작성하시오.\nV = torch.tensor([\n    [1.0, 2.0],\n    [3.0, 4.0],\n    [5.0, 6.0],\n    [7.0, 8.0],\n    [9.0, 10.0]\n])\n\n###################\n# 여기를 잘 채워주세요 #\n###################\n\nY = lin(V)\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답 예시:\nlin = torch.nn.Linear(2, 1, bias=True)\nlin.weight.data = torch.tensor([[2.0], [-3.0]]).T\nlin.bias.data = torch.tensor([1.0])\nY = lin(V)\n\\({\\bf V}\\)는 \\(5 \\times 2\\) 행렬이고, \\({\\bf Y}\\)는 \\(5 \\times 1\\) 행렬이어야 한다. 따라서 입력 특성은 2개, 출력 특성은 1개이므로 torch.nn.Linear(2, 1, bias=True)를 사용한다. 이때 weight는 shape이 \\([1,2]\\)이고, bias는 shape이 \\([1]\\)이다.\n수식표현은 아래를 참고하라.\n\\[\n{\\bf Y}\n=\n{\\bf V}\n\\begin{bmatrix}\n2 \\\\\n-3\n\\end{bmatrix}\n+ 1\n=\n\\begin{bmatrix}\n-3 \\\\\n-5 \\\\\n-7 \\\\\n-9 \\\\\n-11\n\\end{bmatrix}\n\\]"
   },
   {
-    "objectID": "posts/04wk.html#a.-기호를-중시하는-사람",
-    "href": "posts/04wk.html#a.-기호를-중시하는-사람",
-    "title": "04wk: 파이토치식 코딩패턴",
-    "section": "A. 기호를 중시하는 사람",
-    "text": "A. 기호를 중시하는 사람\n- 기호만이 우리를 구원할 수 있다.\n- 다른 의미를 가진다면, 다른 기호를 써야함.\n- 하지만 현실은 그렇지 않음.\n\n\\(x^2+2x+1=0\\) 에서 \\(x\\)가 의미하는 기호와\n\\(f(x)=x^2+2x+1\\) 에서 \\(x\\)가 의미하는 기호는 같은가?\n\n- 되게 미묘한 차이 – 아래의 식에서 \\(x\\)는 모두 같은 의미를 가지진 않음.\n# 고등학교 문제 – \\(f(x)=(x-2)^2\\)의 최소값을 구하자.\n(sol)\n\\(f(x)=(x-2)^2\\) 이고 \\(f''(x)=2&gt;0\\) 이다. 따라서 \\(f'(x)=2(x-2)=0\\) 을 만족하는 \\(x\\)가 답이다. 따라서 \\(x=2\\).\n#"
+    "objectID": "posts/Quiz12.html#스펙의-역설",
+    "href": "posts/Quiz12.html#스펙의-역설",
+    "title": "Quiz-12 (2026.04.15) // 범위: ~06wk",
+    "section": "2. 스펙의 역설",
+    "text": "2. 스펙의 역설\n아래 그림은 스펙(\\(x\\))과 취업여부(\\(y\\))의 관계를 나타낸 데이터이다. 빨간 점선은 실제 확률 \\(\\pi^*\\)를 의미한다. 스펙이 높아질수록 취업확률이 증가하다가 다시 감소하는 형태임을 확인하라.\n\n이 데이터를 적합하기 위해 아래 두 네트워크를 시도하였다.\nnet1 (실패한 풀이):\nnet1 = torch.nn.Sequential(\n    torch.nn.Linear(1, 1),\n    torch.nn.Sigmoid()\n)\nnet2 (개선된 풀이):\nnet2 = torch.nn.Sequential(\n    torch.nn.Linear(1, 2, bias=True),\n    torch.nn.ReLU(),\n    torch.nn.Linear(2, 1, bias=True),\n    torch.nn.Sigmoid()\n)\n(1) net1이 이 데이터를 적합하는 데 실패하는 이유로 가장 적절한 것을 고르시오.\n(a) 학습률(learning rate)이 너무 작기 때문\n(b) 시그모이드 전의 값이 직선이므로 증가하다 감소하는 곡선을 표현할 수 없기 때문\n(c) BCELoss 대신 MSELoss를 사용해야 하기 때문\n(d) epoch 수가 부족하기 때문\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답: (b)\nLinear(1,1) → Sigmoid에서 시그모이드에 입력되는 값은 \\(w_0 + w_1 x\\) (직선)이다. 직선을 시그모이드에 넣으면 단조증가 또는 단조감소하는 S자만 표현 가능하므로, 위 그림처럼 증가하다 감소하는 형태의 곡선은 절대 만들 수 없다.\n\n\n\n(2) net2에 대해 다음 중 옳은 것을 모두 고르시오.\n(a) net2[0]은 torch.nn.Linear(1, 2, bias=True)이다.\n(b) net2[1]은 torch.nn.ReLU()이며, 학습할 파라미터가 없다.\n(c) net2[2]에는 학습할 파라미터(weight, bias)가 있다.\n(d) net2[3]에는 학습할 파라미터(weight, bias)가 있다.\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답: (a), (b), (c)\n(a) Sequential의 인덱스 0은 첫 번째 레이어인 Linear(1, 2, bias=True) → 맞음\n(b) 인덱스 1은 ReLU()이고, ReLU에는 학습할 파라미터가 없음 → 맞음\n(c) net2[2]는 Linear(2, 1, bias=True)이므로 weight와 bias 파라미터가 있음 → 맞음\n(d) net2[3]은 Sigmoid()인데, Sigmoid에는 학습할 파라미터가 없음 → 틀림\n\n\n\n(3) net1과 net2의 학습할 파라미터 수를 각각 구하시오.\n(a) net1: 2개, net2: 5개\n(b) net1: 2개, net2: 7개\n(c) net1: 3개, net2: 7개\n(d) net1: 2개, net2: 9개\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답: (b)\n\nnet1: Linear(1,1)의 weight 1개 + bias 1개 = 2개. Sigmoid()는 파라미터 없음.\nnet2: Linear(1,2)의 weight \\(1 \\times 2 = 2\\)개 + bias 2개 = 4개, ReLU()는 파라미터 없음, Linear(2,1)의 weight \\(2 \\times 1 = 2\\)개 + bias 1개 = 3개, Sigmoid()는 파라미터 없음. 합계 \\(4 + 3 =\\) 7개.\n\n\n\n\n(4) 다음 중 틀린 것을 고르시오.\n(a) net2는 시그모이드 전의 값이 꺾인 직선이 될 수 있으므로 net1보다 표현력이 좋다.\n(b) net2는 히든 노드 2개에 ReLU가 적용되므로 시그모이드 전에 최대 2번 꺾인 직선을 표현할 수 있다.\n(c) net2는 반드시 꺾인 직선만 표현할 수 있고, net1이 표현하는 단순 S자 곡선은 표현할 수 없다.\n(d) net2는 위 그림의 데이터뿐 아니라 단순한 로지스틱 데이터도 적합할 수 있다.\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답: (c)\n(a) 맞음. Linear → ReLU → Linear를 거치면 꺾인 직선이 만들어지고, 이를 시그모이드에 넣으면 더 다양한 곡선 표현 가능\n(b) 맞음. 히든 노드 2개 각각에 ReLU가 적용되므로 최대 2번 꺾을 수 있다.\n(c) 틀림. net2는 꺾인 직선뿐 아니라 안 꺾인 직선(단순 S자)도 표현할 수 있다. 즉 net1이 할 수 있는 것은 net2도 할 수 있다.\n(d) 맞음. (c)의 설명과 같은 이유로 단순 로지스틱 데이터도 적합 가능하다."
   },
   {
-    "objectID": "posts/04wk.html#b.-회귀분석-교재의-전설",
-    "href": "posts/04wk.html#b.-회귀분석-교재의-전설",
-    "title": "04wk: 파이토치식 코딩패턴",
-    "section": "B. 회귀분석 교재의 전설",
-    "text": "B. 회귀분석 교재의 전설\n- ref: Montgomery, D. C., Peck, E. A., & Vining, G. G. (2021). Introduction to linear regression analysis. John Wiley & Sons.\n- 역시 전설??"
+    "objectID": "posts/Quiz12.html#년수능30번",
+    "href": "posts/Quiz12.html#년수능30번",
+    "title": "Quiz-12 (2026.04.15) // 범위: ~06wk",
+    "section": "3. 2024년수능30번",
+    "text": "3. 2024년수능30번\n강의에서 아래와 같은 복잡한 곡선(2024 수능 미적 30번 모티브)을 적합하였다.\n\\[y_i = e^{-x_i} |\\cos(3x_i)| \\sin(3x_i) + \\epsilon_i, \\quad \\epsilon_i \\sim N(0, \\sigma^2)\\]\n\n이 곡선은 여러 번 증가·감소를 반복하는 복잡한 형태이다. 아래 네트워크 (가)~(다)를 보고 물음에 답하시오.\n(가)\nnet = torch.nn.Sequential(\n    torch.nn.Linear(1, 2),\n    torch.nn.ReLU(),\n    torch.nn.Linear(2, 1)\n)\n(나)\nnet = torch.nn.Sequential(\n    torch.nn.Linear(1, 512),\n    torch.nn.ReLU(),\n    torch.nn.Linear(512, 1)\n)\n(다)\nnet = torch.nn.Sequential(\n    torch.nn.Linear(1, 512),\n    torch.nn.ReLU(),\n    torch.nn.Linear(512, 1),\n    torch.nn.Sigmoid()\n)\n(1) 위 곡선을 가장 잘 적합할 수 있는 네트워크를 고르시오.\n(a) (가)\n(b) (나)\n(c) (다)\n(d) (가), (나), (다) 모두 동일하게 적합 가능\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답: (b)\n\n(가)는 히든 노드가 2개뿐이므로 최대 2번 꺾인 직선만 표현 가능 → 여러 번 증감을 반복하는 곡선에는 표현력 부족\n(나)는 히든 노드가 512개이므로 최대 512번 꺾인 직선 표현 가능 → 복잡한 곡선 적합 가능\n(다)는 마지막에 Sigmoid()가 붙어 출력이 \\((0, 1)\\) 범위로 제한됨. 위 곡선의 \\(y\\) 값은 음수도 포함하므로 적합 불가\n\n\n\n\n(2) 다음 중 옳은 것을 모두 고르시오.\n(a) (가)의 학습할 파라미터 수는 7개이다.\n(b) (나)는 (가)보다 히든 노드 수가 많고 각 노드에 ReLU가 적용되므로 더 많이 꺾인 직선을 표현할 수 있어 표현력이 더 높다.\n(c) (다)의 마지막 Sigmoid()는 출력을 \\((0, 1)\\) 범위로 제한하므로 회귀 문제에는 부적합할 수 있다.\n(d) 위 곡선을 적합할 때 손실함수로 BCELoss를 사용해야 한다.\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답: (a), (b), (c)\n(a) (가)의 파라미터: Linear(1,2)에서 \\(1 \\times 2 + 2 = 4\\)개, Linear(2,1)에서 \\(2 \\times 1 + 1 = 3\\)개, 합계 7개 → 맞음\n(b) (나)는 히든 노드가 512개이고 각 노드에 ReLU가 적용되므로 (가)보다 더 많이 꺾인 직선을 표현할 수 있어 표현력이 더 높음 → 맞음\n(c) Sigmoid()의 출력은 \\((0, 1)\\)이므로 \\(y\\) 값이 이 범위를 벗어나는 회귀 문제에는 맞지 않음 → 맞음\n(d) 틀림\n\n\n\n(3) 데이터의 수 \\(n\\)을 점점 키운다고 하자. 다음 중 옳은것을 모두 고르시오. (단, 학습률과 epoch은 충분히 적절하게 선택한다고 가정)\n(a) \\(n\\)이 커지면 (가),(나),(다) 세 네트워크의 적합 결과는 모두 true structure에 가까워진다.\n(b) \\(n\\)이 아무리 커져도 (가),(나),(다) 세 네트워크는 모두 true structure에 가까워지지 않는다.\n(c) \\(n\\)이 커질때 (나)의 네트워크는 true에 점점 가까워지지만 (가)와 (다)는 그렇지 않다.\n(d) \\(n\\)이 커지면 꺾을 수 있는 횟수가 점점 증가한다.\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답: (b)\n\\(n\\)이 커지면 데이터의 랜덤한 흔들림은 줄어들지만, 네트워크가 표현할 수 있는 함수의 형태가 자동으로 넓어지는 것은 아니다. (가)는 히든 노드가 2개뿐이므로 최대 2번 꺾인 직선만 표현할 수 있다. 따라서 여러 번 증가·감소를 반복하는 true structure를 정확히 표현할 수 없다. (나)는 히든 노드가 512개라서 (가)보다 훨씬 유연하지만, 여전히 유한 개의 ReLU로 만든 꺾인 직선이다. 즉 \\(e^{-x}|\\cos(3x)|\\sin(3x)\\) 같은 매끄러운 곡선을 정확히 포함한다고 보기는 어렵다. (다)는 마지막에 Sigmoid()가 있으므로 출력이 \\((0,1)\\)로 제한된다. 그런데 true structure는 음수도 가지므로 적합 결과가 true structure에 가까워질 수 없다. 따라서 \\(n\\)이 아무리 커져도 세 네트워크 모두 true structure 자체에 가까워진다고 말할 수 없으므로 (b)가 옳다."
   },
   {
-    "objectID": "posts/04wk.html#c.-저의-감각",
-    "href": "posts/04wk.html#c.-저의-감각",
-    "title": "04wk: 파이토치식 코딩패턴",
-    "section": "C. 저의 감각",
-    "text": "C. 저의 감각\n- 보통 함수에서의 변수 \\(x\\)와 미지수 \\(x\\)는 구분하지 않고 쓰더라..\n- \\(x\\)가 어떠한 고정된 값임을 강조하고 싶을때 \\(x_0,x^\\ast\\) 를 쓰는 경우가 많다. \\(f(x_0)\\) 이런 느낌으로..\n- \\(x\\)가 어떠한 함수를 최소화 혹은 최대화하는 값을 의미할때는 \\(x^\\ast, x^\\star\\) 을 많이 쓰는 것 같다.\n- 통계학에서 어떠한 값이 estimated/predicted/fitted 를 의미할 경우 hat을 많이 사용한다. 예를들어 \\(\\hat{\\beta}_0, \\hat{y}_i\\).\n\n구분할수 있으면 엄밀하게 구분하는게 좋지만, 때로는 그냥 적당히 넘어가는 것도 필요하다."
+    "objectID": "posts/Quiz9.html",
+    "href": "posts/Quiz9.html",
+    "title": "Quiz-9 (2026.04.06) // 범위: ~04wk",
+    "section": "",
+    "text": "import torch\n\n\n1. 베르누이 MLE\n아래는 \\(X_i \\overset{iid}{\\sim} Ber(0.8)\\)을 생성하는 코드이다.\n\ntorch.manual_seed(43052)\nx = torch.bernoulli(torch.tensor([0.8]*10000))\n\n함수 \\(l(p)\\)를 최소화하는 \\(p\\)를 경사하강법으로 추정하라.\n\\[l(p) = -\\frac{1}{n}\\sum_{i=1}^{n} \\log f(x_i), \\quad f(x_i) = p^{x_i} (1-p)^{1-x_i}\\]\n\n단, 초기값은 \\(p=0.5\\) 에서 시작할 것\n\nhint: 이론적인 수렴값은 x.mean()임.\n\n\n\n\n\n\nNote정답 보기\n\n\n\n\n\n\ndef l(p):\n    return -torch.mean(torch.log(p**x * (1-p)**(1-x)))\n\n\np = torch.tensor(0.5,requires_grad = True)\n\n\nfor dummy in range(15):\n    l(p).backward()\n    p.data = p.data - 0.1 * p.grad\n    p.grad = None\n    print(p.data)\n\ntensor(0.6188)\ntensor(0.6944)\ntensor(0.7428)\ntensor(0.7712)\ntensor(0.7859)\ntensor(0.7926)\ntensor(0.7953)\ntensor(0.7964)\ntensor(0.7968)\ntensor(0.7970)\ntensor(0.7971)\ntensor(0.7971)\ntensor(0.7971)\ntensor(0.7971)\ntensor(0.7971)\n\n\n\nx.mean() # 확인\n\ntensor(0.7971)"
   },
   {
-    "objectID": "posts/04wk.html#a.-문제",
-    "href": "posts/04wk.html#a.-문제",
-    "title": "04wk: 파이토치식 코딩패턴",
-    "section": "A. 문제",
-    "text": "A. 문제\n- 모형\n\\[y_i = w_0^\\ast + w_1^\\ast x_i + \\epsilon_i\\]\n\ntorch.manual_seed(43052)\nx = torch.randn(100).sort()[0]\neps = torch.randn(100)*0.5\nw0ast = 2.5\nw1ast = 4\ny = w0ast + w1ast*x + eps\n\n- 시각화\n\nplt.plot(x,y,'o')\n#plt.plot(x,w0ast + w1ast*x,'--')"
+    "objectID": "posts/A3.html#a.-기본플랏",
+    "href": "posts/A3.html#a.-기본플랏",
+    "title": "A3: matploblib 기본",
+    "section": "A. 기본플랏",
+    "text": "A. 기본플랏\n- 예시1\n\nx=[1,2,3,4]\ny=[1,2,4,3] \n\n\nplt.plot(x,y)"
   },
   {
-    "objectID": "posts/04wk.html#b.-풀이1-지난시간",
-    "href": "posts/04wk.html#b.-풀이1-지난시간",
-    "title": "04wk: 파이토치식 코딩패턴",
-    "section": "B. 풀이1 – 지난시간",
-    "text": "B. 풀이1 – 지난시간\n(엄밀하게)\n\ndef l(w0,w1):\n    return torch.sum((y - (w0 + w1*x))**2)\n\n\nw0tilde = -5\nw1tilde = 10\n\n\nfor epoch in range(30):\n    w0tilde_grad = (l(w0tilde + 0.001, w1tilde)- l(w0tilde, w1tilde))/0.001\n    w1tilde_grad = (l(w0tilde, w1tilde+0.001)- l(w0tilde, w1tilde))/0.001\n    w0tilde = w0tilde - 0.001 * w0tilde_grad\n    w1tilde = w1tilde - 0.001 * w1tilde_grad\n\n\nw0hat = w0tilde\nw1hat = w1tilde\n\n\nplt.plot(x,y,'o')\nplt.plot(x,w0hat+w1hat*x,'--')\n\n\n\n\n\n\n\n\n(대충)\n\ndef l(w0,w1):\n    return torch.sum((y - (w0 + w1*x))**2)\n\n\nw0hat = -5\nw1hat = 10\n\n\nfor epoch in range(30):\n    w0hat_grad = (l(w0hat + 0.001, w1hat)- l(w0hat, w1hat))/0.001\n    w1hat_grad = (l(w0hat, w1hat+0.001)- l(w0hat, w1hat))/0.001\n    w0hat = w0hat - 0.001 * w0hat_grad\n    w1hat = w1hat - 0.001 * w1hat_grad\n\n\nplt.plot(x,y,'o')\nplt.plot(x,w0hat+w1hat*x,'--')"
+    "objectID": "posts/A3.html#모양변경",
+    "href": "posts/A3.html#모양변경",
+    "title": "A3: matploblib 기본",
+    "section": "모양변경",
+    "text": "모양변경\n- 예시1\n\nplt.plot(x,y,'--')\n\n\n\n\n\n\n\n\n- 예시2\n\nplt.plot(x,y,':')\n\n\n\n\n\n\n\n\n- 예시3\n\nplt.plot(x,y,'-.')"
   },
   {
-    "objectID": "posts/04wk.html#c.-풀이2-파이토치-사용",
-    "href": "posts/04wk.html#c.-풀이2-파이토치-사용",
-    "title": "04wk: 파이토치식 코딩패턴",
-    "section": "C. 풀이2 – 파이토치 사용",
-    "text": "C. 풀이2 – 파이토치 사용\n\nw0hat = torch.tensor(-5.00, requires_grad=True)\nw1hat = torch.tensor(10.00, requires_grad=True)\n\n\nfor epoch in range(30):\n    yhat = w0hat + w1hat*x # y의 predicted value, 혹은 fitted value라고 볼수있음.\n    loss = torch.sum((y - yhat)**2)\n    loss.backward()\n    w0hat.data = w0hat.data - 0.001 * w0hat.grad\n    w1hat.data = w1hat.data - 0.001 * w1hat.grad\n    w0hat.grad = None\n    w1hat.grad = None\n\n\nplt.plot(x,y,'o')\nplt.plot(x,w0hat.data + w1hat.data*x,'--')\n\n\n\n\n\n\n\n\n\nw0hat,w1hat\n\n(tensor(2.4290, requires_grad=True), tensor(4.0144, requires_grad=True))"
+    "objectID": "posts/A3.html#b.-색상변경",
+    "href": "posts/A3.html#b.-색상변경",
+    "title": "A3: matploblib 기본",
+    "section": "B. 색상변경",
+    "text": "B. 색상변경\n- 예시1\n\nplt.plot(x,y,'r')\n\n\n\n\n\n\n\n\n- 예시2\n\nplt.plot(x,y,'k')"
   },
   {
-    "objectID": "posts/04wk.html#d.-풀이3-matrix-ver",
-    "href": "posts/04wk.html#d.-풀이3-matrix-ver",
-    "title": "04wk: 파이토치식 코딩패턴",
-    "section": "D. 풀이3 – matrix ver",
-    "text": "D. 풀이3 – matrix ver\n- 아이디어: 아래의 모형\n\\[y_i = w_0^\\ast + w_1^\\ast x_i + \\epsilon_i\\]\n을 아래와 같이 matrix로 해석하자.\n\\[\\begin{bmatrix}\ny_1 \\\\ y_2 \\\\ \\dots \\\\ y_n \\end{bmatrix} = \\begin{bmatrix} 1 & x_1 \\\\ 1 & x_2 \\\\ \\dots \\\\ 1 & x_n \\end{bmatrix}\\begin{bmatrix} w_0^\\ast \\\\ w_1^\\ast \\end{bmatrix} +\\begin{bmatrix}\n\\epsilon_1 \\\\ \\epsilon_2 \\\\ \\dots \\\\ \\epsilon_n \\end{bmatrix} \\]\n- 최초의 주황색점선은\n\nw0hat = torch.tensor(-5.00, requires_grad=True)\nw1hat = torch.tensor(10.00, requires_grad=True)\nyhat = w0hat + w1hat * x\nyhat[:5]\n\ntensor([-29.8211, -28.6215, -24.9730, -21.2394, -19.7919],\n       grad_fn=&lt;SliceBackward0&gt;)\n\n\n\nyhat.shape\n\ntorch.Size([100])\n\n\n이런식으로 구했었는데, 이제는 아래와 같이 구할 수 있다.\n\nX = torch.stack([torch.ones(100), x],axis=1)\nWhat = torch.tensor([[-5.00],[10.00]],requires_grad=True)\nYhat= X@What\nYhat[:5]\n\ntensor([[-29.8211],\n        [-28.6215],\n        [-24.9730],\n        [-21.2394],\n        [-19.7919]], grad_fn=&lt;SliceBackward0&gt;)\n\n\n\nWhat.shape\n\ntorch.Size([2, 1])\n\n\n- 첫 미분값은 원래 아래와 같이 구했는데..\n\nw0hat = torch.tensor(-5.00, requires_grad=True)\nw1hat = torch.tensor(10.00, requires_grad=True)\n#---#\nyhat = w0hat + w1hat * x\nloss = torch.sum((y-yhat)**2)\nloss.backward()\nw0hat.grad, w1hat.grad\n\n(tensor(-1342.2524), tensor(1188.9305))\n\n\n이제는 아래와 같이 하면된다.\n\nY = y.reshape(-1,1)\nX = torch.stack([torch.ones(100), x],axis=1)\nWhat = torch.tensor([[-5.00],[10.00]],requires_grad=True)\n#---#\nYhat = X@What\nloss = torch.sum((Y-Yhat)**2)\nloss.backward()\nWhat.data, What.grad\n\n(tensor([[-5.],\n         [10.]]),\n tensor([[-1342.2524],\n         [ 1188.9305]]))\n\n\n- 업데이트는 원래 아래와 같이 했었는데\n\nw0hat.data = w0hat.data - 0.001 * w0hat.grad\nw1hat.data = w1hat.data - 0.001 * w1hat.grad\nw0hat,w1hat\n\n(tensor(-3.6577, requires_grad=True), tensor(8.8111, requires_grad=True))\n\n\n\nWhat.data = What.data - 0.001 * What.grad\nWhat\n\ntensor([[-3.6577],\n        [ 8.8111]], requires_grad=True)\n\n\n- 그래서 새로운 코드를 정리하면\n\nY = y.reshape(-1,1)\nX = torch.stack([torch.ones(100), x],axis=1)\nWhat = torch.tensor([[-5.00],[10.00]],requires_grad=True)\n#---#\nfor epoch in range(30):\n    Yhat = X@What\n    loss = torch.sum((Y-Yhat)**2)\n    loss.backward()\n    What.data = What.data - 0.001 * What.grad\n    What.grad = None\n\n\nWhat.data\n\ntensor([[2.4290],\n        [4.0144]])\n\n\n\nplt.plot(x,y,'o')\n# plt.plot(x,(X@What).reshape(-1).data,'--')\nplt.plot(x,(X@What).reshape(-1).detach(),'--')"
+    "objectID": "posts/A3.html#c.-모양-색상변경",
+    "href": "posts/A3.html#c.-모양-색상변경",
+    "title": "A3: matploblib 기본",
+    "section": "C. 모양 + 색상변경",
+    "text": "C. 모양 + 색상변경\n- 예시1\n\nplt.plot(x,y,'--r')\n\n\n\n\n\n\n\n\n- 예시2: 순서변경 가능\n\nplt.plot(x,y,'r--')"
   },
   {
-    "objectID": "posts/04wk.html#e.-풀이4-mse",
-    "href": "posts/04wk.html#e.-풀이4-mse",
-    "title": "04wk: 파이토치식 코딩패턴",
-    "section": "E. 풀이4 – MSE",
-    "text": "E. 풀이4 – MSE\n\nY = y.reshape(-1,1)\nX = torch.stack([torch.ones(100), x],axis=1)\nWhat = torch.tensor([[-5.00],[10.00]],requires_grad=True)\n#---#\nfor epoch in range(30):\n    Yhat = X@What\n    loss= torch.mean((Y-Yhat)**2) # SSE를 MSE로 바꿈\n    loss.backward()\n    What.data = What.data - 0.1 * What.grad\n    What.grad = None\n\n\nWhat.data\n\ntensor([[2.4290],\n        [4.0144]])"
+    "objectID": "posts/A3.html#d.-원리",
+    "href": "posts/A3.html#d.-원리",
+    "title": "A3: matploblib 기본",
+    "section": "D. 원리?",
+    "text": "D. 원리?\n- r--등의 옵션은 Markers + Line Styles + Colors 의 조합으로 표현가능\nref: https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html\n\n--r: 점선(dashed)스타일 + 빨간색\nr--: 빨간색 + 점선(dashed)스타일\n:k: 점선(dotted)스타일 + 검은색\nk:: 검은색 + 점선(dotted)스타일\n\n- 우선 Marker를 무시하면 Line Styles + Color로 표현가능한 조합은 \\(4\\times 8=32\\) 개\n(Line Styles) 모두 4개\n\n\n\ncharacter\ndescription\n\n\n\n\n‘-’\nsolid line style\n\n\n‘–’\ndashed line style\n\n\n‘-.’\ndash-dot line style\n\n\n‘:’\ndotted line style\n\n\n\n(Color) 모두 8개\n\n\n\ncharacter\ncolor\n\n\n\n\n‘b’\nblue\n\n\n‘g’\ngreen\n\n\n‘r’\nred\n\n\n‘c’\ncyan\n\n\n‘m’\nmagenta\n\n\n‘y’\nyellow\n\n\n‘k’\nblack\n\n\n‘w’\nwhite\n\n\n\n- 예시1\n\nplt.plot(x,y,'--m')\n\n\n\n\n\n\n\n\n- 예시2\n\nplt.plot(x,y,'-.c')\n\n\n\n\n\n\n\n\n- 예시3: line style + color 조합으로 사용하든 color + line style 조합으로 사용하든 상관없음\n\nplt.plot(x,y,'-.c')\n\n\n\n\n\n\n\n\n\nplt.plot(x,y,'c-.')\n\n\n\n\n\n\n\n\n- 예시4: line style을 중복으로 사용하거나 color를 중복으로 쓸 수 는 없다.\n\nplt.plot(x,y,'--:')\n\n\n---------------------------------------------------------------------------\nValueError                                Traceback (most recent call last)\nCell In[17], line 1\n----&gt; 1 plt.plot(x,y,'--:')\n\nFile ~/Dropbox/02-lec/2026-03-딥러닝/.venv/lib/python3.10/site-packages/matplotlib/pyplot.py:3838, in plot(scalex, scaley, data, *args, **kwargs)\n   3830 @_copy_docstring_and_deprecators(Axes.plot)\n   3831 def plot(\n   3832     *args: float | ArrayLike | str,\n   (...)\n   3836     **kwargs,\n   3837 ) -&gt; list[Line2D]:\n-&gt; 3838     return gca().plot(\n   3839         *args,\n   3840         scalex=scalex,\n   3841         scaley=scaley,\n   3842         **({\"data\": data} if data is not None else {}),\n   3843         **kwargs,\n   3844     )\n\nFile ~/Dropbox/02-lec/2026-03-딥러닝/.venv/lib/python3.10/site-packages/matplotlib/axes/_axes.py:1777, in Axes.plot(self, scalex, scaley, data, *args, **kwargs)\n   1534 \"\"\"\n   1535 Plot y versus x as lines and/or markers.\n   1536 \n   (...)\n   1774 (``'green'``) or hex strings (``'#008000'``).\n   1775 \"\"\"\n   1776 kwargs = cbook.normalize_kwargs(kwargs, mlines.Line2D)\n-&gt; 1777 lines = [*self._get_lines(self, *args, data=data, **kwargs)]\n   1778 for line in lines:\n   1779     self.add_line(line)\n\nFile ~/Dropbox/02-lec/2026-03-딥러닝/.venv/lib/python3.10/site-packages/matplotlib/axes/_base.py:297, in _process_plot_var_args.__call__(self, axes, data, return_kwargs, *args, **kwargs)\n    295     this += args[0],\n    296     args = args[1:]\n--&gt; 297 yield from self._plot_args(\n    298     axes, this, kwargs, ambiguous_fmt_datakey=ambiguous_fmt_datakey,\n    299     return_kwargs=return_kwargs\n    300 )\n\nFile ~/Dropbox/02-lec/2026-03-딥러닝/.venv/lib/python3.10/site-packages/matplotlib/axes/_base.py:444, in _process_plot_var_args._plot_args(self, axes, tup, kwargs, return_kwargs, ambiguous_fmt_datakey)\n    441 if len(tup) &gt; 1 and isinstance(tup[-1], str):\n    442     # xy is tup with fmt stripped (could still be (y,) only)\n    443     *xy, fmt = tup\n--&gt; 444     linestyle, marker, color = _process_plot_format(\n    445         fmt, ambiguous_fmt_datakey=ambiguous_fmt_datakey)\n    446 elif len(tup) == 3:\n    447     raise ValueError('third arg must be a format string')\n\nFile ~/Dropbox/02-lec/2026-03-딥러닝/.venv/lib/python3.10/site-packages/matplotlib/axes/_base.py:167, in _process_plot_format(fmt, ambiguous_fmt_datakey)\n    165 if fmt[i:i+2] in mlines.lineStyles:  # First, the two-char styles.\n    166     if linestyle is not None:\n--&gt; 167         raise ValueError(errfmt.format(fmt, \"two linestyle symbols\"))\n    168     linestyle = fmt[i:i+2]\n    169     i += 2\n\nValueError: '--:' is not a valid format string (two linestyle symbols)\n\n\n\n\n\n\n\n\n\n\n\nplt.plot(x,y,'rb')\n\n- 예시5: 색이 사실 8개만 있는건 아니다.\nref: https://matplotlib.org/2.0.2/examples/color/named_colors.html\n\nplt.plot(x,y,'--',color='lime')\n\n- 예시6: 색을 바꾸려면 Hex코드를 밖아 넣는 방법이 젤 깔끔함\nref: https://htmlcolorcodes.com/\n\nplt.plot(x,y,color='#277E41') \n\n- 예시7: 당연히 라인스타일도 4개만 있진 않겠지\nref: https://matplotlib.org/stable/gallery/lines_bars_and_markers/linestyles.html\n\nplt.plot(x,y,linestyle='dashed')\n\n\n\n\n\n\n\n\n\nplt.plot(x,y,linestyle=(0, (20, 5)))"
   },
   {
-    "objectID": "posts/04wk.html#f.-풀이5-mse",
-    "href": "posts/04wk.html#f.-풀이5-mse",
-    "title": "04wk: 파이토치식 코딩패턴",
-    "section": "F. 풀이5 – MSE",
-    "text": "F. 풀이5 – MSE\n\nY = y.reshape(-1,1)\nX = torch.stack([torch.ones(100), x],axis=1)\nWhat = torch.tensor([[-5.00],[10.00]],requires_grad=True)\nloss_fn = torch.nn.MSELoss()\n#---#\nfor epoch in range(30):\n    Yhat = X@What\n    loss = loss_fn(Yhat,Y)\n    loss.backward()\n    What.data = What.data - 0.1 * What.grad\n    What.grad = None\n\n\nWhat.data\n\ntensor([[2.4290],\n        [4.0144]])"
+    "objectID": "posts/A3.html#a.-원리",
+    "href": "posts/A3.html#a.-원리",
+    "title": "A3: matploblib 기본",
+    "section": "A. 원리",
+    "text": "A. 원리\n- 그냥 마커를 설정하면 끝!\nref: https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html\n\n\n\ncharacter\ndescription\n\n\n\n\n‘.’\npoint marker\n\n\n‘,’\npixel marker\n\n\n‘o’\ncircle marker\n\n\n‘v’\ntriangle_down marker\n\n\n‘^’\ntriangle_up marker\n\n\n‘&lt;’\ntriangle_left marker\n\n\n‘&gt;’\ntriangle_right marker\n\n\n‘1’\ntri_down marker\n\n\n‘2’\ntri_up marker\n\n\n‘3’\ntri_left marker\n\n\n‘4’\ntri_right marker\n\n\n‘8’\noctagon marker\n\n\n‘s’\nsquare marker\n\n\n‘p’\npentagon marker\n\n\n‘P’\nplus (filled) marker\n\n\n’*’\nstar marker\n\n\n‘h’\nhexagon1 marker\n\n\n‘H’\nhexagon2 marker\n\n\n‘+’\nplus marker\n\n\n‘x’\nx marker\n\n\n‘X’\nx (filled) marker\n\n\n‘D’\ndiamond marker\n\n\n‘d’\nthin_diamond marker\n\n\n‘|’\nvline marker\n\n\n’_’\nhline marker\n\n\n\n\nplt.plot(x,y,'o')"
   },
   {
-    "objectID": "posts/04wk.html#g.-풀이6-net",
-    "href": "posts/04wk.html#g.-풀이6-net",
-    "title": "04wk: 파이토치식 코딩패턴",
-    "section": "G. 풀이6 – net",
-    "text": "G. 풀이6 – net\n# net – net 오브젝트?\n원래 Yhat을 이런식으로 구했는데..\nYhat = X @ What\n그런데 Yhat을 아래와 같이 구할수 있도록 하고싶다.\nYhat = net(X)\n위와 같은 코드를 가능하게 하는 net은 파이토치에서 공식지원하고, 아래와 같이 같이 사용할 수 있음.\n\nnet = torch.nn.Linear(\n    in_features=2,\n    out_features=1,\n    bias = False\n)\n# net(X)\n\nnet(X)는 사실 아래의 동작과 동일하다.\n\n# X @ net.weight.T\n\n여기에서 net.weight.T의 값은 net가 생성될때마다 랜덤하게 바귄다. 우리가 What의 초기값을 \\(\\begin{bmatrix} -10 \\\\ 5 \\end{bmatrix}\\)로 설정하였듯이 net.weight.T의 초기값도 바꾸고싶다면 아래와 같이 강제설정할 수 있다.\n\nnet.weight.data = torch.tensor([[-10.0,5.0]])\n\n그러면 이제 아래의 두 코드는 같은 효과를 가진다.\n\nnet(X)[:3]\n\ntensor([[-22.4106],\n        [-21.8107],\n        [-19.9865]], grad_fn=&lt;SliceBackward0&gt;)\n\n\n\nWhat = torch.tensor([[-10.0],[5.0]])\n(X @ What)[:3]\n\ntensor([[-22.4106],\n        [-21.8107],\n        [-19.9865]])\n\n\n- 정리를 하면 아래와 같다.\n\nY = y.reshape(-1,1)\nX = torch.stack([torch.ones(100), x],axis=1)\nnet = torch.nn.Linear(\n    in_features=2,\n    out_features=1,\n    bias = False\n)\nnet.weight.data = torch.tensor([[-5.00,10.00]])\nloss_fn = torch.nn.MSELoss()\n#---#\nfor epoch in range(30):\n    Yhat = net(X)\n    loss = loss_fn(Yhat,Y)\n    loss.backward()\n    net.weight.data = net.weight.data - 0.1 * net.weight.grad\n    net.weight.grad = None\n\n\nnet.weight\n\nParameter containing:\ntensor([[2.4290, 4.0144]], requires_grad=True)"
+    "objectID": "posts/A3.html#b.-기본플랏",
+    "href": "posts/A3.html#b.-기본플랏",
+    "title": "A3: matploblib 기본",
+    "section": "B. 기본플랏",
+    "text": "B. 기본플랏\n- 예시1\n\nplt.plot(x,y,'.')\n\n\n\n\n\n\n\n\n- 예시2\n\nplt.plot(x,y,'x')"
   },
   {
-    "objectID": "posts/04wk.html#h.-풀이7-optimizer",
-    "href": "posts/04wk.html#h.-풀이7-optimizer",
-    "title": "04wk: 파이토치식 코딩패턴",
-    "section": "H. 풀이7 – optimizer",
-    "text": "H. 풀이7 – optimizer\n\nY = y.reshape(-1,1)\nX = torch.stack([torch.ones(100), x],axis=1)\nnet = torch.nn.Linear(\n    in_features=2,\n    out_features=1,\n    bias = False\n)\nnet.weight.data = torch.tensor([[-5.00,10.00]])\nloss_fn = torch.nn.MSELoss()\noptimizer = torch.optim.SGD(net.parameters(),lr=0.1)\n#---#\nfor epoch in range(30):\n    Yhat = net(X)\n    loss = loss_fn(Yhat,Y)\n    loss.backward()\n    optimizer.step() # 업데이트해~\n    net.weight.grad = None\n\n\nnet.weight\n\nParameter containing:\ntensor([[2.4290, 4.0144]], requires_grad=True)"
+    "objectID": "posts/A3.html#c.-색깔변경",
+    "href": "posts/A3.html#c.-색깔변경",
+    "title": "A3: matploblib 기본",
+    "section": "C. 색깔변경",
+    "text": "C. 색깔변경\n- 예시1\n\nplt.plot(x,y,'or')\n\n\n\n\n\n\n\n\n- 예시2\n\nplt.plot(x,y,'db')\n\n\n\n\n\n\n\n\n- 예시3\n\nplt.plot(x,y,'bx')"
   },
   {
-    "objectID": "posts/04wk.html#i.-풀이8-optimizer-zero_grad",
-    "href": "posts/04wk.html#i.-풀이8-optimizer-zero_grad",
-    "title": "04wk: 파이토치식 코딩패턴",
-    "section": "I. 풀이8 – optimizer, zero_grad",
-    "text": "I. 풀이8 – optimizer, zero_grad\n\nY = y.reshape(-1,1)\nX = torch.stack([torch.ones(100), x],axis=1)\nnet = torch.nn.Linear(\n    in_features=2,\n    out_features=1,\n    bias = False\n)\nnet.weight.data = torch.tensor([[-5.00,10.00]])\nloss_fn = torch.nn.MSELoss()\noptimizer = torch.optim.SGD(net.parameters(),lr=0.1)\n#---#\nfor epoch in range(30):\n    Yhat = net(X)\n    loss = loss_fn(Yhat,Y)\n    loss.backward()\n    optimizer.step()\n    optimizer.zero_grad()\n\n\nnet.weight\n\nParameter containing:\ntensor([[2.4290, 4.0144]], requires_grad=True)"
-  },
-  {
-    "objectID": "posts/04wk.html#j.-풀이9-net-bias",
-    "href": "posts/04wk.html#j.-풀이9-net-bias",
-    "title": "04wk: 파이토치식 코딩패턴",
-    "section": "J. 풀이9 – net, bias",
-    "text": "J. 풀이9 – net, bias\n- net에서 bias=False가 의미하는건 뭘까?\n- 간단함\n# 이렇게 선언하면\nnet = torch.nn.Linear(..., bias=False)\n# 아래의 두 코드는 같은효과\nnet(inp)\ninp @ net.weight.T\n# 이렇게 선언하면\nnet = torch.nn.Linear(..., bias=True)\n# 아래의 두 코드는 같은효과\nnet(inp)\ninp @ net.weight.T + net.bias\n- 아래의 코드도 돌아가긴 하지만 조금 비효율적임\n\nY = y.reshape(-1,1)\nX = torch.stack([torch.ones(100), x],axis=1)\nnet = torch.nn.Linear(\n    in_features=2,\n    out_features=1,\n    bias = True\n)\nnet.weight.data = torch.tensor([[-5.00,10.00]])\nloss_fn = torch.nn.MSELoss()\noptimizer = torch.optim.SGD(net.parameters(),lr=0.1)\n#---#\nfor epoch in range(30):\n    Yhat = net(X)\n    loss = loss_fn(Yhat,Y)\n    loss.backward()\n    optimizer.step()\n    optimizer.zero_grad()\n\n- 결과해석\n\nnet.weight, net.bias\n\n(Parameter containing:\n tensor([[-1.0241,  4.0080]], requires_grad=True),\n Parameter containing:\n tensor([3.4689], requires_grad=True))\n\n\n\n-1.0242 + 3.4689 # 이게 w0hat의 효과\n\n2.4447\n\n\n\n4.0080 # 이게 w1hat\n\n4.008\n\n\n- 아래와 같이 코드를 짜면 풀이2-8까지 했던것과 정확하게 같은 코드가 된다.\n\nY = y.reshape(-1,1)\nX1 = x.reshape(-1,1)\nnet = torch.nn.Linear(\n    in_features=1,\n    out_features=1,\n    bias = True\n)\nnet.weight.data = torch.tensor([[10.00]]) # w1hat의 역할\nnet.bias.data = torch.tensor([-5.0]) # w0hat의 역할\nloss_fn = torch.nn.MSELoss()\noptimizer = torch.optim.SGD(net.parameters(),lr=0.1)\n#---#\nfor epoch in range(30):\n    Yhat = net(X1)\n    loss = loss_fn(Yhat,Y)\n    loss.backward()\n    optimizer.step()\n    optimizer.zero_grad()\n\n\nnet.weight, net.bias\n\n(Parameter containing:\n tensor([[4.0144]], requires_grad=True),\n Parameter containing:\n tensor([2.4290], requires_grad=True))"
-  },
-  {
-    "objectID": "posts/04wk.html#k.-풀이10",
-    "href": "posts/04wk.html#k.-풀이10",
-    "title": "04wk: 파이토치식 코딩패턴",
-    "section": "K. 풀이10",
-    "text": "K. 풀이10\n- 통계학과만 아는 풀이\n\ntorch.linalg.inv(X.T @ X) @ X.T @ Y # 이게 What\n\ntensor([[2.4459],\n        [4.0043]])\n\n\n\nplt.plot(x,y,'o')\nplt.plot(x,2.4459 + 4.0043*x,'--',alpha=0.5) # 회귀분석에서 배운대로 구한값\nplt.plot(x,2.4290 + 4.0144*x,'--',alpha=0.5) # 딥러닝시간에 배운 새로운 테크닉 경사하강법을 이용한 결과\n\n\n\n\n\n\n\n\n\nl(2.4459,4.0043) # 회귀분석에서 배운대로 구했을 경우 loss\n\ntensor(26.3600)\n\n\n\nl(2.4290,4.0144) # 딥러닝에서 배운대로 구했을 경우 loss\n\ntensor(26.3958)\n\n\n- 딥러닝에서 배운 방법은 계산량도 많고 부정확하지만, 미분을 직접손으로 구하지 않아도 된다는 장점이 있다. (벡터미분 몰라도 된다.) 회귀문제의 경우 적절한 학습률을 선택하고 많은 반복을 하면 결국 딥러닝에서 배운 경사하강법은 회귀분석에서 배운 해석해로 수렴한다.\n- 문제: 경사하강법으로 회귀문제를 푼다고 하자. 반복이 많으면 (epoch이 크면) 결국 \\(\\hat{\\bf W}\\)은 \\(\\begin{bmatrix} 2.5 \\\\  4\\end{bmatrix}\\) 으로 가는가?\n\n답변: 절대 못찾아감. 회귀분석에서 배운 해석해를 찾아간다.\n\n- 그러면 \\(\\begin{bmatrix} 2.5 \\\\  4\\end{bmatrix}\\) 에 점점 가깝게 추정하기 위해서는 어떻게 해야하나?? 데이터를 더 모아야함. (즉 현재 \\(n=100\\)인데 이것이 \\(n=1000, 10000\\) 이런식으로 커지면 추정값이 점점 true에 가까워짐)"
+    "objectID": "posts/A3.html#d.-dot-connected-plot",
+    "href": "posts/A3.html#d.-dot-connected-plot",
+    "title": "A3: matploblib 기본",
+    "section": "D. dot-connected plot",
+    "text": "D. dot-connected plot\n- 예시1: 마커와 라인스타일을 동시에 사용하면 dot-connected plot이 된다.\n\nplt.plot(x,y,'o-')\n\n\n\n\n\n\n\n\n- 예시2: 당연히 색도 적용가능함\n\nplt.plot(x,y,'o--r')\n\n\n\n\n\n\n\n\n- 예시3: 서로 순서를 바꿔도 상관없다.\n\nplt.plot(x,y,'ro--')"
   },
   {
     "objectID": "posts/A1.html",
@@ -382,35 +368,35 @@
     "href": "posts/Quiz19.html",
     "title": "Quiz-19 (2026.05.20) // 범위: ~11wk-1",
     "section": "",
-    "text": "개, 고양이, 토끼를 분류하는 다항분류 문제에서, 레이블 \\(y\\)를 인코딩하는 방법으로 가장 적절한 것을 고르시오.\n(a) 개=0, 고양이=1, 토끼=2\n(b) 개=[1,0,0], 고양이=[0,1,0], 토끼=[0,0,1]\n(c) 개=-1, 고양이=0, 토끼=1\n(d) 개=[1,1], 고양이=[1,0], 토끼=[0,0]"
+    "text": "개, 고양이, 토끼를 분류하는 다항분류 문제에서, 레이블 \\(y\\)를 인코딩하는 방법으로 가장 적절한 것을 고르시오.\n(a) 개=0, 고양이=1, 토끼=2\n(b) 개=[1,0,0], 고양이=[0,1,0], 토끼=[0,0,1]\n(c) 개=-1, 고양이=0, 토끼=1\n(d) 개=[1,1], 고양이=[1,0], 토끼=[0,0]\n\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답: (b)"
   },
   {
     "objectID": "posts/Quiz19.html#범주형-자료의-인코딩",
     "href": "posts/Quiz19.html#범주형-자료의-인코딩",
     "title": "Quiz-19 (2026.05.20) // 범위: ~11wk-1",
     "section": "",
-    "text": "개, 고양이, 토끼를 분류하는 다항분류 문제에서, 레이블 \\(y\\)를 인코딩하는 방법으로 가장 적절한 것을 고르시오.\n(a) 개=0, 고양이=1, 토끼=2\n(b) 개=[1,0,0], 고양이=[0,1,0], 토끼=[0,0,1]\n(c) 개=-1, 고양이=0, 토끼=1\n(d) 개=[1,1], 고양이=[1,0], 토끼=[0,0]"
+    "text": "개, 고양이, 토끼를 분류하는 다항분류 문제에서, 레이블 \\(y\\)를 인코딩하는 방법으로 가장 적절한 것을 고르시오.\n(a) 개=0, 고양이=1, 토끼=2\n(b) 개=[1,0,0], 고양이=[0,1,0], 토끼=[0,0,1]\n(c) 개=-1, 고양이=0, 토끼=1\n(d) 개=[1,1], 고양이=[1,0], 토끼=[0,0]\n\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답: (b)"
   },
   {
     "objectID": "posts/Quiz19.html#원-핫-인코딩",
     "href": "posts/Quiz19.html#원-핫-인코딩",
     "title": "Quiz-19 (2026.05.20) // 범위: ~11wk-1",
     "section": "2. 원-핫 인코딩",
-    "text": "2. 원-핫 인코딩\n다음 코드를 실행하였다.\ny = torch.tensor([0, 2, 1, 0, 2])\nY = torch.nn.functional.one_hot(y).float()\nY의 shape과 Y[1]의 값을 각각 쓰시오."
+    "text": "2. 원-핫 인코딩\n다음 코드를 실행하였다.\ny = torch.tensor([0, 2, 1, 0, 2])\nY = torch.nn.functional.one_hot(y).float()\nY의 shape과 Y[1]의 값을 각각 쓰시오.\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답: Y.shape == (5, 3), Y[1] == tensor([0., 0., 1.])"
   },
   {
     "objectID": "posts/Quiz19.html#네트워크-출력의-해석",
     "href": "posts/Quiz19.html#네트워크-출력의-해석",
     "title": "Quiz-19 (2026.05.20) // 범위: ~11wk-1",
     "section": "3. 네트워크 출력의 해석",
-    "text": "3. 네트워크 출력의 해석\nMNIST에서 숫자 3, 7, 9를 분류하는 다항분류 문제를 고려하자. 아래와 같은 네트워크와 손실함수를 사용하였다. (클래스 0=숫자3, 클래스 1=숫자7, 클래스 2=숫자9)\nnet = torch.nn.Sequential(\n    torch.nn.Linear(784,32),\n    torch.nn.ReLU(),\n    torch.nn.Linear(32,3),\n)\nloss_fn = torch.nn.CrossEntropyLoss()\n다음 중 net(X)의 출력에 대한 설명으로 올바른 것을 모두 고르시오.\n(a) 출력은 각 클래스에 대한 logits(근거)이다.\n(b) 출력의 범위는 0~1이므로 확률로 해석할 수 있다.\n(c) 출력 중 가장 값이 큰 클래스로 예측한다.\n(d) 출력 결과가 [2.0, -3.0, 5.0]라면 숫자 9로 예측한다."
+    "text": "3. 네트워크 출력의 해석\nMNIST에서 숫자 3, 7, 9를 분류하는 다항분류 문제를 고려하자. 아래와 같은 네트워크와 손실함수를 사용하였다. (클래스 0=숫자3, 클래스 1=숫자7, 클래스 2=숫자9)\nnet = torch.nn.Sequential(\n    torch.nn.Linear(784,32),\n    torch.nn.ReLU(),\n    torch.nn.Linear(32,3),\n)\nloss_fn = torch.nn.CrossEntropyLoss()\n다음 중 net(X)의 출력에 대한 설명으로 올바른 것을 모두 고르시오.\n(a) 출력은 각 클래스에 대한 logits(근거)이다.\n(b) 출력의 범위는 0~1이므로 확률로 해석할 수 있다.\n(c) 출력 중 가장 값이 큰 클래스로 예측한다.\n(d) 출력 결과가 [2.0, -3.0, 5.0]라면 숫자 9로 예측한다.\n\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답: (a), (c), (d)"
   },
   {
     "objectID": "posts/Quiz19.html#손실함수와-레이블-형태",
     "href": "posts/Quiz19.html#손실함수와-레이블-형태",
     "title": "Quiz-19 (2026.05.20) // 범위: ~11wk-1",
     "section": "4. 손실함수와 레이블 형태",
-    "text": "4. 손실함수와 레이블 형태\nMNIST에서 숫자 3, 7, 9를 분류하는 다항분류 문제를 고려하자. 데이터는 아래와 같이 준비되었다.\nX = ...  # shape: (18345, 784), 입력 이미지\ny = torch.tensor([0]*6131 + [1]*6265 + [2]*5949)  # 정수 레이블\nY = torch.nn.functional.one_hot(y).float()  # 원-핫 인코딩\n다음 코드에서 ???에 전달할 수 있는 레이블의 형태로 올바른 것을 모두 고르시오.\nloss_fn = torch.nn.CrossEntropyLoss()\nLogits = net(X)  # shape: (18345, 3)\nloss = loss_fn(Logits, ???)\n(a) y — 정수 레이블, shape (18345,)\n(b) Y — 원-핫 인코딩, shape (18345, 3)\n(c) y.float() — 실수형 정수 레이블, shape (18345,)"
+    "text": "4. 손실함수와 레이블 형태\nMNIST에서 숫자 3, 7, 9를 분류하는 다항분류 문제를 고려하자. 데이터는 아래와 같이 준비되었다.\nX = ...  # shape: (18345, 784), 입력 이미지\ny = torch.tensor([0]*6131 + [1]*6265 + [2]*5949)  # 정수 레이블\nY = torch.nn.functional.one_hot(y).float()  # 원-핫 인코딩\n다음 코드에서 ???에 전달할 수 있는 레이블의 형태로 올바른 것을 모두 고르시오.\nloss_fn = torch.nn.CrossEntropyLoss()\nLogits = net(X)  # shape: (18345, 3)\nloss = loss_fn(Logits, ???)\n(a) y — 정수 레이블, shape (18345,)\n(b) Y — 원-핫 인코딩, shape (18345, 3)\n(c) y.float() — 실수형 정수 레이블, shape (18345,)\n\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답: (a), (b)"
   },
   {
     "objectID": "posts/MidtermSol.html#문제-1.-광고비와-매출",
@@ -739,7 +725,7 @@
     "href": "index.html",
     "title": "딥러닝 (2026)",
     "section": "",
-    "text": "질문하는 방법\n\n이메일: guebin@jbnu.ac.kr\n직접방문: 자연과학대학 본관 205호\nZoom: 이메일로 미리 시간을 정할 것\n\n공지\n\n공지영상1 - 2026.04.01\n공지0413: 중간고사는 5월 4일에 실시하며, 시험 범위는 4월 27일 수업분(08주차)까지입니다.\n공지영상2 - 2026.04.13\n공지0422:\n\n이 수업은 특별한 사유가 없더라도 3회결석까지는 감점 없습니다. 특별한 사유없이 4회이상 결석할경우는 출석점수에 비례하여 감점합니다.\n4월27일/29일은 퀴즈를 보지 않습니다. (강의실로 나올 필요 X) 자습하시면서 중간고사 공부하시기 바랍니다.\n27일,29일에 퀴즈가 풀이와 함께 업로드될 예정입니다. 풀어서 제출할필요 없습니다. 업로드된 퀴즈는 학습 참고자료로 활용하시기 바랍니다.\n\n공지영상3 - 2026.04.22\n공지영상4 - 2026.05.13\n공지0518: 5월18일에 11wk-1 강의노트를 업로드하며, 5월20일(수)에 11wk-2를 업로드합니다. 5월20일(수) 퀴즈 범위는 11wk-1까지입니다.\n\n강의노트\n\n\n\n\n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\nAuthor\n\n\n\n\n\n\n\n\nMay 25, 2026\n\n\n12wk: CNN의 핵심레이어, CNN을 이해해보자\n\n\n최규빈 \n\n\n\n\n\n\nMay 21, 2026\n\n\n11wk-2: CNN (미리보기)\n\n\n최규빈 \n\n\n\n\n\n\nMay 20, 2026\n\n\nQuiz-19 (2026.05.20) // 범위: ~11wk-1\n\n\n최규빈 \n\n\n\n\n\n\nMay 18, 2026\n\n\n11wk-1: 다항분류\n\n\n최규빈 \n\n\n\n\n\n\nMay 18, 2026\n\n\nQuiz-18 (2026.05.19) // 범위: ~10wk-2\n\n\n최규빈 \n\n\n\n\n\n\nMay 13, 2026\n\n\nQuiz-17 (2026.05.13) // 범위: ~10wk-1\n\n\n최규빈 \n\n\n\n\n\n\nMay 12, 2026\n\n\n10wk-2: 확률적 경사하강법, 이항분류에 대한 해석\n\n\n최규빈 \n\n\n\n\n\n\nMay 11, 2026\n\n\n10wk-1: CPU와 GPU\n\n\n최규빈 \n\n\n\n\n\n\nMay 5, 2026\n\n\n중간고사 수정 & 해설 (2026.05.04)\n\n\n최규빈 \n\n\n\n\n\n\nMay 4, 2026\n\n\n중간고사 (2026.05.04)\n\n\n최규빈 \n\n\n\n\n\n\nApr 29, 2026\n\n\nQuiz-16 (2026.04.29) // 범위: ~08wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 27, 2026\n\n\n08wk: MNIST, 오버피팅, 드랍아웃\n\n\n최규빈 \n\n\n\n\n\n\nApr 27, 2026\n\n\nQuiz-15 (2027.04.27) // 범위: ~07wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 22, 2026\n\n\nQuiz-14 (2026.04.22) // 범위: ~07wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 20, 2026\n\n\n07wk: 신경망의 표현, 시벤코 정리\n\n\n최규빈 \n\n\n\n\n\n\nApr 20, 2026\n\n\nQuiz-13 (2026.04.20) // 범위: ~06wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 15, 2026\n\n\nQuiz-12 (2026.04.15) // 범위: ~06wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 13, 2026\n\n\n06wk: 로지스틱의 한계 및 극복\n\n\n최규빈 \n\n\n\n\n\n\nApr 11, 2026\n\n\nQuiz-11 (2026.04.03) // 범위: ~05wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 8, 2026\n\n\nQuiz-10 (2026.04.08) // 범위: ~05wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 6, 2026\n\n\n05wk: 로지스틱\n\n\n최규빈 \n\n\n\n\n\n\nApr 6, 2026\n\n\nQuiz-9 (2026.04.06) // 범위: ~04wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 1, 2026\n\n\nQuiz-8 (2026.04.01) // 범위: ~04wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 30, 2026\n\n\n04wk: 파이토치식 코딩패턴\n\n\n최규빈 \n\n\n\n\n\n\nMar 30, 2026\n\n\nQuiz-7 (2026.03.30) // 범위: ~03wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 25, 2026\n\n\nQuiz-6 (2026.03.25) // 범위: ~03wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 23, 2026\n\n\n03wk: 경사하강법, 회귀분석\n\n\n최규빈 \n\n\n\n\n\n\nMar 23, 2026\n\n\nQuiz-5 (2026.03.23) // 범위: ~02wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 18, 2026\n\n\nQuiz-4 (2026.03.18) // 범위: ~02wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 16, 2026\n\n\n02wk: torch (2)\n\n\n최규빈 \n\n\n\n\n\n\nMar 16, 2026\n\n\nQuiz-3 (2026.03.16) // 범위: ~01wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 10, 2026\n\n\nQuiz-2 (2026.03.10) // 범위: ~01wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 9, 2026\n\n\n01wk: torch (1)\n\n\n최규빈 \n\n\n\n\n\n\nMar 9, 2026\n\n\nQuiz-1 (2026.03.09) // 범위: 벡터와 행렬\n\n\n최규빈 \n\n\n\n\n\n\nMar 5, 2026\n\n\nA4: 벡터미분\n\n\n최규빈 \n\n\n\n\n\n\nMar 5, 2026\n\n\nA3: matploblib 기본\n\n\n최규빈 \n\n\n\n\n\n\nMar 5, 2026\n\n\nA2: 벡터와 행렬\n\n\n최규빈 \n\n\n\n\n\n\nMar 4, 2025\n\n\nA1: 강의소개\n\n\n최규빈 \n\n\n\n\n\n\nNo matching items"
+    "text": "질문하는 방법\n\n이메일: guebin@jbnu.ac.kr\n직접방문: 자연과학대학 본관 205호\nZoom: 이메일로 미리 시간을 정할 것\n\n공지\n\n공지영상1 - 2026.04.01\n공지0413: 중간고사는 5월 4일에 실시하며, 시험 범위는 4월 27일 수업분(08주차)까지입니다.\n공지영상2 - 2026.04.13\n공지0422:\n\n이 수업은 특별한 사유가 없더라도 3회결석까지는 감점 없습니다. 특별한 사유없이 4회이상 결석할경우는 출석점수에 비례하여 감점합니다.\n4월27일/29일은 퀴즈를 보지 않습니다. (강의실로 나올 필요 X) 자습하시면서 중간고사 공부하시기 바랍니다.\n27일,29일에 퀴즈가 풀이와 함께 업로드될 예정입니다. 풀어서 제출할필요 없습니다. 업로드된 퀴즈는 학습 참고자료로 활용하시기 바랍니다.\n\n공지영상3 - 2026.04.22\n공지영상4 - 2026.05.13\n공지0518: 5월18일에 11wk-1 강의노트를 업로드하며, 5월20일(수)에 11wk-2를 업로드합니다. 5월20일(수) 퀴즈 범위는 11wk-1까지입니다.\n\n강의노트\n\n\n\n\n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\nAuthor\n\n\n\n\n\n\n\n\nAug 1, 2026\n\n\n프로젝트1: 아이리스자료분석 (2026.05.27 - 2026.06.01)\n\n\n최규빈 \n\n\n\n\n\n\nMay 27, 2026\n\n\n12wk: CNN의 핵심레이어, CNN을 이해해보자\n\n\n최규빈 \n\n\n\n\n\n\nMay 27, 2026\n\n\nQuiz-20 (2026.05.27) // 범위: 11wk-2\n\n\n최규빈 \n\n\n\n\n\n\nMay 21, 2026\n\n\n11wk-2: CNN (미리보기)\n\n\n최규빈 \n\n\n\n\n\n\nMay 20, 2026\n\n\nQuiz-19 (2026.05.20) // 범위: ~11wk-1\n\n\n최규빈 \n\n\n\n\n\n\nMay 18, 2026\n\n\n11wk-1: 다항분류\n\n\n최규빈 \n\n\n\n\n\n\nMay 18, 2026\n\n\nQuiz-18 (2026.05.19) // 범위: ~10wk-2\n\n\n최규빈 \n\n\n\n\n\n\nMay 13, 2026\n\n\nQuiz-17 (2026.05.13) // 범위: ~10wk-1\n\n\n최규빈 \n\n\n\n\n\n\nMay 12, 2026\n\n\n10wk-2: 확률적 경사하강법, 이항분류에 대한 해석\n\n\n최규빈 \n\n\n\n\n\n\nMay 11, 2026\n\n\n10wk-1: CPU와 GPU\n\n\n최규빈 \n\n\n\n\n\n\nMay 5, 2026\n\n\n중간고사 수정 & 해설 (2026.05.04)\n\n\n최규빈 \n\n\n\n\n\n\nMay 4, 2026\n\n\n중간고사 (2026.05.04)\n\n\n최규빈 \n\n\n\n\n\n\nApr 29, 2026\n\n\nQuiz-16 (2026.04.29) // 범위: ~08wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 27, 2026\n\n\n08wk: MNIST, 오버피팅, 드랍아웃\n\n\n최규빈 \n\n\n\n\n\n\nApr 27, 2026\n\n\nQuiz-15 (2027.04.27) // 범위: ~07wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 22, 2026\n\n\nQuiz-14 (2026.04.22) // 범위: ~07wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 20, 2026\n\n\n07wk: 신경망의 표현, 시벤코 정리\n\n\n최규빈 \n\n\n\n\n\n\nApr 20, 2026\n\n\nQuiz-13 (2026.04.20) // 범위: ~06wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 15, 2026\n\n\nQuiz-12 (2026.04.15) // 범위: ~06wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 13, 2026\n\n\n06wk: 로지스틱의 한계 및 극복\n\n\n최규빈 \n\n\n\n\n\n\nApr 11, 2026\n\n\nQuiz-11 (2026.04.03) // 범위: ~05wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 8, 2026\n\n\nQuiz-10 (2026.04.08) // 범위: ~05wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 6, 2026\n\n\n05wk: 로지스틱\n\n\n최규빈 \n\n\n\n\n\n\nApr 6, 2026\n\n\nQuiz-9 (2026.04.06) // 범위: ~04wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 1, 2026\n\n\nQuiz-8 (2026.04.01) // 범위: ~04wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 30, 2026\n\n\n04wk: 파이토치식 코딩패턴\n\n\n최규빈 \n\n\n\n\n\n\nMar 30, 2026\n\n\nQuiz-7 (2026.03.30) // 범위: ~03wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 25, 2026\n\n\nQuiz-6 (2026.03.25) // 범위: ~03wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 23, 2026\n\n\n03wk: 경사하강법, 회귀분석\n\n\n최규빈 \n\n\n\n\n\n\nMar 23, 2026\n\n\nQuiz-5 (2026.03.23) // 범위: ~02wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 18, 2026\n\n\nQuiz-4 (2026.03.18) // 범위: ~02wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 16, 2026\n\n\n02wk: torch (2)\n\n\n최규빈 \n\n\n\n\n\n\nMar 16, 2026\n\n\nQuiz-3 (2026.03.16) // 범위: ~01wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 10, 2026\n\n\nQuiz-2 (2026.03.10) // 범위: ~01wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 9, 2026\n\n\n01wk: torch (1)\n\n\n최규빈 \n\n\n\n\n\n\nMar 9, 2026\n\n\nQuiz-1 (2026.03.09) // 범위: 벡터와 행렬\n\n\n최규빈 \n\n\n\n\n\n\nMar 5, 2026\n\n\nA4: 벡터미분\n\n\n최규빈 \n\n\n\n\n\n\nMar 5, 2026\n\n\nA3: matploblib 기본\n\n\n최규빈 \n\n\n\n\n\n\nMar 5, 2026\n\n\nA2: 벡터와 행렬\n\n\n최규빈 \n\n\n\n\n\n\nMar 4, 2025\n\n\nA1: 강의소개\n\n\n최규빈 \n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/A4.html",
@@ -1015,116 +1001,165 @@
     "text": "7. 용어 정리\n다음 빈칸에 들어갈 용어를 각각 쓰시오.\n(1) 전체 데이터셋을 한 번 통과하는 단위를 ____이라고 한다.\n(2) 전체 데이터 중 일부 샘플의 묶음 하나를 ____라고 한다.\n(3) 하나의 묶음 안에 들어있는 샘플의 개수 \\(m\\)을 ____라고 한다.\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답: (1) 에폭(epoch), (2) 미니배치(mini-batch), (3) 배치 사이즈(batch size)"
   },
   {
-    "objectID": "posts/A3.html#a.-기본플랏",
-    "href": "posts/A3.html#a.-기본플랏",
-    "title": "A3: matploblib 기본",
-    "section": "A. 기본플랏",
-    "text": "A. 기본플랏\n- 예시1\n\nx=[1,2,3,4]\ny=[1,2,4,3] \n\n\nplt.plot(x,y)"
-  },
-  {
-    "objectID": "posts/A3.html#모양변경",
-    "href": "posts/A3.html#모양변경",
-    "title": "A3: matploblib 기본",
-    "section": "모양변경",
-    "text": "모양변경\n- 예시1\n\nplt.plot(x,y,'--')\n\n\n\n\n\n\n\n\n- 예시2\n\nplt.plot(x,y,':')\n\n\n\n\n\n\n\n\n- 예시3\n\nplt.plot(x,y,'-.')"
-  },
-  {
-    "objectID": "posts/A3.html#b.-색상변경",
-    "href": "posts/A3.html#b.-색상변경",
-    "title": "A3: matploblib 기본",
-    "section": "B. 색상변경",
-    "text": "B. 색상변경\n- 예시1\n\nplt.plot(x,y,'r')\n\n\n\n\n\n\n\n\n- 예시2\n\nplt.plot(x,y,'k')"
-  },
-  {
-    "objectID": "posts/A3.html#c.-모양-색상변경",
-    "href": "posts/A3.html#c.-모양-색상변경",
-    "title": "A3: matploblib 기본",
-    "section": "C. 모양 + 색상변경",
-    "text": "C. 모양 + 색상변경\n- 예시1\n\nplt.plot(x,y,'--r')\n\n\n\n\n\n\n\n\n- 예시2: 순서변경 가능\n\nplt.plot(x,y,'r--')"
-  },
-  {
-    "objectID": "posts/A3.html#d.-원리",
-    "href": "posts/A3.html#d.-원리",
-    "title": "A3: matploblib 기본",
-    "section": "D. 원리?",
-    "text": "D. 원리?\n- r--등의 옵션은 Markers + Line Styles + Colors 의 조합으로 표현가능\nref: https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html\n\n--r: 점선(dashed)스타일 + 빨간색\nr--: 빨간색 + 점선(dashed)스타일\n:k: 점선(dotted)스타일 + 검은색\nk:: 검은색 + 점선(dotted)스타일\n\n- 우선 Marker를 무시하면 Line Styles + Color로 표현가능한 조합은 \\(4\\times 8=32\\) 개\n(Line Styles) 모두 4개\n\n\n\ncharacter\ndescription\n\n\n\n\n‘-’\nsolid line style\n\n\n‘–’\ndashed line style\n\n\n‘-.’\ndash-dot line style\n\n\n‘:’\ndotted line style\n\n\n\n(Color) 모두 8개\n\n\n\ncharacter\ncolor\n\n\n\n\n‘b’\nblue\n\n\n‘g’\ngreen\n\n\n‘r’\nred\n\n\n‘c’\ncyan\n\n\n‘m’\nmagenta\n\n\n‘y’\nyellow\n\n\n‘k’\nblack\n\n\n‘w’\nwhite\n\n\n\n- 예시1\n\nplt.plot(x,y,'--m')\n\n\n\n\n\n\n\n\n- 예시2\n\nplt.plot(x,y,'-.c')\n\n\n\n\n\n\n\n\n- 예시3: line style + color 조합으로 사용하든 color + line style 조합으로 사용하든 상관없음\n\nplt.plot(x,y,'-.c')\n\n\n\n\n\n\n\n\n\nplt.plot(x,y,'c-.')\n\n\n\n\n\n\n\n\n- 예시4: line style을 중복으로 사용하거나 color를 중복으로 쓸 수 는 없다.\n\nplt.plot(x,y,'--:')\n\n\n---------------------------------------------------------------------------\nValueError                                Traceback (most recent call last)\nCell In[17], line 1\n----&gt; 1 plt.plot(x,y,'--:')\n\nFile ~/Dropbox/02-lec/2026-03-딥러닝/.venv/lib/python3.10/site-packages/matplotlib/pyplot.py:3838, in plot(scalex, scaley, data, *args, **kwargs)\n   3830 @_copy_docstring_and_deprecators(Axes.plot)\n   3831 def plot(\n   3832     *args: float | ArrayLike | str,\n   (...)\n   3836     **kwargs,\n   3837 ) -&gt; list[Line2D]:\n-&gt; 3838     return gca().plot(\n   3839         *args,\n   3840         scalex=scalex,\n   3841         scaley=scaley,\n   3842         **({\"data\": data} if data is not None else {}),\n   3843         **kwargs,\n   3844     )\n\nFile ~/Dropbox/02-lec/2026-03-딥러닝/.venv/lib/python3.10/site-packages/matplotlib/axes/_axes.py:1777, in Axes.plot(self, scalex, scaley, data, *args, **kwargs)\n   1534 \"\"\"\n   1535 Plot y versus x as lines and/or markers.\n   1536 \n   (...)\n   1774 (``'green'``) or hex strings (``'#008000'``).\n   1775 \"\"\"\n   1776 kwargs = cbook.normalize_kwargs(kwargs, mlines.Line2D)\n-&gt; 1777 lines = [*self._get_lines(self, *args, data=data, **kwargs)]\n   1778 for line in lines:\n   1779     self.add_line(line)\n\nFile ~/Dropbox/02-lec/2026-03-딥러닝/.venv/lib/python3.10/site-packages/matplotlib/axes/_base.py:297, in _process_plot_var_args.__call__(self, axes, data, return_kwargs, *args, **kwargs)\n    295     this += args[0],\n    296     args = args[1:]\n--&gt; 297 yield from self._plot_args(\n    298     axes, this, kwargs, ambiguous_fmt_datakey=ambiguous_fmt_datakey,\n    299     return_kwargs=return_kwargs\n    300 )\n\nFile ~/Dropbox/02-lec/2026-03-딥러닝/.venv/lib/python3.10/site-packages/matplotlib/axes/_base.py:444, in _process_plot_var_args._plot_args(self, axes, tup, kwargs, return_kwargs, ambiguous_fmt_datakey)\n    441 if len(tup) &gt; 1 and isinstance(tup[-1], str):\n    442     # xy is tup with fmt stripped (could still be (y,) only)\n    443     *xy, fmt = tup\n--&gt; 444     linestyle, marker, color = _process_plot_format(\n    445         fmt, ambiguous_fmt_datakey=ambiguous_fmt_datakey)\n    446 elif len(tup) == 3:\n    447     raise ValueError('third arg must be a format string')\n\nFile ~/Dropbox/02-lec/2026-03-딥러닝/.venv/lib/python3.10/site-packages/matplotlib/axes/_base.py:167, in _process_plot_format(fmt, ambiguous_fmt_datakey)\n    165 if fmt[i:i+2] in mlines.lineStyles:  # First, the two-char styles.\n    166     if linestyle is not None:\n--&gt; 167         raise ValueError(errfmt.format(fmt, \"two linestyle symbols\"))\n    168     linestyle = fmt[i:i+2]\n    169     i += 2\n\nValueError: '--:' is not a valid format string (two linestyle symbols)\n\n\n\n\n\n\n\n\n\n\n\nplt.plot(x,y,'rb')\n\n- 예시5: 색이 사실 8개만 있는건 아니다.\nref: https://matplotlib.org/2.0.2/examples/color/named_colors.html\n\nplt.plot(x,y,'--',color='lime')\n\n- 예시6: 색을 바꾸려면 Hex코드를 밖아 넣는 방법이 젤 깔끔함\nref: https://htmlcolorcodes.com/\n\nplt.plot(x,y,color='#277E41') \n\n- 예시7: 당연히 라인스타일도 4개만 있진 않겠지\nref: https://matplotlib.org/stable/gallery/lines_bars_and_markers/linestyles.html\n\nplt.plot(x,y,linestyle='dashed')\n\n\n\n\n\n\n\n\n\nplt.plot(x,y,linestyle=(0, (20, 5)))"
-  },
-  {
-    "objectID": "posts/A3.html#a.-원리",
-    "href": "posts/A3.html#a.-원리",
-    "title": "A3: matploblib 기본",
-    "section": "A. 원리",
-    "text": "A. 원리\n- 그냥 마커를 설정하면 끝!\nref: https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html\n\n\n\ncharacter\ndescription\n\n\n\n\n‘.’\npoint marker\n\n\n‘,’\npixel marker\n\n\n‘o’\ncircle marker\n\n\n‘v’\ntriangle_down marker\n\n\n‘^’\ntriangle_up marker\n\n\n‘&lt;’\ntriangle_left marker\n\n\n‘&gt;’\ntriangle_right marker\n\n\n‘1’\ntri_down marker\n\n\n‘2’\ntri_up marker\n\n\n‘3’\ntri_left marker\n\n\n‘4’\ntri_right marker\n\n\n‘8’\noctagon marker\n\n\n‘s’\nsquare marker\n\n\n‘p’\npentagon marker\n\n\n‘P’\nplus (filled) marker\n\n\n’*’\nstar marker\n\n\n‘h’\nhexagon1 marker\n\n\n‘H’\nhexagon2 marker\n\n\n‘+’\nplus marker\n\n\n‘x’\nx marker\n\n\n‘X’\nx (filled) marker\n\n\n‘D’\ndiamond marker\n\n\n‘d’\nthin_diamond marker\n\n\n‘|’\nvline marker\n\n\n’_’\nhline marker\n\n\n\n\nplt.plot(x,y,'o')"
-  },
-  {
-    "objectID": "posts/A3.html#b.-기본플랏",
-    "href": "posts/A3.html#b.-기본플랏",
-    "title": "A3: matploblib 기본",
-    "section": "B. 기본플랏",
-    "text": "B. 기본플랏\n- 예시1\n\nplt.plot(x,y,'.')\n\n\n\n\n\n\n\n\n- 예시2\n\nplt.plot(x,y,'x')"
-  },
-  {
-    "objectID": "posts/A3.html#c.-색깔변경",
-    "href": "posts/A3.html#c.-색깔변경",
-    "title": "A3: matploblib 기본",
-    "section": "C. 색깔변경",
-    "text": "C. 색깔변경\n- 예시1\n\nplt.plot(x,y,'or')\n\n\n\n\n\n\n\n\n- 예시2\n\nplt.plot(x,y,'db')\n\n\n\n\n\n\n\n\n- 예시3\n\nplt.plot(x,y,'bx')"
-  },
-  {
-    "objectID": "posts/A3.html#d.-dot-connected-plot",
-    "href": "posts/A3.html#d.-dot-connected-plot",
-    "title": "A3: matploblib 기본",
-    "section": "D. dot-connected plot",
-    "text": "D. dot-connected plot\n- 예시1: 마커와 라인스타일을 동시에 사용하면 dot-connected plot이 된다.\n\nplt.plot(x,y,'o-')\n\n\n\n\n\n\n\n\n- 예시2: 당연히 색도 적용가능함\n\nplt.plot(x,y,'o--r')\n\n\n\n\n\n\n\n\n- 예시3: 서로 순서를 바꿔도 상관없다.\n\nplt.plot(x,y,'ro--')"
-  },
-  {
-    "objectID": "posts/Quiz9.html",
-    "href": "posts/Quiz9.html",
-    "title": "Quiz-9 (2026.04.06) // 범위: ~04wk",
+    "objectID": "posts/Quiz20.html",
+    "href": "posts/Quiz20.html",
+    "title": "Quiz-20 (2026.05.27) // 범위: 11wk-2",
     "section": "",
-    "text": "import torch\n\n\n1. 베르누이 MLE\n아래는 \\(X_i \\overset{iid}{\\sim} Ber(0.8)\\)을 생성하는 코드이다.\n\ntorch.manual_seed(43052)\nx = torch.bernoulli(torch.tensor([0.8]*10000))\n\n함수 \\(l(p)\\)를 최소화하는 \\(p\\)를 경사하강법으로 추정하라.\n\\[l(p) = -\\frac{1}{n}\\sum_{i=1}^{n} \\log f(x_i), \\quad f(x_i) = p^{x_i} (1-p)^{1-x_i}\\]\n\n단, 초기값은 \\(p=0.5\\) 에서 시작할 것\n\nhint: 이론적인 수렴값은 x.mean()임.\n\n\n\n\n\n\nNote정답 보기\n\n\n\n\n\n\ndef l(p):\n    return -torch.mean(torch.log(p**x * (1-p)**(1-x)))\n\n\np = torch.tensor(0.5,requires_grad = True)\n\n\nfor dummy in range(15):\n    l(p).backward()\n    p.data = p.data - 0.1 * p.grad\n    p.grad = None\n    print(p.data)\n\ntensor(0.6188)\ntensor(0.6944)\ntensor(0.7428)\ntensor(0.7712)\ntensor(0.7859)\ntensor(0.7926)\ntensor(0.7953)\ntensor(0.7964)\ntensor(0.7968)\ntensor(0.7970)\ntensor(0.7971)\ntensor(0.7971)\ntensor(0.7971)\ntensor(0.7971)\ntensor(0.7971)\n\n\n\nx.mean() # 확인\n\ntensor(0.7971)"
+    "text": "- 아래의 두 코드는 모두 돌아가긴 하지만, (가)는 조금 비효율적이다.\n(가)\nY = y.reshape(-1, 1)\nX = torch.stack([torch.ones(100), x], axis=1)\nnet = torch.nn.Linear(\n    in_features=2,\n    out_features=1,\n    bias=True\n)\nnet.weight.data = torch.tensor([[-5.00, 10.00]])\nloss_fn = torch.nn.MSELoss()\noptimizer = torch.optim.SGD(net.parameters(), lr=0.1)\n#---#\nfor epoch in range(30):\n    Yhat = net(X)\n    loss = loss_fn(Yhat, Y)\n    loss.backward()\n    optimizer.step()\n    optimizer.zero_grad()\n(나)\nY = y.reshape(-1, 1)\nX = torch.stack([torch.ones(100), x], axis=1)\nnet = torch.nn.Linear(\n    in_features=2,\n    out_features=1,\n    bias=False\n)\nnet.weight.data = torch.tensor([[-5.00, 10.00]])\nloss_fn = torch.nn.MSELoss()\noptimizer = torch.optim.SGD(net.parameters(), lr=0.1)\n#---#\nfor epoch in range(30):\n    Yhat = net(X)\n    loss = loss_fn(Yhat, Y)\n    loss.backward()\n    optimizer.step()\n    optimizer.zero_grad()\n다음 설명 중 올바른 것을 모두 고르시오.\n(a) 두 네트워크가 표현하는 함수의 형태는 모두 직선이다.\n(b) (가)는 파라메터의 수가 더 많으므로 (나)보다 더 표현력이 풍부하다."
   },
   {
-    "objectID": "posts/Quiz12.html#꺾인-직선-만들기",
-    "href": "posts/Quiz12.html#꺾인-직선-만들기",
-    "title": "Quiz-12 (2026.04.15) // 범위: ~06wk",
-    "section": "1. 꺾인 직선 만들기",
-    "text": "1. 꺾인 직선 만들기\n(1) 다음 코드의 출력을 고르시오.\nrelu = torch.nn.ReLU()\nrelu(torch.tensor(-3.0))\n(a) tensor(-3.0)\n(b) tensor(3.0)\n(c) tensor(0.0)\n(d) tensor(-1.0)\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답: (c)\n\\(\\operatorname{relu}(-3) = \\max(0, -3) = 0\\)\n\n\n\n(2) 다음 코드의 출력을 고르시오.\nrelu = torch.nn.ReLU()\nrelu(torch.tensor(5.0))\n(a) tensor(0.0)\n(b) tensor(1.0)\n(c) tensor(-5.0)\n(d) tensor(5.0)\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답: (d)\n\\(\\operatorname{relu}(5) = \\max(0, 5) = 5\\)\n\n\n\n(3) 벡터 \\({\\bf x} = [-2,-1,0,1,2]\\)가 주어졌다고 하자. torch.nn.Linear를 이용하여 \\({\\bf X}\\)를 입력하면 첫 번째 열은 \\({\\bf x}\\), 두 번째 열은 \\(-{\\bf x}\\)가 되도록 만들고 싶다. 주석 부분에 들어갈 코드를 작성하시오.\n\\[\n{\\bf X} =\n\\begin{bmatrix}\nx_1 \\\\\nx_2 \\\\\nx_3 \\\\\nx_4 \\\\\nx_5\n\\end{bmatrix}\n=\n\\begin{bmatrix}\n-2 \\\\\n-1 \\\\\n0 \\\\\n1 \\\\\n2\n\\end{bmatrix}\n\\quad \\Longrightarrow \\quad\n{\\bf U} =\n\\begin{bmatrix}\nx_1 & -x_1 \\\\\nx_2 & -x_2 \\\\\nx_3 & -x_3 \\\\\nx_4 & -x_4 \\\\\nx_5 & -x_5\n\\end{bmatrix}\n=\n\\begin{bmatrix}\n-2 & 2 \\\\\n-1 & 1 \\\\\n0 & 0 \\\\\n1 & -1 \\\\\n2 & -2\n\\end{bmatrix}\n\\]\nx = torch.tensor([-2.0, -1.0, 0.0, 1.0, 2.0])\nX = x.reshape(-1, 1)\n\n###################\n# 여기를 잘 채워주세요 #\n###################\n\nU = lin(X)\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답 예시:\nlin = torch.nn.Linear(1, 2, bias=False)\nlin.weight.data = torch.tensor([[1.0, -1.0]]).T\n입력 \\({\\bf X}\\)는 \\(5 \\times 1\\) 행렬이고, 출력 \\({\\bf U}\\)는 \\(5 \\times 2\\) 행렬이어야 한다. 따라서 입력 특성은 1개, 출력 특성은 2개이므로 torch.nn.Linear(1, 2, bias=False)를 사용한다. 이때 weight는 shape이 \\([2,1]\\)이어야 한다.\n수식표현은 아래를 참고하라.\n\\[\n{\\bf U} =\n{\\bf X}\n\\begin{bmatrix}\n1 & -1\n\\end{bmatrix}\n=\n\\begin{bmatrix}\n-2 & 2 \\\\\n-1 & 1 \\\\\n0 & 0 \\\\\n1 & -1 \\\\\n2 & -2\n\\end{bmatrix}\n\\]\n\n\n\n(4)\n아래와 같이 \\({\\bf V}\\)가 \\(5 \\times 2\\) 행렬로 주어졌다고 하자.\n\\[\n{\\bf V}\n=\n\\begin{bmatrix}\nv_{11} & v_{12} \\\\\nv_{21} & v_{22} \\\\\nv_{31} & v_{32} \\\\\nv_{41} & v_{42} \\\\\nv_{51} & v_{52}\n\\end{bmatrix}\n=\n\\begin{bmatrix}\n1 & 2 \\\\\n3 & 4 \\\\\n5 & 6 \\\\\n7 & 8 \\\\\n9 & 10\n\\end{bmatrix}.\n\\]\n이 행렬을 이용하여 각 행 \\((v_1,v_2)\\)를 \\(2v_1 - 3v_2 + 1\\)로 바꾸고 싶다. 즉 아래와 같은 \\(5 \\times 1\\) 행렬 \\({\\bf Y}\\)를 만들고 싶다.\n\\[\n{\\bf Y}\n=\n\\begin{bmatrix}\n2v_{11}-3v_{12}+1 \\\\\n2v_{21}-3v_{22}+1 \\\\\n2v_{31}-3v_{32}+1 \\\\\n2v_{41}-3v_{42}+1 \\\\\n2v_{51}-3v_{52}+1\n\\end{bmatrix}\n=\n\\begin{bmatrix}\n2(1)-3(2)+1 \\\\\n2(3)-3(4)+1 \\\\\n2(5)-3(6)+1 \\\\\n2(7)-3(8)+1 \\\\\n2(9)-3(10)+1\n\\end{bmatrix}\n=\n\\begin{bmatrix}\n-3 \\\\\n-5 \\\\\n-7 \\\\\n-9 \\\\\n-11\n\\end{bmatrix}.\n\\]\n주석 부분에 들어갈 코드를 작성하시오.\nV = torch.tensor([\n    [1.0, 2.0],\n    [3.0, 4.0],\n    [5.0, 6.0],\n    [7.0, 8.0],\n    [9.0, 10.0]\n])\n\n###################\n# 여기를 잘 채워주세요 #\n###################\n\nY = lin(V)\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답 예시:\nlin = torch.nn.Linear(2, 1, bias=True)\nlin.weight.data = torch.tensor([[2.0], [-3.0]]).T\nlin.bias.data = torch.tensor([1.0])\nY = lin(V)\n\\({\\bf V}\\)는 \\(5 \\times 2\\) 행렬이고, \\({\\bf Y}\\)는 \\(5 \\times 1\\) 행렬이어야 한다. 따라서 입력 특성은 2개, 출력 특성은 1개이므로 torch.nn.Linear(2, 1, bias=True)를 사용한다. 이때 weight는 shape이 \\([1,2]\\)이고, bias는 shape이 \\([1]\\)이다.\n수식표현은 아래를 참고하라.\n\\[\n{\\bf Y}\n=\n{\\bf V}\n\\begin{bmatrix}\n2 \\\\\n-3\n\\end{bmatrix}\n+ 1\n=\n\\begin{bmatrix}\n-3 \\\\\n-5 \\\\\n-7 \\\\\n-9 \\\\\n-11\n\\end{bmatrix}\n\\]"
-  },
-  {
-    "objectID": "posts/Quiz12.html#스펙의-역설",
-    "href": "posts/Quiz12.html#스펙의-역설",
-    "title": "Quiz-12 (2026.04.15) // 범위: ~06wk",
-    "section": "2. 스펙의 역설",
-    "text": "2. 스펙의 역설\n아래 그림은 스펙(\\(x\\))과 취업여부(\\(y\\))의 관계를 나타낸 데이터이다. 빨간 점선은 실제 확률 \\(\\pi^*\\)를 의미한다. 스펙이 높아질수록 취업확률이 증가하다가 다시 감소하는 형태임을 확인하라.\n\n이 데이터를 적합하기 위해 아래 두 네트워크를 시도하였다.\nnet1 (실패한 풀이):\nnet1 = torch.nn.Sequential(\n    torch.nn.Linear(1, 1),\n    torch.nn.Sigmoid()\n)\nnet2 (개선된 풀이):\nnet2 = torch.nn.Sequential(\n    torch.nn.Linear(1, 2, bias=True),\n    torch.nn.ReLU(),\n    torch.nn.Linear(2, 1, bias=True),\n    torch.nn.Sigmoid()\n)\n(1) net1이 이 데이터를 적합하는 데 실패하는 이유로 가장 적절한 것을 고르시오.\n(a) 학습률(learning rate)이 너무 작기 때문\n(b) 시그모이드 전의 값이 직선이므로 증가하다 감소하는 곡선을 표현할 수 없기 때문\n(c) BCELoss 대신 MSELoss를 사용해야 하기 때문\n(d) epoch 수가 부족하기 때문\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답: (b)\nLinear(1,1) → Sigmoid에서 시그모이드에 입력되는 값은 \\(w_0 + w_1 x\\) (직선)이다. 직선을 시그모이드에 넣으면 단조증가 또는 단조감소하는 S자만 표현 가능하므로, 위 그림처럼 증가하다 감소하는 형태의 곡선은 절대 만들 수 없다.\n\n\n\n(2) net2에 대해 다음 중 옳은 것을 모두 고르시오.\n(a) net2[0]은 torch.nn.Linear(1, 2, bias=True)이다.\n(b) net2[1]은 torch.nn.ReLU()이며, 학습할 파라미터가 없다.\n(c) net2[2]에는 학습할 파라미터(weight, bias)가 있다.\n(d) net2[3]에는 학습할 파라미터(weight, bias)가 있다.\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답: (a), (b), (c)\n(a) Sequential의 인덱스 0은 첫 번째 레이어인 Linear(1, 2, bias=True) → 맞음\n(b) 인덱스 1은 ReLU()이고, ReLU에는 학습할 파라미터가 없음 → 맞음\n(c) net2[2]는 Linear(2, 1, bias=True)이므로 weight와 bias 파라미터가 있음 → 맞음\n(d) net2[3]은 Sigmoid()인데, Sigmoid에는 학습할 파라미터가 없음 → 틀림\n\n\n\n(3) net1과 net2의 학습할 파라미터 수를 각각 구하시오.\n(a) net1: 2개, net2: 5개\n(b) net1: 2개, net2: 7개\n(c) net1: 3개, net2: 7개\n(d) net1: 2개, net2: 9개\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답: (b)\n\nnet1: Linear(1,1)의 weight 1개 + bias 1개 = 2개. Sigmoid()는 파라미터 없음.\nnet2: Linear(1,2)의 weight \\(1 \\times 2 = 2\\)개 + bias 2개 = 4개, ReLU()는 파라미터 없음, Linear(2,1)의 weight \\(2 \\times 1 = 2\\)개 + bias 1개 = 3개, Sigmoid()는 파라미터 없음. 합계 \\(4 + 3 =\\) 7개.\n\n\n\n\n(4) 다음 중 틀린 것을 고르시오.\n(a) net2는 시그모이드 전의 값이 꺾인 직선이 될 수 있으므로 net1보다 표현력이 좋다.\n(b) net2는 히든 노드 2개에 ReLU가 적용되므로 시그모이드 전에 최대 2번 꺾인 직선을 표현할 수 있다.\n(c) net2는 반드시 꺾인 직선만 표현할 수 있고, net1이 표현하는 단순 S자 곡선은 표현할 수 없다.\n(d) net2는 위 그림의 데이터뿐 아니라 단순한 로지스틱 데이터도 적합할 수 있다.\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답: (c)\n(a) 맞음. Linear → ReLU → Linear를 거치면 꺾인 직선이 만들어지고, 이를 시그모이드에 넣으면 더 다양한 곡선 표현 가능\n(b) 맞음. 히든 노드 2개 각각에 ReLU가 적용되므로 최대 2번 꺾을 수 있다.\n(c) 틀림. net2는 꺾인 직선뿐 아니라 안 꺾인 직선(단순 S자)도 표현할 수 있다. 즉 net1이 할 수 있는 것은 net2도 할 수 있다.\n(d) 맞음. (c)의 설명과 같은 이유로 단순 로지스틱 데이터도 적합 가능하다."
-  },
-  {
-    "objectID": "posts/Quiz12.html#년수능30번",
-    "href": "posts/Quiz12.html#년수능30번",
-    "title": "Quiz-12 (2026.04.15) // 범위: ~06wk",
-    "section": "3. 2024년수능30번",
-    "text": "3. 2024년수능30번\n강의에서 아래와 같은 복잡한 곡선(2024 수능 미적 30번 모티브)을 적합하였다.\n\\[y_i = e^{-x_i} |\\cos(3x_i)| \\sin(3x_i) + \\epsilon_i, \\quad \\epsilon_i \\sim N(0, \\sigma^2)\\]\n\n이 곡선은 여러 번 증가·감소를 반복하는 복잡한 형태이다. 아래 네트워크 (가)~(다)를 보고 물음에 답하시오.\n(가)\nnet = torch.nn.Sequential(\n    torch.nn.Linear(1, 2),\n    torch.nn.ReLU(),\n    torch.nn.Linear(2, 1)\n)\n(나)\nnet = torch.nn.Sequential(\n    torch.nn.Linear(1, 512),\n    torch.nn.ReLU(),\n    torch.nn.Linear(512, 1)\n)\n(다)\nnet = torch.nn.Sequential(\n    torch.nn.Linear(1, 512),\n    torch.nn.ReLU(),\n    torch.nn.Linear(512, 1),\n    torch.nn.Sigmoid()\n)\n(1) 위 곡선을 가장 잘 적합할 수 있는 네트워크를 고르시오.\n(a) (가)\n(b) (나)\n(c) (다)\n(d) (가), (나), (다) 모두 동일하게 적합 가능\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답: (b)\n\n(가)는 히든 노드가 2개뿐이므로 최대 2번 꺾인 직선만 표현 가능 → 여러 번 증감을 반복하는 곡선에는 표현력 부족\n(나)는 히든 노드가 512개이므로 최대 512번 꺾인 직선 표현 가능 → 복잡한 곡선 적합 가능\n(다)는 마지막에 Sigmoid()가 붙어 출력이 \\((0, 1)\\) 범위로 제한됨. 위 곡선의 \\(y\\) 값은 음수도 포함하므로 적합 불가\n\n\n\n\n(2) 다음 중 옳은 것을 모두 고르시오.\n(a) (가)의 학습할 파라미터 수는 7개이다.\n(b) (나)는 (가)보다 히든 노드 수가 많고 각 노드에 ReLU가 적용되므로 더 많이 꺾인 직선을 표현할 수 있어 표현력이 더 높다.\n(c) (다)의 마지막 Sigmoid()는 출력을 \\((0, 1)\\) 범위로 제한하므로 회귀 문제에는 부적합할 수 있다.\n(d) 위 곡선을 적합할 때 손실함수로 BCELoss를 사용해야 한다.\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답: (a), (b), (c)\n(a) (가)의 파라미터: Linear(1,2)에서 \\(1 \\times 2 + 2 = 4\\)개, Linear(2,1)에서 \\(2 \\times 1 + 1 = 3\\)개, 합계 7개 → 맞음\n(b) (나)는 히든 노드가 512개이고 각 노드에 ReLU가 적용되므로 (가)보다 더 많이 꺾인 직선을 표현할 수 있어 표현력이 더 높음 → 맞음\n(c) Sigmoid()의 출력은 \\((0, 1)\\)이므로 \\(y\\) 값이 이 범위를 벗어나는 회귀 문제에는 맞지 않음 → 맞음\n(d) 틀림\n\n\n\n(3) 데이터의 수 \\(n\\)을 점점 키운다고 하자. 다음 중 옳은것을 모두 고르시오. (단, 학습률과 epoch은 충분히 적절하게 선택한다고 가정)\n(a) \\(n\\)이 커지면 (가),(나),(다) 세 네트워크의 적합 결과는 모두 true structure에 가까워진다.\n(b) \\(n\\)이 아무리 커져도 (가),(나),(다) 세 네트워크는 모두 true structure에 가까워지지 않는다.\n(c) \\(n\\)이 커질때 (나)의 네트워크는 true에 점점 가까워지지만 (가)와 (다)는 그렇지 않다.\n(d) \\(n\\)이 커지면 꺾을 수 있는 횟수가 점점 증가한다.\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답: (b)\n\\(n\\)이 커지면 데이터의 랜덤한 흔들림은 줄어들지만, 네트워크가 표현할 수 있는 함수의 형태가 자동으로 넓어지는 것은 아니다. (가)는 히든 노드가 2개뿐이므로 최대 2번 꺾인 직선만 표현할 수 있다. 따라서 여러 번 증가·감소를 반복하는 true structure를 정확히 표현할 수 없다. (나)는 히든 노드가 512개라서 (가)보다 훨씬 유연하지만, 여전히 유한 개의 ReLU로 만든 꺾인 직선이다. 즉 \\(e^{-x}|\\cos(3x)|\\sin(3x)\\) 같은 매끄러운 곡선을 정확히 포함한다고 보기는 어렵다. (다)는 마지막에 Sigmoid()가 있으므로 출력이 \\((0,1)\\)로 제한된다. 그런데 true structure는 음수도 가지므로 적합 결과가 true structure에 가까워질 수 없다. 따라서 \\(n\\)이 아무리 커져도 세 네트워크 모두 true structure 자체에 가까워진다고 말할 수 없으므로 (b)가 옳다."
-  },
-  {
-    "objectID": "posts/Quiz13.html",
-    "href": "posts/Quiz13.html",
-    "title": "Quiz-13 (2026.04.20) // 범위: ~06wk",
+    "objectID": "posts/Quiz20.html#비효율적인-코드-04wk.-5.j.",
+    "href": "posts/Quiz20.html#비효율적인-코드-04wk.-5.j.",
+    "title": "Quiz-20 (2026.05.27) // 범위: 11wk-2",
     "section": "",
-    "text": "아래와 같은 네트워크를 생각하자.\nnet = torch.nn.Sequential(\n    torch.nn.Linear(1, 2, bias=True),\n    torch.nn.ReLU(),\n    torch.nn.Linear(2, 1, bias=True),\n    torch.nn.Sigmoid()\n)\n이 네트워크는 중간에 ReLU가 포함되어 있으므로 “시그모이드 이전 값이 항상 꺾인 직선인 네트워크”라고 흔히 오해된다. 즉 이 네트워크는 torch.nn.Linear(1,1) → torch.nn.Sigmoid()가 만드는 꺾이지 않은 단순 S자 곡선(시그모이드 이전 값이 그냥 직선인 경우) 은 출력할 수 없다고 주장하는 사람이 있다.\n(1) 이 주장이 맞는지 틀린지 본인의 의견을 서술하시오.\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n주장은 틀렸음. 이 네트워크는 꺾인선도 만들 수 있고, 꺾이지 않은 선도 만들 수 있음.\n\n\n\n(2) (1)에서 이 네트워크가 꺾이지 않은 직선도 시그모이드 이전 값으로 출력할 수 있다고 답했다면, 이를 실제로 실현하는 가중치의 예시를 하나 제시하시오. 구체적으로 net[0].weight, net[0].bias, net[2].weight, net[2].bias를 어떻게 설정해야 시그모이드 이전 값이 꺾이지 않은 직선이 되는지 적고, 왜 그러한 설정이 꺾이지 않은 직선을 만드는지 과정을 단계별로 서술하시오.\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답 예시 (시그모이드 이전 값이 \\(x\\) 가 되는 가중치):\n# Linear(1,2): weight shape [2,1], bias shape [2]\nnet[0].weight.data = torch.tensor([[1.0], [-1.0]])\nnet[0].bias.data   = torch.tensor([0.0, 0.0])\n\n# Linear(2,1): weight shape [1,2], bias shape [1]\nnet[2].weight.data = torch.tensor([[1.0, -1.0]])\nnet[2].bias.data   = torch.tensor([0.0])\n단계별 확인:\n입력 \\(x\\) 를 각 단계에 통과시킨 모습은 아래와 같다."
+    "text": "- 아래의 두 코드는 모두 돌아가긴 하지만, (가)는 조금 비효율적이다.\n(가)\nY = y.reshape(-1, 1)\nX = torch.stack([torch.ones(100), x], axis=1)\nnet = torch.nn.Linear(\n    in_features=2,\n    out_features=1,\n    bias=True\n)\nnet.weight.data = torch.tensor([[-5.00, 10.00]])\nloss_fn = torch.nn.MSELoss()\noptimizer = torch.optim.SGD(net.parameters(), lr=0.1)\n#---#\nfor epoch in range(30):\n    Yhat = net(X)\n    loss = loss_fn(Yhat, Y)\n    loss.backward()\n    optimizer.step()\n    optimizer.zero_grad()\n(나)\nY = y.reshape(-1, 1)\nX = torch.stack([torch.ones(100), x], axis=1)\nnet = torch.nn.Linear(\n    in_features=2,\n    out_features=1,\n    bias=False\n)\nnet.weight.data = torch.tensor([[-5.00, 10.00]])\nloss_fn = torch.nn.MSELoss()\noptimizer = torch.optim.SGD(net.parameters(), lr=0.1)\n#---#\nfor epoch in range(30):\n    Yhat = net(X)\n    loss = loss_fn(Yhat, Y)\n    loss.backward()\n    optimizer.step()\n    optimizer.zero_grad()\n다음 설명 중 올바른 것을 모두 고르시오.\n(a) 두 네트워크가 표현하는 함수의 형태는 모두 직선이다.\n(b) (가)는 파라메터의 수가 더 많으므로 (나)보다 더 표현력이 풍부하다."
   },
   {
-    "objectID": "posts/Quiz13.html#꺾인-직선만-나올까",
-    "href": "posts/Quiz13.html#꺾인-직선만-나올까",
-    "title": "Quiz-13 (2026.04.20) // 범위: ~06wk",
+    "objectID": "posts/Quiz20.html#취업예제",
+    "href": "posts/Quiz20.html#취업예제",
+    "title": "Quiz-20 (2026.05.27) // 범위: 11wk-2",
+    "section": "2. 취업예제",
+    "text": "2. 취업예제\n- 스펙(spec)으로 취업여부(employed)를 예측하는 이항분류 문제를 생각하자.\n(가)\nnet = torch.nn.Linear(\n    in_features=1,\n    out_features=1\n)\nloss_fn = torch.nn.BCEWithLogitsLoss()\n(나)\nnet = torch.nn.Linear(\n    in_features=1,\n    out_features=2\n)\nloss_fn = torch.nn.CrossEntropyLoss()\n두 네트워크의 차이를 표현력, 파라메터수 등 다양한 관점에서 비교하라."
+  },
+  {
+    "objectID": "posts/Quiz20.html#fashionmnist-분류를-위한-네트워크-설계",
+    "href": "posts/Quiz20.html#fashionmnist-분류를-위한-네트워크-설계",
+    "title": "Quiz-20 (2026.05.27) // 범위: 11wk-2",
+    "section": "3. FashionMNIST 분류를 위한 네트워크 설계",
+    "text": "3. FashionMNIST 분류를 위한 네트워크 설계\nFashionMNIST 자료 5000장을 이용하여 10개의 클래스를 분류하려고 한다. 입력 이미지 X의 shape은 (5000, 1, 28, 28)이고, 레이블 y의 shape은 (5000,)이다.\n다음 네트워크들을 고려하자.\n(가) 단순한 네트워크\nnet_a = torch.nn.Sequential(\n    torch.nn.Flatten(),\n    torch.nn.Linear(784, 16),\n    torch.nn.ReLU(),\n    torch.nn.Linear(16, 10),\n)\n(나) 넓은 네트워크\nnet_b = torch.nn.Sequential(\n    torch.nn.Flatten(),\n    torch.nn.Linear(784, 4096),\n    torch.nn.ReLU(),\n    torch.nn.Linear(4096, 10),\n)\n(다) 깊은 네트워크\nnet_c = torch.nn.Sequential(\n    torch.nn.Flatten(),\n    torch.nn.Linear(784, 512),\n    torch.nn.ReLU(),\n    torch.nn.Linear(512, 256),\n    torch.nn.ReLU(),\n    torch.nn.Linear(256, 256),\n    torch.nn.ReLU(),\n    torch.nn.Linear(256, 256),\n    torch.nn.ReLU(),\n    torch.nn.Linear(256, 10),\n)\n(라) 넓은 네트워크 + Dropout\nnet_d = torch.nn.Sequential(\n    torch.nn.Flatten(),\n    torch.nn.Linear(784, 4096),\n    torch.nn.Dropout(0.9),\n    torch.nn.ReLU(),\n    torch.nn.Linear(4096, 10),\n)\n손실함수는 모두 다음과 같이 사용한다.\nloss_fn = torch.nn.CrossEntropyLoss()\n다음 설명 중 올바른 것을 모두 고르시오.\n(a) (가)는 은닉노드 수가 작으므로 표현력이 낮아질 수 있고, 그 결과 학습자료와 평가자료 모두에서 성능이 충분히 나오지 않을 수 있다.\n(b) (나)는 은닉노드 수가 매우 많으므로 표현력이 좋아진다. 하지만 학습자료에 지나치게 잘 맞아 오버피팅 위험도 커질 수 있다.\n(c) (다)는 레이어를 깊게 쌓았으므로 항상 (나)보다 평가자료에서 좋은 성능을 낸다.\n(d) (라)의 Dropout은 네트워크의 표현력을 키워주는 장치이므로, Dropout을 넣으면 학습자료를 더 잘 외울 수 있다.\n(e) (라)의 Dropout은 오버피팅 위험을 줄이기 위한 장치로 볼 수 있다. 단, Dropout을 넣었다고 해서 평가 성능 향상이 항상 보장되는 것은 아니다.\n(g) 위 네트워크들은 모두 마지막에 10개의 값을 출력하므로, 그 값들은 CrossEntropyLoss에 들어가는 logits로 해석할 수 있다."
+  },
+  {
+    "objectID": "posts/04wk.html#a.-기호를-중시하는-사람",
+    "href": "posts/04wk.html#a.-기호를-중시하는-사람",
+    "title": "04wk: 파이토치식 코딩패턴",
+    "section": "A. 기호를 중시하는 사람",
+    "text": "A. 기호를 중시하는 사람\n- 기호만이 우리를 구원할 수 있다.\n- 다른 의미를 가진다면, 다른 기호를 써야함.\n- 하지만 현실은 그렇지 않음.\n\n\\(x^2+2x+1=0\\) 에서 \\(x\\)가 의미하는 기호와\n\\(f(x)=x^2+2x+1\\) 에서 \\(x\\)가 의미하는 기호는 같은가?\n\n- 되게 미묘한 차이 – 아래의 식에서 \\(x\\)는 모두 같은 의미를 가지진 않음.\n# 고등학교 문제 – \\(f(x)=(x-2)^2\\)의 최소값을 구하자.\n(sol)\n\\(f(x)=(x-2)^2\\) 이고 \\(f''(x)=2&gt;0\\) 이다. 따라서 \\(f'(x)=2(x-2)=0\\) 을 만족하는 \\(x\\)가 답이다. 따라서 \\(x=2\\).\n#"
+  },
+  {
+    "objectID": "posts/04wk.html#b.-회귀분석-교재의-전설",
+    "href": "posts/04wk.html#b.-회귀분석-교재의-전설",
+    "title": "04wk: 파이토치식 코딩패턴",
+    "section": "B. 회귀분석 교재의 전설",
+    "text": "B. 회귀분석 교재의 전설\n- ref: Montgomery, D. C., Peck, E. A., & Vining, G. G. (2021). Introduction to linear regression analysis. John Wiley & Sons.\n- 역시 전설??"
+  },
+  {
+    "objectID": "posts/04wk.html#c.-저의-감각",
+    "href": "posts/04wk.html#c.-저의-감각",
+    "title": "04wk: 파이토치식 코딩패턴",
+    "section": "C. 저의 감각",
+    "text": "C. 저의 감각\n- 보통 함수에서의 변수 \\(x\\)와 미지수 \\(x\\)는 구분하지 않고 쓰더라..\n- \\(x\\)가 어떠한 고정된 값임을 강조하고 싶을때 \\(x_0,x^\\ast\\) 를 쓰는 경우가 많다. \\(f(x_0)\\) 이런 느낌으로..\n- \\(x\\)가 어떠한 함수를 최소화 혹은 최대화하는 값을 의미할때는 \\(x^\\ast, x^\\star\\) 을 많이 쓰는 것 같다.\n- 통계학에서 어떠한 값이 estimated/predicted/fitted 를 의미할 경우 hat을 많이 사용한다. 예를들어 \\(\\hat{\\beta}_0, \\hat{y}_i\\).\n\n구분할수 있으면 엄밀하게 구분하는게 좋지만, 때로는 그냥 적당히 넘어가는 것도 필요하다."
+  },
+  {
+    "objectID": "posts/04wk.html#a.-문제",
+    "href": "posts/04wk.html#a.-문제",
+    "title": "04wk: 파이토치식 코딩패턴",
+    "section": "A. 문제",
+    "text": "A. 문제\n- 모형\n\\[y_i = w_0^\\ast + w_1^\\ast x_i + \\epsilon_i\\]\n\ntorch.manual_seed(43052)\nx = torch.randn(100).sort()[0]\neps = torch.randn(100)*0.5\nw0ast = 2.5\nw1ast = 4\ny = w0ast + w1ast*x + eps\n\n- 시각화\n\nplt.plot(x,y,'o')\n#plt.plot(x,w0ast + w1ast*x,'--')"
+  },
+  {
+    "objectID": "posts/04wk.html#b.-풀이1-지난시간",
+    "href": "posts/04wk.html#b.-풀이1-지난시간",
+    "title": "04wk: 파이토치식 코딩패턴",
+    "section": "B. 풀이1 – 지난시간",
+    "text": "B. 풀이1 – 지난시간\n(엄밀하게)\n\ndef l(w0,w1):\n    return torch.sum((y - (w0 + w1*x))**2)\n\n\nw0tilde = -5\nw1tilde = 10\n\n\nfor epoch in range(30):\n    w0tilde_grad = (l(w0tilde + 0.001, w1tilde)- l(w0tilde, w1tilde))/0.001\n    w1tilde_grad = (l(w0tilde, w1tilde+0.001)- l(w0tilde, w1tilde))/0.001\n    w0tilde = w0tilde - 0.001 * w0tilde_grad\n    w1tilde = w1tilde - 0.001 * w1tilde_grad\n\n\nw0hat = w0tilde\nw1hat = w1tilde\n\n\nplt.plot(x,y,'o')\nplt.plot(x,w0hat+w1hat*x,'--')\n\n\n\n\n\n\n\n\n(대충)\n\ndef l(w0,w1):\n    return torch.sum((y - (w0 + w1*x))**2)\n\n\nw0hat = -5\nw1hat = 10\n\n\nfor epoch in range(30):\n    w0hat_grad = (l(w0hat + 0.001, w1hat)- l(w0hat, w1hat))/0.001\n    w1hat_grad = (l(w0hat, w1hat+0.001)- l(w0hat, w1hat))/0.001\n    w0hat = w0hat - 0.001 * w0hat_grad\n    w1hat = w1hat - 0.001 * w1hat_grad\n\n\nplt.plot(x,y,'o')\nplt.plot(x,w0hat+w1hat*x,'--')"
+  },
+  {
+    "objectID": "posts/04wk.html#c.-풀이2-파이토치-사용",
+    "href": "posts/04wk.html#c.-풀이2-파이토치-사용",
+    "title": "04wk: 파이토치식 코딩패턴",
+    "section": "C. 풀이2 – 파이토치 사용",
+    "text": "C. 풀이2 – 파이토치 사용\n\nw0hat = torch.tensor(-5.00, requires_grad=True)\nw1hat = torch.tensor(10.00, requires_grad=True)\n\n\nfor epoch in range(30):\n    yhat = w0hat + w1hat*x # y의 predicted value, 혹은 fitted value라고 볼수있음.\n    loss = torch.sum((y - yhat)**2)\n    loss.backward()\n    w0hat.data = w0hat.data - 0.001 * w0hat.grad\n    w1hat.data = w1hat.data - 0.001 * w1hat.grad\n    w0hat.grad = None\n    w1hat.grad = None\n\n\nplt.plot(x,y,'o')\nplt.plot(x,w0hat.data + w1hat.data*x,'--')\n\n\n\n\n\n\n\n\n\nw0hat,w1hat\n\n(tensor(2.4290, requires_grad=True), tensor(4.0144, requires_grad=True))"
+  },
+  {
+    "objectID": "posts/04wk.html#d.-풀이3-matrix-ver",
+    "href": "posts/04wk.html#d.-풀이3-matrix-ver",
+    "title": "04wk: 파이토치식 코딩패턴",
+    "section": "D. 풀이3 – matrix ver",
+    "text": "D. 풀이3 – matrix ver\n- 아이디어: 아래의 모형\n\\[y_i = w_0^\\ast + w_1^\\ast x_i + \\epsilon_i\\]\n을 아래와 같이 matrix로 해석하자.\n\\[\\begin{bmatrix}\ny_1 \\\\ y_2 \\\\ \\dots \\\\ y_n \\end{bmatrix} = \\begin{bmatrix} 1 & x_1 \\\\ 1 & x_2 \\\\ \\dots \\\\ 1 & x_n \\end{bmatrix}\\begin{bmatrix} w_0^\\ast \\\\ w_1^\\ast \\end{bmatrix} +\\begin{bmatrix}\n\\epsilon_1 \\\\ \\epsilon_2 \\\\ \\dots \\\\ \\epsilon_n \\end{bmatrix} \\]\n- 최초의 주황색점선은\n\nw0hat = torch.tensor(-5.00, requires_grad=True)\nw1hat = torch.tensor(10.00, requires_grad=True)\nyhat = w0hat + w1hat * x\nyhat[:5]\n\ntensor([-29.8211, -28.6215, -24.9730, -21.2394, -19.7919],\n       grad_fn=&lt;SliceBackward0&gt;)\n\n\n\nyhat.shape\n\ntorch.Size([100])\n\n\n이런식으로 구했었는데, 이제는 아래와 같이 구할 수 있다.\n\nX = torch.stack([torch.ones(100), x],axis=1)\nWhat = torch.tensor([[-5.00],[10.00]],requires_grad=True)\nYhat= X@What\nYhat[:5]\n\ntensor([[-29.8211],\n        [-28.6215],\n        [-24.9730],\n        [-21.2394],\n        [-19.7919]], grad_fn=&lt;SliceBackward0&gt;)\n\n\n\nWhat.shape\n\ntorch.Size([2, 1])\n\n\n- 첫 미분값은 원래 아래와 같이 구했는데..\n\nw0hat = torch.tensor(-5.00, requires_grad=True)\nw1hat = torch.tensor(10.00, requires_grad=True)\n#---#\nyhat = w0hat + w1hat * x\nloss = torch.sum((y-yhat)**2)\nloss.backward()\nw0hat.grad, w1hat.grad\n\n(tensor(-1342.2524), tensor(1188.9305))\n\n\n이제는 아래와 같이 하면된다.\n\nY = y.reshape(-1,1)\nX = torch.stack([torch.ones(100), x],axis=1)\nWhat = torch.tensor([[-5.00],[10.00]],requires_grad=True)\n#---#\nYhat = X@What\nloss = torch.sum((Y-Yhat)**2)\nloss.backward()\nWhat.data, What.grad\n\n(tensor([[-5.],\n         [10.]]),\n tensor([[-1342.2524],\n         [ 1188.9305]]))\n\n\n- 업데이트는 원래 아래와 같이 했었는데\n\nw0hat.data = w0hat.data - 0.001 * w0hat.grad\nw1hat.data = w1hat.data - 0.001 * w1hat.grad\nw0hat,w1hat\n\n(tensor(-3.6577, requires_grad=True), tensor(8.8111, requires_grad=True))\n\n\n\nWhat.data = What.data - 0.001 * What.grad\nWhat\n\ntensor([[-3.6577],\n        [ 8.8111]], requires_grad=True)\n\n\n- 그래서 새로운 코드를 정리하면\n\nY = y.reshape(-1,1)\nX = torch.stack([torch.ones(100), x],axis=1)\nWhat = torch.tensor([[-5.00],[10.00]],requires_grad=True)\n#---#\nfor epoch in range(30):\n    Yhat = X@What\n    loss = torch.sum((Y-Yhat)**2)\n    loss.backward()\n    What.data = What.data - 0.001 * What.grad\n    What.grad = None\n\n\nWhat.data\n\ntensor([[2.4290],\n        [4.0144]])\n\n\n\nplt.plot(x,y,'o')\n# plt.plot(x,(X@What).reshape(-1).data,'--')\nplt.plot(x,(X@What).reshape(-1).detach(),'--')"
+  },
+  {
+    "objectID": "posts/04wk.html#e.-풀이4-mse",
+    "href": "posts/04wk.html#e.-풀이4-mse",
+    "title": "04wk: 파이토치식 코딩패턴",
+    "section": "E. 풀이4 – MSE",
+    "text": "E. 풀이4 – MSE\n\nY = y.reshape(-1,1)\nX = torch.stack([torch.ones(100), x],axis=1)\nWhat = torch.tensor([[-5.00],[10.00]],requires_grad=True)\n#---#\nfor epoch in range(30):\n    Yhat = X@What\n    loss= torch.mean((Y-Yhat)**2) # SSE를 MSE로 바꿈\n    loss.backward()\n    What.data = What.data - 0.1 * What.grad\n    What.grad = None\n\n\nWhat.data\n\ntensor([[2.4290],\n        [4.0144]])"
+  },
+  {
+    "objectID": "posts/04wk.html#f.-풀이5-mse",
+    "href": "posts/04wk.html#f.-풀이5-mse",
+    "title": "04wk: 파이토치식 코딩패턴",
+    "section": "F. 풀이5 – MSE",
+    "text": "F. 풀이5 – MSE\n\nY = y.reshape(-1,1)\nX = torch.stack([torch.ones(100), x],axis=1)\nWhat = torch.tensor([[-5.00],[10.00]],requires_grad=True)\nloss_fn = torch.nn.MSELoss()\n#---#\nfor epoch in range(30):\n    Yhat = X@What\n    loss = loss_fn(Yhat,Y)\n    loss.backward()\n    What.data = What.data - 0.1 * What.grad\n    What.grad = None\n\n\nWhat.data\n\ntensor([[2.4290],\n        [4.0144]])"
+  },
+  {
+    "objectID": "posts/04wk.html#g.-풀이6-net",
+    "href": "posts/04wk.html#g.-풀이6-net",
+    "title": "04wk: 파이토치식 코딩패턴",
+    "section": "G. 풀이6 – net",
+    "text": "G. 풀이6 – net\n# net – net 오브젝트?\n원래 Yhat을 이런식으로 구했는데..\nYhat = X @ What\n그런데 Yhat을 아래와 같이 구할수 있도록 하고싶다.\nYhat = net(X)\n위와 같은 코드를 가능하게 하는 net은 파이토치에서 공식지원하고, 아래와 같이 같이 사용할 수 있음.\n\nnet = torch.nn.Linear(\n    in_features=2,\n    out_features=1,\n    bias = False\n)\n# net(X)\n\nnet(X)는 사실 아래의 동작과 동일하다.\n\n# X @ net.weight.T\n\n여기에서 net.weight.T의 값은 net가 생성될때마다 랜덤하게 바귄다. 우리가 What의 초기값을 \\(\\begin{bmatrix} -10 \\\\ 5 \\end{bmatrix}\\)로 설정하였듯이 net.weight.T의 초기값도 바꾸고싶다면 아래와 같이 강제설정할 수 있다.\n\nnet.weight.data = torch.tensor([[-10.0,5.0]])\n\n그러면 이제 아래의 두 코드는 같은 효과를 가진다.\n\nnet(X)[:3]\n\ntensor([[-22.4106],\n        [-21.8107],\n        [-19.9865]], grad_fn=&lt;SliceBackward0&gt;)\n\n\n\nWhat = torch.tensor([[-10.0],[5.0]])\n(X @ What)[:3]\n\ntensor([[-22.4106],\n        [-21.8107],\n        [-19.9865]])\n\n\n- 정리를 하면 아래와 같다.\n\nY = y.reshape(-1,1)\nX = torch.stack([torch.ones(100), x],axis=1)\nnet = torch.nn.Linear(\n    in_features=2,\n    out_features=1,\n    bias = False\n)\nnet.weight.data = torch.tensor([[-5.00,10.00]])\nloss_fn = torch.nn.MSELoss()\n#---#\nfor epoch in range(30):\n    Yhat = net(X)\n    loss = loss_fn(Yhat,Y)\n    loss.backward()\n    net.weight.data = net.weight.data - 0.1 * net.weight.grad\n    net.weight.grad = None\n\n\nnet.weight\n\nParameter containing:\ntensor([[2.4290, 4.0144]], requires_grad=True)"
+  },
+  {
+    "objectID": "posts/04wk.html#h.-풀이7-optimizer",
+    "href": "posts/04wk.html#h.-풀이7-optimizer",
+    "title": "04wk: 파이토치식 코딩패턴",
+    "section": "H. 풀이7 – optimizer",
+    "text": "H. 풀이7 – optimizer\n\nY = y.reshape(-1,1)\nX = torch.stack([torch.ones(100), x],axis=1)\nnet = torch.nn.Linear(\n    in_features=2,\n    out_features=1,\n    bias = False\n)\nnet.weight.data = torch.tensor([[-5.00,10.00]])\nloss_fn = torch.nn.MSELoss()\noptimizer = torch.optim.SGD(net.parameters(),lr=0.1)\n#---#\nfor epoch in range(30):\n    Yhat = net(X)\n    loss = loss_fn(Yhat,Y)\n    loss.backward()\n    optimizer.step() # 업데이트해~\n    net.weight.grad = None\n\n\nnet.weight\n\nParameter containing:\ntensor([[2.4290, 4.0144]], requires_grad=True)"
+  },
+  {
+    "objectID": "posts/04wk.html#i.-풀이8-optimizer-zero_grad",
+    "href": "posts/04wk.html#i.-풀이8-optimizer-zero_grad",
+    "title": "04wk: 파이토치식 코딩패턴",
+    "section": "I. 풀이8 – optimizer, zero_grad",
+    "text": "I. 풀이8 – optimizer, zero_grad\n\nY = y.reshape(-1,1)\nX = torch.stack([torch.ones(100), x],axis=1)\nnet = torch.nn.Linear(\n    in_features=2,\n    out_features=1,\n    bias = False\n)\nnet.weight.data = torch.tensor([[-5.00,10.00]])\nloss_fn = torch.nn.MSELoss()\noptimizer = torch.optim.SGD(net.parameters(),lr=0.1)\n#---#\nfor epoch in range(30):\n    Yhat = net(X)\n    loss = loss_fn(Yhat,Y)\n    loss.backward()\n    optimizer.step()\n    optimizer.zero_grad()\n\n\nnet.weight\n\nParameter containing:\ntensor([[2.4290, 4.0144]], requires_grad=True)"
+  },
+  {
+    "objectID": "posts/04wk.html#j.-풀이9-net-bias",
+    "href": "posts/04wk.html#j.-풀이9-net-bias",
+    "title": "04wk: 파이토치식 코딩패턴",
+    "section": "J. 풀이9 – net, bias",
+    "text": "J. 풀이9 – net, bias\n- net에서 bias=False가 의미하는건 뭘까?\n- 간단함\n# 이렇게 선언하면\nnet = torch.nn.Linear(..., bias=False)\n# 아래의 두 코드는 같은효과\nnet(inp)\ninp @ net.weight.T\n# 이렇게 선언하면\nnet = torch.nn.Linear(..., bias=True)\n# 아래의 두 코드는 같은효과\nnet(inp)\ninp @ net.weight.T + net.bias\n- 아래의 코드도 돌아가긴 하지만 조금 비효율적임\n\nY = y.reshape(-1,1)\nX = torch.stack([torch.ones(100), x],axis=1)\nnet = torch.nn.Linear(\n    in_features=2,\n    out_features=1,\n    bias = True\n)\nnet.weight.data = torch.tensor([[-5.00,10.00]])\nloss_fn = torch.nn.MSELoss()\noptimizer = torch.optim.SGD(net.parameters(),lr=0.1)\n#---#\nfor epoch in range(30):\n    Yhat = net(X)\n    loss = loss_fn(Yhat,Y)\n    loss.backward()\n    optimizer.step()\n    optimizer.zero_grad()\n\n- 결과해석\n\nnet.weight, net.bias\n\n(Parameter containing:\n tensor([[-1.0241,  4.0080]], requires_grad=True),\n Parameter containing:\n tensor([3.4689], requires_grad=True))\n\n\n\n-1.0242 + 3.4689 # 이게 w0hat의 효과\n\n2.4447\n\n\n\n4.0080 # 이게 w1hat\n\n4.008\n\n\n- 아래와 같이 코드를 짜면 풀이2-8까지 했던것과 정확하게 같은 코드가 된다.\n\nY = y.reshape(-1,1)\nX1 = x.reshape(-1,1)\nnet = torch.nn.Linear(\n    in_features=1,\n    out_features=1,\n    bias = True\n)\nnet.weight.data = torch.tensor([[10.00]]) # w1hat의 역할\nnet.bias.data = torch.tensor([-5.0]) # w0hat의 역할\nloss_fn = torch.nn.MSELoss()\noptimizer = torch.optim.SGD(net.parameters(),lr=0.1)\n#---#\nfor epoch in range(30):\n    Yhat = net(X1)\n    loss = loss_fn(Yhat,Y)\n    loss.backward()\n    optimizer.step()\n    optimizer.zero_grad()\n\n\nnet.weight, net.bias\n\n(Parameter containing:\n tensor([[4.0144]], requires_grad=True),\n Parameter containing:\n tensor([2.4290], requires_grad=True))"
+  },
+  {
+    "objectID": "posts/04wk.html#k.-풀이10",
+    "href": "posts/04wk.html#k.-풀이10",
+    "title": "04wk: 파이토치식 코딩패턴",
+    "section": "K. 풀이10",
+    "text": "K. 풀이10\n- 통계학과만 아는 풀이\n\ntorch.linalg.inv(X.T @ X) @ X.T @ Y # 이게 What\n\ntensor([[2.4459],\n        [4.0043]])\n\n\n\nplt.plot(x,y,'o')\nplt.plot(x,2.4459 + 4.0043*x,'--',alpha=0.5) # 회귀분석에서 배운대로 구한값\nplt.plot(x,2.4290 + 4.0144*x,'--',alpha=0.5) # 딥러닝시간에 배운 새로운 테크닉 경사하강법을 이용한 결과\n\n\n\n\n\n\n\n\n\nl(2.4459,4.0043) # 회귀분석에서 배운대로 구했을 경우 loss\n\ntensor(26.3600)\n\n\n\nl(2.4290,4.0144) # 딥러닝에서 배운대로 구했을 경우 loss\n\ntensor(26.3958)\n\n\n- 딥러닝에서 배운 방법은 계산량도 많고 부정확하지만, 미분을 직접손으로 구하지 않아도 된다는 장점이 있다. (벡터미분 몰라도 된다.) 회귀문제의 경우 적절한 학습률을 선택하고 많은 반복을 하면 결국 딥러닝에서 배운 경사하강법은 회귀분석에서 배운 해석해로 수렴한다.\n- 문제: 경사하강법으로 회귀문제를 푼다고 하자. 반복이 많으면 (epoch이 크면) 결국 \\(\\hat{\\bf W}\\)은 \\(\\begin{bmatrix} 2.5 \\\\  4\\end{bmatrix}\\) 으로 가는가?\n\n답변: 절대 못찾아감. 회귀분석에서 배운 해석해를 찾아간다.\n\n- 그러면 \\(\\begin{bmatrix} 2.5 \\\\  4\\end{bmatrix}\\) 에 점점 가깝게 추정하기 위해서는 어떻게 해야하나?? 데이터를 더 모아야함. (즉 현재 \\(n=100\\)인데 이것이 \\(n=1000, 10000\\) 이런식으로 커지면 추정값이 점점 true에 가까워짐)"
+  },
+  {
+    "objectID": "posts/01wk.html#a.-list-vs-torch.tensor",
+    "href": "posts/01wk.html#a.-list-vs-torch.tensor",
+    "title": "01wk: torch (1)",
+    "section": "A. list vs torch.tensor",
+    "text": "A. list vs torch.tensor\n- 선언\n\nl = [1,2,3]\nl\n\n[1, 2, 3]\n\n\n\na = torch.tensor([1,2,3])\na\n\ntensor([1, 2, 3])\n\n\n- 기본연산\n\na+a\n\ntensor([2, 4, 6])\n\n\n\nl+l\n\n[1, 2, 3, 1, 2, 3]\n\n\n\n3*a\n\ntensor([3, 6, 9])\n\n\n\n3*l\n\n[1, 2, 3, 1, 2, 3, 1, 2, 3]\n\n\n\na+2\n\ntensor([3, 4, 5])\n\n\n\nl+2\n\n\n---------------------------------------------------------------------------\nTypeError                                 Traceback (most recent call last)\n/tmp/ipykernel_3997/384152985.py in &lt;cell line: 0&gt;()\n----&gt; 1 l+2\n\nTypeError: can only concatenate list (not \"int\") to list\n\n\n\n\n벡터의 느낌이 나는것은 [1,2,3]이 아니라 torch.tensor([1,2,3]) 임.\n\n- 수학연산\n\na = torch.tensor([1,2,3])\na\n\ntensor([1, 2, 3])\n\n\n\ntorch.exp(a)\n\ntensor([ 2.7183,  7.3891, 20.0855])\n\n\n\ntorch.sqrt(a)\n\ntensor([1.0000, 1.4142, 1.7321])\n\n\n\ntorch.log(a)\n\ntensor([0.0000, 0.6931, 1.0986])"
+  },
+  {
+    "objectID": "posts/01wk.html#b.-인덱싱",
+    "href": "posts/01wk.html#b.-인덱싱",
+    "title": "01wk: torch (1)",
+    "section": "B. 인덱싱",
+    "text": "B. 인덱싱\n- 선언\n\nl = [11, 22, 33, 44, 55, 66]\na = torch.tensor(l)\n\n- 인덱스로 원소를 뽑아보자.\n\nl[0],l[1],l[2],l[3],l[4],l[5]\n\n(11, 22, 33, 44, 55, 66)\n\n\n\nl[-1],l[-2],l[-3],l[-4],l[-5],l[-6]\n\n(66, 55, 44, 33, 22, 11)\n\n\n\na[0],a[1],a[2],a[3],a[4],a[5]\n\n(tensor(11), tensor(22), tensor(33), tensor(44), tensor(55), tensor(66))\n\n\n\na[-1],a[-2],a[-3],a[-4],a[-5],a[-6]\n\n(tensor(66), tensor(55), tensor(44), tensor(33), tensor(22), tensor(11))\n\n\n- :이용 (슬라이싱)\n\nl[2:4]\n\n[33, 44]\n\n\n\n이런느낌임.. \\(2 \\leq ... &lt; 4\\)\n\n\na[2:4] # a[2]부터 a[4]까지인데, 끝점은 제외\n\ntensor([33, 44])\n\n\n\nl[2:] # l[2]부터 끝까지\n\n[33, 44, 55, 66]\n\n\n\na[2:] # a[2]부터 끝까지\n\ntensor([33, 44, 55, 66])\n\n\n\nl[:4] # 처음부터 l[3]까지\n\n[11, 22, 33, 44]\n\n\n\na[:4] # 처음부터 a[3]까지\n\ntensor([11, 22, 33, 44])\n\n\n\nl[:]\n\n[11, 22, 33, 44, 55, 66]\n\n\n\na[:]\n\ntensor([11, 22, 33, 44, 55, 66])\n\n\n- 인덱스의 리스트로 원소를 뽑기\n\na[[1,3,4]]\n\ntensor([22, 44, 55])\n\n\n\nl[[1,3,4]]\n\n\n---------------------------------------------------------------------------\nTypeError                                 Traceback (most recent call last)\n/tmp/ipykernel_3997/2588203874.py in &lt;cell line: 0&gt;()\n----&gt; 1 l[[1,3,4]]\n\nTypeError: list indices must be integers or slices, not list"
+  },
+  {
+    "objectID": "posts/01wk.html#c.-2차원배열",
+    "href": "posts/01wk.html#c.-2차원배열",
+    "title": "01wk: torch (1)",
+    "section": "C. 2차원배열",
+    "text": "C. 2차원배열\n- 중첩된 배열의 선언\n\nl = [[1,2,3,4],[-1,-2,-3,-4],[5,6,7,8],[-5,-6,-7,-8]]\na = torch.tensor(l)\n\n\nl\n\n[[1, 2, 3, 4], [-1, -2, -3, -4], [5, 6, 7, 8], [-5, -6, -7, -8]]\n\n\n\na # 매트릭스처럼 보였지만, 사실 이것도 중첩된 배열임\n\ntensor([[ 1,  2,  3,  4],\n        [-1, -2, -3, -4],\n        [ 5,  6,  7,  8],\n        [-5, -6, -7, -8]])\n\n\n- l의 원소를 인덱싱해보자.\n\nl[0][0]\n\n1\n\n\n\nl[0][1]\n\n2\n\n\n\nl[1][2]\n\n-3\n\n\n\nl[-1][0]\n\n-5\n\n\n- a의 원소를 인덱싱해보자.\n\na\n\ntensor([[ 1,  2,  3,  4],\n        [-1, -2, -3, -4],\n        [ 5,  6,  7,  8],\n        [-5, -6, -7, -8]])\n\n\n\na[0][0]\n\ntensor(1)\n\n\n\na[0][1]\n\ntensor(2)\n\n\n\na[1][2]\n\ntensor(-3)\n\n\n\na[-1][0]\n\ntensor(-5)\n\n\n- 새로운 기능 (l에서는 안되고 a에서만 가능함)\n\na[0,0]\n\ntensor(1)\n\n\n\na[0,1]\n\ntensor(2)\n\n\n\na[1,2]\n\ntensor(-3)\n\n\n\na[-1,0]\n\ntensor(-5)\n\n\n- 응용\n\na\n\ntensor([[ 1,  2,  3,  4],\n        [-1, -2, -3, -4],\n        [ 5,  6,  7,  8],\n        [-5, -6, -7, -8]])\n\n\n\na[:,:]\n\ntensor([[ 1,  2,  3,  4],\n        [-1, -2, -3, -4],\n        [ 5,  6,  7,  8],\n        [-5, -6, -7, -8]])\n\n\n\na[:,[0,2]]\n\ntensor([[ 1,  3],\n        [-1, -3],\n        [ 5,  7],\n        [-5, -7]])\n\n\n\na[:2,[0,2,3]]\n\ntensor([[ 1,  3,  4],\n        [-1, -3, -4]])\n\n\n\n정리: 1차원 배열을 의미하는 리스트를 텐서화하면, 그 결과는 거의 벡터처럼 취급해도 무방하다. 그리고 2차원 배열을 의미하는 (중첩된)리스트를 텐서화하면, 그 결과는 거의 행렬처럼 취급해도 무방하다."
+  },
+  {
+    "objectID": "posts/01wk.html#d.-torch를-이용한-행렬연산",
+    "href": "posts/01wk.html#d.-torch를-이용한-행렬연산",
+    "title": "01wk: torch (1)",
+    "section": "D. torch를 이용한 행렬연산",
+    "text": "D. torch를 이용한 행렬연산\n- torch를 이용한 행렬곱\n\na = torch.tensor([[1,2],[3,4]])\na\n\ntensor([[1, 2],\n        [3, 4]])\n\n\n\nb = torch.tensor([[2,-1],[4,-3]])\nb\n\ntensor([[ 2, -1],\n        [ 4, -3]])\n\n\n\na @ b\n\ntensor([[ 10,  -7],\n        [ 22, -15]])\n\n\n# 이상한 예제\n\na = torch.tensor([[1,2],[3,4]])\nb = torch.tensor([[2,-1],[1/2,-3]])\n\n\na@b\n\n\n---------------------------------------------------------------------------\nRuntimeError                              Traceback (most recent call last)\n/tmp/ipykernel_3997/1067337049.py in &lt;cell line: 0&gt;()\n----&gt; 1 a@b\n\nRuntimeError: expected m1 and m2 to have the same dtype, but got: long int != float\n\n\n\n해결책?\n\na = torch.tensor([[1.0 ,2.0],[3.0, 4.0]])\nb = torch.tensor([[2.0,-1.0],[1/2,-3.0]])\n\n\na@b\n\ntensor([[  3.,  -7.],\n        [  8., -15.]])\n\n\n#\n# 역행렬 – 역행렬을 구하라..\n\na = torch.tensor([[1,2],[3,4]])\na\n\ntensor([[1, 2],\n        [3, 4]])\n\n\n\ntorch.linalg.inv(a)\n\n\n---------------------------------------------------------------------------\nRuntimeError                              Traceback (most recent call last)\n/tmp/ipykernel_3997/4217229845.py in &lt;cell line: 0&gt;()\n----&gt; 1 torch.linalg.inv(a)\n\nRuntimeError: linalg.inv: Expected a floating point or complex tensor as input. Got Long\n\n\n\n해결책1\n\na = torch.tensor([[1.0,2.0],[3.0,4.0]])\na\n\ntensor([[1., 2.],\n        [3., 4.]])\n\n\n\ntorch.linalg.inv(a)\n\ntensor([[-2.0000,  1.0000],\n        [ 1.5000, -0.5000]])\n\n\n해결책2\n\na = torch.tensor([[1.0,2],[3,4]])\na\n\ntensor([[1., 2.],\n        [3., 4.]])\n\n\n\ntorch.linalg.inv(a)\n\ntensor([[-2.0000,  1.0000],\n        [ 1.5000, -0.5000]])\n\n\n해결책3\n\na = torch.tensor([[1,2],[3,4]])\na\n\ntensor([[1, 2],\n        [3, 4]])\n\n\n\na.float()\n\ntensor([[1., 2.],\n        [3., 4.]])\n\n\n\ntorch.linalg.inv(a.float())\n\ntensor([[-2.0000,  1.0000],\n        [ 1.5000, -0.5000]])\n\n\n#\n# 연립1차방정식 – 아래의 연립방정식을 풀어라.\n\\[\\begin{cases}\nw+2x+3y+4z = 1 \\\\\n2w+2x+y = 9 \\\\\nx-y=4 \\\\\n3w+x-y+3z = 7\n\\end{cases}\\]\n행렬을 이용하여 위의식을 표현하면 아래와 같다.\n\\[\\begin{bmatrix}\n1 & 2 & 3 & 4 \\\\\n2 & 2 & 1 & 0 \\\\\n0 & 1 & -1 & 0 \\\\\n3 & 1 & -1 & 3\n\\end{bmatrix}\\begin{bmatrix}\nw \\\\\nx \\\\\ny \\\\\nz\n\\end{bmatrix} = \\begin{bmatrix}\n1 \\\\\n9 \\\\\n4 \\\\\n7\n\\end{bmatrix}  \\]\n\na = torch.tensor([[1,2,3,4],[2,2,1,0],[0,1,-1,0],[3,1,-1,3]]).float()\nb = torch.tensor([[1],[9],[4],[7]]).float()\n\n\ntorch.linalg.inv(a) @ b\n\ntensor([[ 2.0000],\n        [ 3.0000],\n        [-1.0000],\n        [-1.0000]])\n\n\n#"
+  },
+  {
+    "objectID": "posts/Prj1.html",
+    "href": "posts/Prj1.html",
+    "title": "프로젝트1: 아이리스자료분석 (2026.05.27 - 2026.06.01)",
     "section": "",
-    "text": "아래와 같은 네트워크를 생각하자.\nnet = torch.nn.Sequential(\n    torch.nn.Linear(1, 2, bias=True),\n    torch.nn.ReLU(),\n    torch.nn.Linear(2, 1, bias=True),\n    torch.nn.Sigmoid()\n)\n이 네트워크는 중간에 ReLU가 포함되어 있으므로 “시그모이드 이전 값이 항상 꺾인 직선인 네트워크”라고 흔히 오해된다. 즉 이 네트워크는 torch.nn.Linear(1,1) → torch.nn.Sigmoid()가 만드는 꺾이지 않은 단순 S자 곡선(시그모이드 이전 값이 그냥 직선인 경우) 은 출력할 수 없다고 주장하는 사람이 있다.\n(1) 이 주장이 맞는지 틀린지 본인의 의견을 서술하시오.\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n주장은 틀렸음. 이 네트워크는 꺾인선도 만들 수 있고, 꺾이지 않은 선도 만들 수 있음.\n\n\n\n(2) (1)에서 이 네트워크가 꺾이지 않은 직선도 시그모이드 이전 값으로 출력할 수 있다고 답했다면, 이를 실제로 실현하는 가중치의 예시를 하나 제시하시오. 구체적으로 net[0].weight, net[0].bias, net[2].weight, net[2].bias를 어떻게 설정해야 시그모이드 이전 값이 꺾이지 않은 직선이 되는지 적고, 왜 그러한 설정이 꺾이지 않은 직선을 만드는지 과정을 단계별로 서술하시오.\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n정답 예시 (시그모이드 이전 값이 \\(x\\) 가 되는 가중치):\n# Linear(1,2): weight shape [2,1], bias shape [2]\nnet[0].weight.data = torch.tensor([[1.0], [-1.0]])\nnet[0].bias.data   = torch.tensor([0.0, 0.0])\n\n# Linear(2,1): weight shape [1,2], bias shape [1]\nnet[2].weight.data = torch.tensor([[1.0, -1.0]])\nnet[2].bias.data   = torch.tensor([0.0])\n단계별 확인:\n입력 \\(x\\) 를 각 단계에 통과시킨 모습은 아래와 같다."
-  },
-  {
-    "objectID": "posts/Quiz13.html#네트워크의-한계와-true-structure",
-    "href": "posts/Quiz13.html#네트워크의-한계와-true-structure",
-    "title": "Quiz-13 (2026.04.20) // 범위: ~06wk",
-    "section": "2. 네트워크의 한계와 True Structure",
-    "text": "2. 네트워크의 한계와 True Structure\n(1) 아래와 같이 참값이 매우 복잡한 곡선을 따르는 데이터가 있다고 하자.\n\\[y_i = e^{-x_i}\\,|\\cos(3x_i)|\\,\\sin(3x_i) + \\epsilon_i, \\qquad i = 1, 2, 3, \\ldots, n\\]\n강의에서는 아래 네트워크로 이 곡선을 적합하였다.\nnet = torch.nn.Sequential(\n    torch.nn.Linear(1, 512),\n    torch.nn.ReLU(),\n    torch.nn.Linear(512, 1)\n)\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n데이터의 숫자와 네트워크의 표현력은 관련이 없다. 이 네트워크가 표현할 수 있는 형태는 꺾인 직선이므로, 곡선형태를 표현할 수 없다.\n\n\n\n(2) (1)에서 보았듯이, 데이터 수 \\(n\\)을 무한히 키우는 것만으로는 네트워크의 적합 결과가 참 구조에 정확히 가까워지지 않는다. 그렇다면 네트워크의 적합 결과가 참 구조에 점점 가까워지게 하기 위해서는 무엇을 늘려야 하는지 서술하시오.\n\n\n\n\n\n\nNote풀이 보기\n\n\n\n\n\n아래의 코드에서 512를 점점 더 키우면 점점 더 곡선에 가까워진다.\nnet = torch.nn.Sequential(\n    torch.nn.Linear(1, 512),\n    torch.nn.ReLU(),\n    torch.nn.Linear(512, 1)\n)"
+    "text": "문제풀이에 필요한 모듈은 스스로 import 할것\n\n아래의 자료를 고려하자.\n\ndf = pd.read_csv(\"https://raw.githubusercontent.com/guebin/DL2026/main/posts/iris.csv\")\ndf\n\n\n\n\n\n\n\n\nSepalLength\nSepalWidth\nPetalLength\nPetalWidth\nSpecies\n\n\n\n\n0\n5.1\n3.5\n1.4\n0.2\n0.0\n\n\n1\n4.9\n3.0\n1.4\n0.2\n0.0\n\n\n2\n4.7\n3.2\n1.3\n0.2\n0.0\n\n\n3\n4.6\n3.1\n1.5\n0.2\n0.0\n\n\n4\n5.0\n3.6\n1.4\n0.2\n0.0\n\n\n...\n...\n...\n...\n...\n...\n\n\n145\n6.7\n3.0\n5.2\n2.3\n2.0\n\n\n146\n6.3\n2.5\n5.0\n1.9\n2.0\n\n\n147\n6.5\n3.0\n5.2\n2.0\n2.0\n\n\n148\n6.2\n3.4\n5.4\n2.3\n2.0\n\n\n149\n5.9\n3.0\n5.1\n1.8\n2.0\n\n\n\n\n150 rows × 5 columns\n\n\n\n위의 자료는 아이리스 데이터셋으로 머신러닝에서 자주 사용되는 분류(classification) 예제 데이터이다. 데이터는 다음과 같은 특징을 가지고 있다:\n샘플 수: 150개\n특징 수: 4개\n\n꽃받침 길이 (sepal length)\n꽃받침 너비 (sepal width)\n꽃잎 길이 (petal length)\n꽃잎 너비 (petal width)\n\n클래스 수: 3개 (각 50개 샘플)\n\n0: setosa\n1: versicolor\n2: virginica\n\n(1) 주어진 데이터를 8:2 비율로 학습용(df_train)과 테스트용(df_test)으로 나누고, SepalLength, SepalWidth, PetalLength, PetalWidth를 입력으로 하여 Species를 예측할 수 있도록 데이터를 텐서 형태로 변환하라.\nhint: 아래의 코드를 활용할 것\ndf_train = df.sample(frac=0.8, random_state=42)\ndf_test = df.drop(df_train.index)\n#---#\nX = torch.tensor(df_train.iloc[:,:4].values).float()\ny = ???\nXX = ???\nyy = ???\n(2) 아래의 제약사항에 맞추어 Species를 예측할 수 있는 적당한 네트워크를 학습하라.\n제약사항\n\n학습가능한 파라메터는 1층만 설계할 것\n학습 후 test accuracy 가 70% 이상일것\n\n(3) 아래의 제약사항에 맞추어 Species를 예측할 수 있는 적당한 네트워크를 학습하라.\n제약사항\n\n학습가능한 파라메터는 1층만 설계할 것\n학습 후 test accuracy 가 70% 이상일것\ntrain/test에서 모두 batch_size = 10 으로 설정할 것\nGPU를 사용할 것\n\n(4) 아래의 제약사항에 맞추어 Species를 예측할 수 있는 적당한 네트워크를 학습하라.\n제약사항\n\n학습가능한 파라메터는 1층만 설계할 것\n학습 후 test accuracy 가 70% 이상일 것\ntrain에서 batch_size = 50 으로, test에서는 batch_size=30을 설정할것\nGPU를 사용할 것\n매 epoch마다 loss와 train accuracy를 출력할 것\n\n(5) 아래의 제약사항에 맞추어 Species를 예측할 수 있는 적당한 네트워크를 학습하라.\n제약사항\n\n학습가능한 파라메터를 2층이상 설계할 것\n드랍아웃을 포함시킬 것\n학습 후 test accuracy 가 70% 이상일 것\ntrain에서 batch_size=50 으로, test에서는 batch_size=30을 설정할것\nGPU를 사용할 것\n매 epoch마다 loss와 train accuracy를 출력할 것"
   },
   {
     "objectID": "posts/Midterm.html",
