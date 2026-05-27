@@ -5,6 +5,8 @@ date: "05/27/2026"
 draft: false
 ---
 
+{{<video https://youtu.be/4pWcNWvMnHw>}}
+
 ## 1. 비효율적인 코드 (04wk. 5.J.)
 
 `-` 아래의 두 코드는 모두 돌아가긴 하지만, (가)는 조금 비효율적이다.
