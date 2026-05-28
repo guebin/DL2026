@@ -337,33 +337,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>학습가능한 파라메터는 1층만 설계할 것</li>
 <li>학습 후 test accuracy 가 70% 이상일것</li>
+<li>train에서 <code>batch_size = 50</code> 으로 설정할 것</li>
+<li>GPU를 사용할 것</li>
 </ul>
 <p><code>(3)</code> 아래의 제약사항에 맞추어 Species를 예측할 수 있는 적당한 네트워크를 학습하라.</p>
 <p><strong>제약사항</strong></p>
 <ul>
 <li>학습가능한 파라메터는 1층만 설계할 것</li>
-<li>학습 후 test accuracy 가 70% 이상일것</li>
-<li>train/test에서 모두 <code>batch_size = 10</code> 으로 설정할 것</li>
+<li>학습 후 test accuracy 가 70% 이상일 것</li>
+<li>train에서 <code>batch_size = 50</code> 으로 설정할 것</li>
 <li>GPU를 사용할 것</li>
+<li><strong>매 epoch마다 loss와 train accuracy를 출력할 것</strong></li>
 </ul>
 <p><code>(4)</code> 아래의 제약사항에 맞추어 Species를 예측할 수 있는 적당한 네트워크를 학습하라.</p>
 <p><strong>제약사항</strong></p>
 <ul>
-<li>학습가능한 파라메터는 1층만 설계할 것</li>
-<li>학습 후 test accuracy 가 70% 이상일 것</li>
-<li>train에서 <code>batch_size = 50</code> 으로, test에서는 <code>batch_size=30</code>을 설정할것</li>
-<li>GPU를 사용할 것</li>
-<li>매 epoch마다 loss와 train accuracy를 출력할 것</li>
-</ul>
-<p><code>(5)</code> 아래의 제약사항에 맞추어 Species를 예측할 수 있는 적당한 네트워크를 학습하라.</p>
-<p><strong>제약사항</strong></p>
-<ul>
-<li>학습가능한 파라메터를 2층이상 설계할 것</li>
+<li>학습가능한 파라메터를 <strong>2층 이상</strong> 설계할 것</li>
 <li>드랍아웃을 포함시킬 것</li>
 <li>학습 후 test accuracy 가 70% 이상일 것</li>
-<li>train에서 <code>batch_size=50</code> 으로, test에서는 <code>batch_size=30</code>을 설정할것</li>
+<li>train에서 <code>batch_size=50</code> 으로 설정할 것</li>
 <li>GPU를 사용할 것</li>
-<li>매 epoch마다 loss와 train accuracy를 출력할 것</li>
+<li>epoch마다 loss와 train accuracy를 출력할 것</li>
 </ul>
 
 
