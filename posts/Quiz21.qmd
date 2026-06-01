@@ -19,6 +19,17 @@ relu = torch.nn.ReLU()
 
 `relu(img)`의 출력값을 손으로 계산하여 쓰시오.
 
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+```python
+tensor([[[[1., 0., 3.],
+          [0., 0., 5.],
+          [6., 0., 0.]]]])
+```
+
+:::
+
 
 ## 2. MaxPool2d 손계산
 
@@ -34,6 +45,16 @@ mp = torch.nn.MaxPool2d(kernel_size=2)
 ```
 
 `mp(img)`의 출력값을 손으로 계산하여 쓰시오.
+
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+```python
+tensor([[[[6., 4.],
+          [8., 5.]]]])
+```
+
+:::
 
 
 ## 3. Conv2d 손계산
@@ -58,6 +79,16 @@ conv.weight.data = torch.tensor([[[[1.0, 0.0],
 
 `conv(img)`의 출력값을 손으로 계산하여 쓰시오.
 
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+```python
+tensor([[[[ 6.,  8.],
+          [12., 14.]]]])
+```
+
+:::
+
 
 ## 4. Network의 차원
 
@@ -74,3 +105,16 @@ net = torch.nn.Sequential(
 ```
 
 각 단계 ①, ②, ③, ④, ⑤의 출력 shape에서 빈칸을 채우시오. (이미지 size는 미리 주어짐)
+
+::: {.callout-note collapse="true"}
+## 풀이 보기
+
+```python
+①  torch.Size([n, 32, 27, 27])
+②  torch.Size([n, 32, 27, 27])
+③  torch.Size([n, 32, 9, 9])
+④  torch.Size([n, 2592])
+⑤  torch.Size([n, 10])
+```
+
+:::
