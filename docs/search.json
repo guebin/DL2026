@@ -364,6 +364,41 @@
     "text": "1. 강의영상"
   },
   {
+    "objectID": "posts/Quiz21.html",
+    "href": "posts/Quiz21.html",
+    "title": "Quiz-21 (2026.06.01) // 범위: ~12wk",
+    "section": "",
+    "text": "다음과 같이 입력이미지 img와 relu레이어가 주어졌다.\nimg = torch.tensor([[[[ 1.0, -2.0,  3.0],\n                      [-4.0,  0.0,  5.0],\n                      [ 6.0, -7.0, -8.0]]]])  # shape: (1,1,3,3)\n\nrelu = torch.nn.ReLU()\nrelu(img)의 출력값을 손으로 계산하여 쓰시오."
+  },
+  {
+    "objectID": "posts/Quiz21.html#relu-손계산",
+    "href": "posts/Quiz21.html#relu-손계산",
+    "title": "Quiz-21 (2026.06.01) // 범위: ~12wk",
+    "section": "",
+    "text": "다음과 같이 입력이미지 img와 relu레이어가 주어졌다.\nimg = torch.tensor([[[[ 1.0, -2.0,  3.0],\n                      [-4.0,  0.0,  5.0],\n                      [ 6.0, -7.0, -8.0]]]])  # shape: (1,1,3,3)\n\nrelu = torch.nn.ReLU()\nrelu(img)의 출력값을 손으로 계산하여 쓰시오."
+  },
+  {
+    "objectID": "posts/Quiz21.html#maxpool2d-손계산",
+    "href": "posts/Quiz21.html#maxpool2d-손계산",
+    "title": "Quiz-21 (2026.06.01) // 범위: ~12wk",
+    "section": "2. MaxPool2d 손계산",
+    "text": "2. MaxPool2d 손계산\n다음과 같이 입력이미지 img와 mp레이어가 주어졌다.\nimg = torch.tensor([[[[1.0, 3.0, 2.0, 4.0],\n                      [5.0, 6.0, 1.0, 2.0],\n                      [7.0, 8.0, 3.0, 1.0],\n                      [2.0, 1.0, 4.0, 5.0]]]])  # shape: (1,1,4,4)\n\nmp = torch.nn.MaxPool2d(kernel_size=2)\nmp(img)의 출력값을 손으로 계산하여 쓰시오."
+  },
+  {
+    "objectID": "posts/Quiz21.html#conv2d-손계산",
+    "href": "posts/Quiz21.html#conv2d-손계산",
+    "title": "Quiz-21 (2026.06.01) // 범위: ~12wk",
+    "section": "3. Conv2d 손계산",
+    "text": "3. Conv2d 손계산\n다음과 같이 입력이미지 img와 conv레이어가 주어졌다.\nimg = torch.tensor([[[[1.0, 2.0, 3.0],\n                      [4.0, 5.0, 6.0],\n                      [7.0, 8.0, 9.0]]]])  # shape: (1,1,3,3)\n\nconv = torch.nn.Conv2d(\n    in_channels=1,\n    out_channels=1,\n    kernel_size=2,\n    stride=1,\n    bias=False\n)\nconv.weight.data = torch.tensor([[[[1.0, 0.0],\n                                    [0.0, 1.0]]]])\nconv(img)의 출력값을 손으로 계산하여 쓰시오."
+  },
+  {
+    "objectID": "posts/Quiz21.html#network의-차원",
+    "href": "posts/Quiz21.html#network의-차원",
+    "title": "Quiz-21 (2026.06.01) // 범위: ~12wk",
+    "section": "4. Network의 차원",
+    "text": "4. Network의 차원\n다음과 같이 네트워크 net이 주어졌고, 입력자료 X.shape == (n, 1, 28, 28)이다.\nnet = torch.nn.Sequential(\n    torch.nn.Conv2d(1, 32, kernel_size=2),    # (n, 1, 28, 28)    → ① (n, ___, 27, 27)\n    torch.nn.ReLU(),                           # ① (n, ___, 27, 27) → ② (n, ___, ___, ___)\n    torch.nn.MaxPool2d(kernel_size=3),         # ② (n, ___, ___, ___) → ③ (n, ___, ___, ___)\n    torch.nn.Flatten(),                        # ③ (n, ___, ___, ___) → ④ (n, ___)\n    torch.nn.Linear(2592, 10),                 # ④ (n, ___)         → ⑤ (n, ___)\n)\n각 단계 ①, ②, ③, ④, ⑤의 출력 shape에서 빈칸을 채우시오. (이미지 size는 미리 주어짐)"
+  },
+  {
     "objectID": "posts/Quiz18.html",
     "href": "posts/Quiz18.html",
     "title": "Quiz-18 (2026.05.19) // 범위: ~10wk-2",
@@ -641,7 +676,7 @@
     "href": "index.html",
     "title": "딥러닝 (2026)",
     "section": "",
-    "text": "질문하는 방법\n\n이메일: guebin@jbnu.ac.kr\n직접방문: 자연과학대학 본관 205호\nZoom: 이메일로 미리 시간을 정할 것\n\n공지\n\n공지영상1 - 2026.04.01\n공지0413: 중간고사는 5월 4일에 실시하며, 시험 범위는 4월 27일 수업분(08주차)까지입니다.\n공지영상2 - 2026.04.13\n공지0422:\n\n이 수업은 특별한 사유가 없더라도 3회결석까지는 감점 없습니다. 특별한 사유없이 4회이상 결석할경우는 출석점수에 비례하여 감점합니다.\n4월27일/29일은 퀴즈를 보지 않습니다. (강의실로 나올 필요 X) 자습하시면서 중간고사 공부하시기 바랍니다.\n27일,29일에 퀴즈가 풀이와 함께 업로드될 예정입니다. 풀어서 제출할필요 없습니다. 업로드된 퀴즈는 학습 참고자료로 활용하시기 바랍니다.\n\n공지영상3 - 2026.04.22\n공지영상4 - 2026.05.13\n공지0518: 5월18일에 11wk-1 강의노트를 업로드하며, 5월20일(수)에 11wk-2를 업로드합니다. 5월20일(수) 퀴즈 범위는 11wk-1까지입니다.\n\n강의노트\n\n\n\n\n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\nAuthor\n\n\n\n\n\n\n\n\nAug 1, 2026\n\n\n프로젝트1: 아이리스자료분석 (2026.05.27 - 2026.06.01)\n\n\n최규빈 \n\n\n\n\n\n\nMay 27, 2026\n\n\n12wk: CNN의 핵심레이어, CNN을 이해해보자\n\n\n최규빈 \n\n\n\n\n\n\nMay 27, 2026\n\n\nQuiz-20 (2026.05.27) // 범위: ~11wk-2\n\n\n최규빈 \n\n\n\n\n\n\nMay 21, 2026\n\n\n11wk-2: CNN (미리보기)\n\n\n최규빈 \n\n\n\n\n\n\nMay 20, 2026\n\n\nQuiz-19 (2026.05.20) // 범위: ~11wk-1\n\n\n최규빈 \n\n\n\n\n\n\nMay 18, 2026\n\n\n11wk-1: 다항분류\n\n\n최규빈 \n\n\n\n\n\n\nMay 18, 2026\n\n\nQuiz-18 (2026.05.19) // 범위: ~10wk-2\n\n\n최규빈 \n\n\n\n\n\n\nMay 13, 2026\n\n\nQuiz-17 (2026.05.13) // 범위: ~10wk-1\n\n\n최규빈 \n\n\n\n\n\n\nMay 12, 2026\n\n\n10wk-2: 확률적 경사하강법, 이항분류에 대한 해석\n\n\n최규빈 \n\n\n\n\n\n\nMay 11, 2026\n\n\n10wk-1: CPU와 GPU\n\n\n최규빈 \n\n\n\n\n\n\nMay 5, 2026\n\n\n중간고사 수정 & 해설 (2026.05.04)\n\n\n최규빈 \n\n\n\n\n\n\nMay 4, 2026\n\n\n중간고사 (2026.05.04)\n\n\n최규빈 \n\n\n\n\n\n\nApr 29, 2026\n\n\nQuiz-16 (2026.04.29) // 범위: ~08wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 27, 2026\n\n\n08wk: MNIST, 오버피팅, 드랍아웃\n\n\n최규빈 \n\n\n\n\n\n\nApr 27, 2026\n\n\nQuiz-15 (2027.04.27) // 범위: ~07wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 22, 2026\n\n\nQuiz-14 (2026.04.22) // 범위: ~07wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 20, 2026\n\n\n07wk: 신경망의 표현, 시벤코 정리\n\n\n최규빈 \n\n\n\n\n\n\nApr 20, 2026\n\n\nQuiz-13 (2026.04.20) // 범위: ~06wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 15, 2026\n\n\nQuiz-12 (2026.04.15) // 범위: ~06wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 13, 2026\n\n\n06wk: 로지스틱의 한계 및 극복\n\n\n최규빈 \n\n\n\n\n\n\nApr 11, 2026\n\n\nQuiz-11 (2026.04.03) // 범위: ~05wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 8, 2026\n\n\nQuiz-10 (2026.04.08) // 범위: ~05wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 6, 2026\n\n\n05wk: 로지스틱\n\n\n최규빈 \n\n\n\n\n\n\nApr 6, 2026\n\n\nQuiz-9 (2026.04.06) // 범위: ~04wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 1, 2026\n\n\nQuiz-8 (2026.04.01) // 범위: ~04wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 30, 2026\n\n\n04wk: 파이토치식 코딩패턴\n\n\n최규빈 \n\n\n\n\n\n\nMar 30, 2026\n\n\nQuiz-7 (2026.03.30) // 범위: ~03wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 25, 2026\n\n\nQuiz-6 (2026.03.25) // 범위: ~03wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 23, 2026\n\n\n03wk: 경사하강법, 회귀분석\n\n\n최규빈 \n\n\n\n\n\n\nMar 23, 2026\n\n\nQuiz-5 (2026.03.23) // 범위: ~02wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 18, 2026\n\n\nQuiz-4 (2026.03.18) // 범위: ~02wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 16, 2026\n\n\n02wk: torch (2)\n\n\n최규빈 \n\n\n\n\n\n\nMar 16, 2026\n\n\nQuiz-3 (2026.03.16) // 범위: ~01wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 10, 2026\n\n\nQuiz-2 (2026.03.10) // 범위: ~01wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 9, 2026\n\n\n01wk: torch (1)\n\n\n최규빈 \n\n\n\n\n\n\nMar 9, 2026\n\n\nQuiz-1 (2026.03.09) // 범위: 벡터와 행렬\n\n\n최규빈 \n\n\n\n\n\n\nMar 5, 2026\n\n\nA4: 벡터미분\n\n\n최규빈 \n\n\n\n\n\n\nMar 5, 2026\n\n\nA3: matploblib 기본\n\n\n최규빈 \n\n\n\n\n\n\nMar 5, 2026\n\n\nA2: 벡터와 행렬\n\n\n최규빈 \n\n\n\n\n\n\nMar 4, 2025\n\n\nA1: 강의소개\n\n\n최규빈 \n\n\n\n\n\n\nNo matching items"
+    "text": "질문하는 방법\n\n이메일: guebin@jbnu.ac.kr\n직접방문: 자연과학대학 본관 205호\nZoom: 이메일로 미리 시간을 정할 것\n\n공지\n\n공지영상1 - 2026.04.01\n공지0413: 중간고사는 5월 4일에 실시하며, 시험 범위는 4월 27일 수업분(08주차)까지입니다.\n공지영상2 - 2026.04.13\n공지0422:\n\n이 수업은 특별한 사유가 없더라도 3회결석까지는 감점 없습니다. 특별한 사유없이 4회이상 결석할경우는 출석점수에 비례하여 감점합니다.\n4월27일/29일은 퀴즈를 보지 않습니다. (강의실로 나올 필요 X) 자습하시면서 중간고사 공부하시기 바랍니다.\n27일,29일에 퀴즈가 풀이와 함께 업로드될 예정입니다. 풀어서 제출할필요 없습니다. 업로드된 퀴즈는 학습 참고자료로 활용하시기 바랍니다.\n\n공지영상3 - 2026.04.22\n공지영상4 - 2026.05.13\n공지0518: 5월18일에 11wk-1 강의노트를 업로드하며, 5월20일(수)에 11wk-2를 업로드합니다. 5월20일(수) 퀴즈 범위는 11wk-1까지입니다.\n\n강의노트\n\n\n\n\n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\nAuthor\n\n\n\n\n\n\n\n\nAug 1, 2026\n\n\n프로젝트1: 아이리스자료분석 (2026.05.27 - 2026.06.01)\n\n\n최규빈 \n\n\n\n\n\n\nJun 1, 2026\n\n\nQuiz-21 (2026.06.01) // 범위: ~12wk\n\n\n최규빈 \n\n\n\n\n\n\nMay 27, 2026\n\n\n12wk: CNN의 핵심레이어, CNN을 이해해보자\n\n\n최규빈 \n\n\n\n\n\n\nMay 27, 2026\n\n\nQuiz-20 (2026.05.27) // 범위: ~11wk-2\n\n\n최규빈 \n\n\n\n\n\n\nMay 21, 2026\n\n\n11wk-2: CNN (미리보기)\n\n\n최규빈 \n\n\n\n\n\n\nMay 20, 2026\n\n\nQuiz-19 (2026.05.20) // 범위: ~11wk-1\n\n\n최규빈 \n\n\n\n\n\n\nMay 18, 2026\n\n\n11wk-1: 다항분류\n\n\n최규빈 \n\n\n\n\n\n\nMay 18, 2026\n\n\nQuiz-18 (2026.05.19) // 범위: ~10wk-2\n\n\n최규빈 \n\n\n\n\n\n\nMay 13, 2026\n\n\nQuiz-17 (2026.05.13) // 범위: ~10wk-1\n\n\n최규빈 \n\n\n\n\n\n\nMay 12, 2026\n\n\n10wk-2: 확률적 경사하강법, 이항분류에 대한 해석\n\n\n최규빈 \n\n\n\n\n\n\nMay 11, 2026\n\n\n10wk-1: CPU와 GPU\n\n\n최규빈 \n\n\n\n\n\n\nMay 5, 2026\n\n\n중간고사 수정 & 해설 (2026.05.04)\n\n\n최규빈 \n\n\n\n\n\n\nMay 4, 2026\n\n\n중간고사 (2026.05.04)\n\n\n최규빈 \n\n\n\n\n\n\nApr 29, 2026\n\n\nQuiz-16 (2026.04.29) // 범위: ~08wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 27, 2026\n\n\n08wk: MNIST, 오버피팅, 드랍아웃\n\n\n최규빈 \n\n\n\n\n\n\nApr 27, 2026\n\n\nQuiz-15 (2027.04.27) // 범위: ~07wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 22, 2026\n\n\nQuiz-14 (2026.04.22) // 범위: ~07wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 20, 2026\n\n\n07wk: 신경망의 표현, 시벤코 정리\n\n\n최규빈 \n\n\n\n\n\n\nApr 20, 2026\n\n\nQuiz-13 (2026.04.20) // 범위: ~06wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 15, 2026\n\n\nQuiz-12 (2026.04.15) // 범위: ~06wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 13, 2026\n\n\n06wk: 로지스틱의 한계 및 극복\n\n\n최규빈 \n\n\n\n\n\n\nApr 11, 2026\n\n\nQuiz-11 (2026.04.03) // 범위: ~05wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 8, 2026\n\n\nQuiz-10 (2026.04.08) // 범위: ~05wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 6, 2026\n\n\n05wk: 로지스틱\n\n\n최규빈 \n\n\n\n\n\n\nApr 6, 2026\n\n\nQuiz-9 (2026.04.06) // 범위: ~04wk\n\n\n최규빈 \n\n\n\n\n\n\nApr 1, 2026\n\n\nQuiz-8 (2026.04.01) // 범위: ~04wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 30, 2026\n\n\n04wk: 파이토치식 코딩패턴\n\n\n최규빈 \n\n\n\n\n\n\nMar 30, 2026\n\n\nQuiz-7 (2026.03.30) // 범위: ~03wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 25, 2026\n\n\nQuiz-6 (2026.03.25) // 범위: ~03wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 23, 2026\n\n\n03wk: 경사하강법, 회귀분석\n\n\n최규빈 \n\n\n\n\n\n\nMar 23, 2026\n\n\nQuiz-5 (2026.03.23) // 범위: ~02wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 18, 2026\n\n\nQuiz-4 (2026.03.18) // 범위: ~02wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 16, 2026\n\n\n02wk: torch (2)\n\n\n최규빈 \n\n\n\n\n\n\nMar 16, 2026\n\n\nQuiz-3 (2026.03.16) // 범위: ~01wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 10, 2026\n\n\nQuiz-2 (2026.03.10) // 범위: ~01wk\n\n\n최규빈 \n\n\n\n\n\n\nMar 9, 2026\n\n\n01wk: torch (1)\n\n\n최규빈 \n\n\n\n\n\n\nMar 9, 2026\n\n\nQuiz-1 (2026.03.09) // 범위: 벡터와 행렬\n\n\n최규빈 \n\n\n\n\n\n\nMar 5, 2026\n\n\nA4: 벡터미분\n\n\n최규빈 \n\n\n\n\n\n\nMar 5, 2026\n\n\nA3: matploblib 기본\n\n\n최규빈 \n\n\n\n\n\n\nMar 5, 2026\n\n\nA2: 벡터와 행렬\n\n\n최규빈 \n\n\n\n\n\n\nMar 4, 2025\n\n\nA1: 강의소개\n\n\n최규빈 \n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
