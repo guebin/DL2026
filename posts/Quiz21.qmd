@@ -2,7 +2,7 @@
 title: "Quiz-21 (2026.06.03) // 범위: 12wk"
 author: "최규빈"
 date: "06/03/2026"
-draft: false
+draft: true
 ---
 
 ## 1. ReLU 손계산
