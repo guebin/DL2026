@@ -1,5 +1,5 @@
 ---
-title: "Quiz-20 (2026.05.27) // 범위: 11wk-2"
+title: "Quiz-20 (2026.05.27) // 범위: ~11wk-2"
 author: "최규빈"
 date: "05/27/2026"
 draft: false
