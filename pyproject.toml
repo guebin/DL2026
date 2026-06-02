@@ -5,6 +5,9 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
+    "ddgs>=9.14.4",
+    "icrawler>=0.6.10",
+    "imagehash>=4.3.2",
     "jupyter>=1.1.1",
     "lab>=8.9",
     "pandas>=2.3.3",
