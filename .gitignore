@@ -4,3 +4,9 @@
 /posts/data/
 
 **/*.quarto_ipynb
+
+# RPS dataset (대용량, 코드로 다운로드)
+posts/rps.zip
+posts/rps-test-set.zip
+posts/rps/
+posts/rps-test-set/

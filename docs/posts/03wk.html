@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,6 +11,9 @@
 
 <title>03wk: 경사하강법, 회귀분석 – DL2026</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -69,15 +72,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-c9977d45a3686ad219da56a32de8e67a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-e51f5fe4b5a20f8c93d5e0064d4a7b17.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -110,7 +112,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -3908,7 +3910,7 @@ AElFTkSuQmCC\
 <li>그런데 왜 그림을 그려보면 “정확한”직선으로 보이지 않냐??? 누군가가 각 관측치에 장난질을 쳐서 본질을 흐리고 있기 때문이다.</li>
 <li>나는 장난질에 흔들리지 않고 본질을 꿰뚫어 보겠다. (즉 파란점들을 적당히 잘 관통하는 직선을 찾겠다) 그래서 커피판매량을 잘 예측해서 부자가 되는 것이 목표이다.</li>
 </ul>
-<p><code>-</code> 본질을 꿰뚫어 봄 = <span class="math inline">\((x_i, y_i)\)</span>를 “적당히 잘 관통하는 하나의 추세선”을 그리는 것 = 최~~~~대한 <span class="math inline">\(y_i \approx \beta_0 + \beta_1 x_i\)</span> 를 만족하도록 <span class="math inline">\(\beta_0,\beta_1\)</span>을 잘 선택하는 것.</p>
+<p><code>-</code> 본질을 꿰뚫어 봄 = <span class="math inline">\((x_i, y_i)\)</span>를 “적당히 잘 관통하는 하나의 추세선”을 그리는 것 = 최<sub></sub>대한 <span class="math inline">\(y_i \approx \beta_0 + \beta_1 x_i\)</span> 를 만족하도록 <span class="math inline">\(\beta_0,\beta_1\)</span>을 잘 선택하는 것.</p>
 <p><code># 박혜원씨의 시도1</code> – 혹시.. <span class="math inline">\([\beta_0, \beta_1] = [-5, 10]\)</span> 아니야??</p>
 <div id="cell-94" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:309}}" data-outputid="974579c5-a628-400f-ef8a-7ef2d7df36db" data-execution_count="41">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,<span class="st">'o'</span>)</span>
@@ -3995,7 +3997,7 @@ AElFTkSuQmCC\
 </div>
 <ul>
 <li>박혜원씨 생각: 아… 시도2가 더 좋았구나..</li>
-<li>우리의 생각: 그래 맞아~~ 시도2가 더 좋다니까?? (진짜 값이 <span class="math inline">\([\beta_0,\beta_1] = [2.5, 4]\)</span> 이거든)</li>
+<li>우리의 생각: 그래 맞아<sub></sub> 시도2가 더 좋다니까?? (진짜 값이 <span class="math inline">\([\beta_0,\beta_1] = [2.5, 4]\)</span> 이거든)</li>
 </ul>
 <p><code>-</code> 정리</p>
 <ol type="1">
