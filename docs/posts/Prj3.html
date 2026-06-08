@@ -202,7 +202,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torchvision</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="73e64f99-a1c9-47a6-97f8-1c9e4c89d4ce" class="cell" data-execution_count="4">
+<div id="73e64f99-a1c9-47a6-97f8-1c9e4c89d4ce" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>queries <span class="op">=</span> {</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"taylor"</span>: [</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Taylor Swift portrait"</span>,</span>
@@ -262,7 +262,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Ariana Grande Problem"</span>,</span>
 <span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>    ],</span>
 <span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>target_per_class <span class="op">=</span> <span class="dv">800</span>  <span class="co"># &lt;-- 클래스당 수집 장수를 직접 정할 것</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>target_per_class <span class="op">=</span> ???  <span class="co"># &lt;-- 클래스당 수집 장수를 직접 정할 것</span></span>
 <span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>base_dir <span class="op">=</span> Path.cwd() <span class="op">/</span> <span class="st">"images"</span></span>
 <span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ddgs_search(q, retries<span class="op">=</span><span class="dv">3</span>):</span>
@@ -322,63 +322,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a>        <span class="cf">except</span> <span class="pp">Exception</span>:</span>
 <span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"remove broken: </span><span class="sc">{</span>p<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a>            p.unlink()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-===== 'taylor' 이미지 다운로드 → /home/cgb5/Dropbox/02-lec/DL2026/posts/images/taylor =====
-  'Taylor Swift portrait': +0장 (누적 0)
-  'Taylor Swift face': +1장 (누적 1)
-  'Taylor Swift smile': +30장 (누적 31)
-  'Taylor Swift Eras tour': +32장 (누적 63)
-  'Taylor Swift Reputation tour': +34장 (누적 97)
-  'Taylor Swift 1989 tour': +34장 (누적 131)
-  'Taylor Swift Grammy': +30장 (누적 161)
-  'Taylor Swift VMA': +33장 (누적 194)
-  'Taylor Swift AMA': +30장 (누적 224)
-  'Taylor Swift Billboard awards': +35장 (누적 259)
-  'Taylor Swift red carpet': +32장 (누적 291)
-  'Taylor Swift photoshoot': +31장 (누적 322)
-  'Taylor Swift magazine cover': +35장 (누적 357)
-  'Taylor Swift Vogue': +31장 (누적 388)
-  'Taylor Swift Time magazine': +29장 (누적 417)
-  'Taylor Swift interview': +33장 (누적 450)
-  'Taylor Swift live performance': +1장 (누적 451)
-  'Taylor Swift music video': +35장 (누적 486)
-  'Taylor Swift NFL': +1장 (누적 487)
-  'Taylor Swift Blank Space': +1장 (누적 488)
-  'Taylor Swift Anti-Hero': +33장 (누적 521)
-  'Taylor Swift Cruel Summer': +31장 (누적 552)
-  'Taylor Swift Lover': +34장 (누적 586)
-  'Taylor Swift Midnights': +35장 (누적 621)
-  'Taylor Swift Folklore': +37장 (누적 658)
-  'Taylor Swift Bad Blood': +27장 (누적 685)
-taylor: 총 685장 저장 (dedup 전)
-
-===== 'ariana' 이미지 다운로드 → /home/cgb5/Dropbox/02-lec/DL2026/posts/images/ariana =====
-  'Ariana Grande': +34장 (누적 34)
-  'Ariana Grande portrait': +33장 (누적 67)
-  'Ariana Grande face': +68장 (누적 135)
-  'Ariana Grande smile': +35장 (누적 170)
-  'Ariana Grande Sweetener tour': +35장 (누적 205)
-  'Ariana Grande Honeymoon tour': +35장 (누적 240)
-  'Ariana Grande Dangerous Woman tour': +35장 (누적 275)
-  'Ariana Grande Grammy': +35장 (누적 310)
-  'Ariana Grande VMA': +33장 (누적 343)
-  'Ariana Grande AMA': +74장 (누적 417)
-  'Ariana Grande Billboard awards': +34장 (누적 451)
-  'Ariana Grande red carpet': +33장 (누적 484)
-  'Ariana Grande photoshoot': +34장 (누적 518)
-  'Ariana Grande magazine cover': +34장 (누적 552)
-  'Ariana Grande Vogue': +29장 (누적 581)
-  'Ariana Grande Wicked premiere': +35장 (누적 616)
-  'Ariana Grande interview': +17장 (누적 633)
-  'Ariana Grande music video': +33장 (누적 666)
-  'Ariana Grande SNL': +34장 (누적 700)
-  'Ariana Grande Thank U Next': +90장 (누적 790)
-  'Ariana Grande 7 Rings': +10장 (누적 800)
-ariana: 총 800장 저장 (dedup 전)
-remove broken: /home/cgb5/Dropbox/02-lec/DL2026/posts/images/taylor/taylor_356.jpg
-remove broken: /home/cgb5/Dropbox/02-lec/DL2026/posts/images/ariana/ariana_694.jpg</code></pre>
-</div>
 </div>
 <p><code>(1)</code> 사전학습된 <code>resnet18</code> 으로 <code>taylor</code> / <code>ariana</code> 를 분류하는 네트워크를 학습하라.</p>
 <blockquote class="blockquote">
@@ -387,8 +330,8 @@ remove broken: /home/cgb5/Dropbox/02-lec/DL2026/posts/images/ariana/ariana_694.j
 <p><code>(2)</code> 학습한 네트워크 <code>net</code> 을 이용하여, 임의의 이미지 URL을 입력하면 그 이미지를 불러와 <strong>그림을 그려주고 예측값(softmax 확률)·예측클래스를 출력</strong>하는 함수를 구현하라.</p>
 <p><em>구현예시</em></p>
 <div id="d5455f49" class="cell" data-execution_count="15">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 임의의 taylor / ariana 이미지 URL 을 넣어 실행</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>predict(<span class="st">"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQx5yWXLFlpwKZkZT5v9Jps0gS3Y1PAmLYUQ&amp;s"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 임의의 taylor / ariana 이미지 URL 을 넣어 실행</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>predict(<span class="st">"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQx5yWXLFlpwKZkZT5v9Jps0gS3Y1PAmLYUQ&amp;s"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>prediction: ariana (ariana 99.9968%, taylor 0.0032%)
 logits = [5.833836078643799, -4.523235321044922]</code></pre>
